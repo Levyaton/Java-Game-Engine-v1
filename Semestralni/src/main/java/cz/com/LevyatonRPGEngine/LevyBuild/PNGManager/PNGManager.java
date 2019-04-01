@@ -18,7 +18,7 @@ import java.io.File;
  */
 public class PNGManager {
     
-  private void PNGDecoder()
+  private void PNGDecoder() //creates text files with 0 representing every pixel for every picture in a given folder
   {
     String location = "C:\\Users\\czech\\Documents\\NetBeansProjects\\levymaty\\Semestralni\\src\\main\\java\\cz\\com\\GameFiles\\LevyBuild\\Sprites";
     File[] files = new File(location).listFiles();
@@ -30,18 +30,18 @@ public class PNGManager {
         {
             Sprite s = new Sprite(location +"\\" + file.getName());
             String[][] text = ArrayMaker.String2DArray(s.heightGetter(), s.widthGetter());
-            WriteFile wf = new WriteFile(location, file.getName().substring(0, i) + ".txt", text);
+            WriteFile wf = new WriteFile(location+"\\", file.getName().substring(0, i) + ".txt", text);
             wf.write(s.heightGetter(), s.widthGetter());
             
         }
     }
   }
   
-  
-  
+    /*/
   public static void main(String[] args)
   {
       PNGManager pngm = new PNGManager();
       pngm.PNGDecoder();
   }
+    /*/
 }
