@@ -16,8 +16,8 @@ import javax.imageio.ImageIO;
  */
 public class Sprite {
     
-    private int width;
-    private int height;
+    protected int width;
+    protected int height;
     
     public Sprite(String fileLocation)
     {

@@ -13,11 +13,7 @@ import javax.swing.JFrame;
  * @author czech
  */
 public class Window {
-    /*/
-    public static void main(String[] args){
-        Window w = new Window();
-    }
-    /*/
+   
     public Window() {
         JFrame frame = new JFrame();
         frame.setSize(1200,1200);//Change windows size to change the game window
@@ -25,5 +21,10 @@ public class Window {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
+    
+    public static void main(String[] args){
+        Window w = new Window();
+        
+    }
    
 }

@@ -12,7 +12,6 @@ package cz.com.LevyatonRPGEngine.LevyBuild.Text;
 import java.io.*;
 import java.util.Scanner;
 import java.io.File;
-import cz.com.LevyatonRPGEngine.LevyBuild.PNGManager.Sprite;
 
 public class ReadFile {
     public char[][] pixelGetter(String filePath, int height, int width) //reads a file containing the pixel information of a png image
@@ -53,7 +52,7 @@ public class ReadFile {
     /*/
     public static void main(String[] args)
     {
-        String location = "C:\\Users\\czech\\Documents\\NetBeansProjects\\levymaty\\Semestralni\\src\\main\\java\\cz\\com\\GameFiles\\LevyBuild\\Sprites";
+        String location = "C:\\Users\\czech\\Documents\\NetBeansProjects\\levymaty\\Semestralni\\src\\main\\java\\cz\\com\\GameFiles\\LevyBuild\\Sprites\\Objects";
         String name = "A_bird_creature_33x33";
         Sprite s = new Sprite(location +"\\" +  name + ".png");
         ReadFile rf = new ReadFile();

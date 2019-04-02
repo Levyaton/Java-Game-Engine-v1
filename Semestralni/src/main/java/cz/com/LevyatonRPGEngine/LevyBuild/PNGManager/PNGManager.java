@@ -20,7 +20,7 @@ public class PNGManager {
     
   private void PNGDecoder() //creates text files with 0 representing every pixel for every picture in a given folder
   {
-    String location = "C:\\Users\\czech\\Documents\\NetBeansProjects\\levymaty\\Semestralni\\src\\main\\java\\cz\\com\\GameFiles\\LevyBuild\\Sprites";
+    String location = "C:\\Users\\czech\\Documents\\NetBeansProjects\\levymaty\\Semestralni\\src\\main\\java\\cz\\com\\GameFiles\\LevyBuild\\Sprites\\Objects";
     File[] files = new File(location).listFiles();
     for (File file : files) 
     {
