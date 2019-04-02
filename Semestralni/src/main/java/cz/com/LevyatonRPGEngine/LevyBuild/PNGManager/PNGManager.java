@@ -37,11 +37,11 @@ public class PNGManager {
     }
   }
   
-    /*/
+    
   public static void main(String[] args)
   {
       PNGManager pngm = new PNGManager();
       pngm.PNGDecoder();
   }
-    /*/
+    
 }

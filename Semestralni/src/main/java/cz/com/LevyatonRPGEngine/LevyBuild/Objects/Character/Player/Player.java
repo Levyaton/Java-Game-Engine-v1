@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package cz.com.LevyatonRPGEngine.LevyBuild.Objects.Player;
+package cz.com.LevyatonRPGEngine.LevyBuild.Objects.Character.Player;
 
 import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Object;
 import java.util.Scanner;
