@@ -11,21 +11,21 @@ package cz.com.LevyatonRPGEngine.LevyBuild.Objects.Items.Healing;
  */
 import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Items.HealingItem;
 
-public class Apple {
+public class Apple  extends HealingItem{
     
-    private HealingItem apple;
-    private int healthGain = 5;//How much health will the Apple restore
-    private String spriteLocation = "C:\\Users\\czech\\Documents\\NetBeansProjects\\levymaty\\Semestralni\\src\\main\\java\\cz\\com\\GameFiles\\LevyBuild\\Sprites\\Objects\\Apple.png";//Currently doesn't exist
-    private String description = "A juicy looking apple";
-    int value = 3;
+     final static private int healthGain = 5;//How much health will the Apple restore
+     final static private String spriteLocation = "C:\\Users\\czech\\Documents\\NetBeansProjects\\levymaty\\Semestralni\\src\\main\\java\\cz\\com\\GameFiles\\LevyBuild\\Sprites\\Objects\\Apple.png";//Currently doesn't exist
+     final static private String description = "A juicy looking apple";
+     final static int value = 3;
+     
     public Apple()
     {
         
-        apple = new HealingItem("Apple", "Movable", spriteLocation, 0.8,description,value,healthGain);
+        super("Apple", "Movable", spriteLocation, 0.8,description,value,healthGain);
     }
     
     public HealingItem getApple()
     {
-        return apple;
+        return this;
     }
 }

@@ -11,7 +11,7 @@ package cz.com.LevyatonRPGEngine.LevyBuild.Objects;
  */
 
 
-public class Item extends Object{
+public abstract class Item extends Object{
     
     protected Double dropRate;
     protected String description;

@@ -11,7 +11,7 @@ package cz.com.LevyatonRPGEngine.LevyBuild.Objects.Items;
  */
 
 import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Item;
-public class HealingItem extends Item {
+public abstract class HealingItem extends Item {
     protected int healthGain;//How much health will the consumable Item restore
     public HealingItem(String giveName, String giveStatus, String giveSpriteLocation, Double giveDropRate, String giveDescription,int giveValue,int giveHealthGain)
     {

@@ -10,7 +10,7 @@ package cz.com.LevyatonRPGEngine.LevyBuild.Objects.Items;
  * @author czech
  */
 import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Item;
-public class Bodypart extends Item{
+public abstract class Bodypart extends Item{
     
     protected int statModefier;
     protected Double luckModefier;

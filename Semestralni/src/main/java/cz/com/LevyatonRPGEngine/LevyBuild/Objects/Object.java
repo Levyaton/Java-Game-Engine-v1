@@ -9,27 +9,27 @@ package cz.com.LevyatonRPGEngine.LevyBuild.Objects;
  *
  * @author czech
  */
-public class Object {
+public abstract class Object {
     protected String name; //Every objecct must have a name
     protected String status;//Most objects will have a status, meaning still, movable, playerControlled or indieMovement (Null meaning they are just a concept to be worked with)
     protected String spriteLocation;//Most objects will have a given sprite assighned to them (Null meaning it doesn't have a sprite attached to it)
             
-     public Object(String givenName)
+     public Object(String giveName)
     {
-        name = givenName;
+        name = giveName;
     }
     
-    public Object(String givenName, String givenStatus)
+    public Object(String giveName, String giveStatus)
     {
-        name = givenName;
-        status = givenStatus;
+        name = giveName;
+        status = giveStatus;
     }
     
-    public Object(String givenName, String givenStatus, String givenSpriteLocation)
+    public Object(String giveName, String giveStatus, String giveSpriteLocation)
     {
-        name = givenName;
-        status = givenStatus;
-        spriteLocation = givenSpriteLocation;
+        name = giveName;
+        status = giveStatus;
+        spriteLocation = giveSpriteLocation;
     }
     
     public String getName() //Returns the name of the object

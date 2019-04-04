@@ -11,21 +11,21 @@ package cz.com.LevyatonRPGEngine.LevyBuild.Objects.Items.Bodyparts.Hands;
  */
 import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Items.Bodypart;
     
-public class Hand_Bear {
-    private Bodypart hand;
-    private int baseStrMod = 8; //This number is doubled while equipped with both hands of the same class and then doubled yet aggain while wearing the full bear costume
-    private String spriteLocation = "C:\\Users\\czech\\Documents\\NetBeansProjects\\levymaty\\Semestralni\\src\\main\\java\\cz\\com\\GameFiles\\LevyBuild\\Sprites\\Objects\\Bodyparts\\Hands\\Hand_Bear.png";//Currently doesn't exist
-    private String description = "The severed front leg of a bear";
-    private int value = 20;
-    private Double dropRate = 0.35;
+public class Hand_Bear extends Bodypart{
+    
+    final static private int baseStrMod = 8; //This number is doubled while equipped with both hands of the same class and then doubled yet aggain while wearing the full bear costume
+    final static private String spriteLocation = "C:\\Users\\czech\\Documents\\NetBeansProjects\\levymaty\\Semestralni\\src\\main\\java\\cz\\com\\GameFiles\\LevyBuild\\Sprites\\Objects\\Bodyparts\\Hands\\Hand_Bear.png";//Currently doesn't exist
+    final static private String description = "The severed front leg of a bear";
+    final static private int value = 20;
+    final static private Double dropRate = 0.35;
     public Hand_Bear()
     {
-        hand = new Bodypart("Bear Front Leg", "Movable", spriteLocation, dropRate,description,value,baseStrMod);
+        super("Bear Front Leg", "Movable", spriteLocation, dropRate,description,value,baseStrMod);
     }
     
     public Bodypart getHand()
     {
-        return hand;
+        return this;
     }
 }
     
