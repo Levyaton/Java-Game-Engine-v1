@@ -14,7 +14,7 @@ public class BearBlood extends Item{
     
     final private static int value = 1;//The value of a single gold coin
     final private static String description = "A single gold coin";
-    final private static String location = "C:\\Users\\czech\\Documents\\NetBeansProjects\\levymaty\\Semestralni\\src\\main\\java\\cz\\com\\GameFiles\\LevyBuild\\Sprites\\Objects\\Items\\Misc\\BearBlood.png";//Currently doesn't exist
+    final private static String location = System.getProperty("user.dir" + "src\\main\\java\\cz\\com\\GameFiles\\LevyBuild\\Sprites\\Objects\\Items\\Misc\\BearClaw.png");//Currently doesn't exist
     final private static String name = "Gold Coin";
     final private static String status = "Interactable";
     final private static Double dropRate = 0.6;

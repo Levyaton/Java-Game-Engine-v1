@@ -14,10 +14,20 @@ import java.util.Scanner;
  */
 public class Player extends Object {
     
+    int health;
+    int speed;
+    int str;
+    int luck;
+    int def;
+   
     
     
     public Player(String fileLocation, boolean still, String named) {
         super(fileLocation, still, named);
+    }
+
+    public Player() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
     
@@ -37,5 +47,5 @@ public class Player extends Object {
     }
     
     
-    
+    pu
 }
