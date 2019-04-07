@@ -13,9 +13,20 @@ import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Character.Specie;
 import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Items.Healing.Apple;
 import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Item;
 
-public class BaseHuman {
-    Apple a = new Apple();
-    Item[] loot = {a.getApple()};
+public class BaseHuman extends Specie{
+    final static Apple a = new Apple();
+    final static Item[] loot = {a.getApple()};
+    
     //Specie parameters are (String givenName, int giveStr, int giveSpeed, Double giveLuck, int giveDef, int giveHP, Item[] giveLoot)
-    Specie s = new Specie("Basic Human", 5, 5, 1.1, 5, 50, loot);
+
+    final static String name = "Basic Human";
+    final static int health = 50;
+    final static int speed = 5;
+    final static int str = 5;
+    final static Double luck = 1.1;
+    final static int def = 5;
+    
+    public BaseHuman() {
+        super("Basic Human", str, speed, luck, def, health, loot);
+    }
 }

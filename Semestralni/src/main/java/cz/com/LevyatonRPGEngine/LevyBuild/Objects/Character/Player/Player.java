@@ -7,6 +7,8 @@ package cz.com.LevyatonRPGEngine.LevyBuild.Objects.Character.Player;
 
 import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Object;
 import java.util.Scanner;
+import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Character.Species.BaseHuman;
+
 
 /**
  *
@@ -14,38 +16,51 @@ import java.util.Scanner;
  */
 public class Player extends Object {
     
-    int health;
-    int speed;
-    int str;
-    int luck;
-    int def;
+    Equipment equipped = new Equipment();
+    BaseHuman human = new BaseHuman();
+    int health = human.getHP() + equipped.getHead().getStatModefier();
+    int speed = human.getSpeed() + equipped.getLeftLeg().getStatModefier() + equipped.getRightLeg().getStatModefier();
+    int str = human.getStr() + equipped.getLeftHand().getStatModefier() + equipped.getRightHand().getStatModefier();
+    Double luck = human.getLuck() + equipped.getTail().getLuckModefier();
+    int def = human.getDef() + equipped.getTorso().getStatModefier();
+    
+    
+    
+    final static String name = nameSetter();
+    
+    
+    
    
+    Object[] inventory = new Object[100];
     
     
-    public Player(String fileLocation, boolean still, String named) {
-        super(fileLocation, still, named);
-    }
-
     public Player() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        super("user.dir" + "src\\main\\java\\cz\\com\\GameFiles\\LevyBuild\\Sprites\\Objects\\Items\\Misc\\BearClaw.png", "Player Controlled", name);
     }
     
-    
-    
-    public String nameSetter()
+    public static String nameSetter()
     {
         Scanner sc = new Scanner(System.in);
         System.out.println("What is the protagonist's name?\n");
         String name = sc.nextLine();
         return name;
     }
-    
-    public void PlayerInitilazer()
+   
+    public Object getItem(int invPos)
     {
-        String location = "C:\\Users\\czech\\Documents\\NetBeansProjects\\levymaty\\Semestralni\\src\\main\\java\\cz\\com\\GameFiles\\LevyBuild\\Sprites\\Character\\Player\\player.png";
-        Player p = new Player(location, false, nameSetter());
+        return inventory[invPos];
     }
     
-    
-    pu
+   public Object setItem(Object item)
+   {
+       int counter = 0;
+       for(int x = 0;x<inventory.length;x++)
+       {
+           if(inventory[x].getName().equals(item.getName()))
+           {
+               counter++;
+           }
+       }
+       if()
+   }
 }

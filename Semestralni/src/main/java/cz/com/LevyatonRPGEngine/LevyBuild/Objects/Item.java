@@ -16,6 +16,7 @@ public abstract class Item extends Object{
     protected Double dropRate;
     protected String description;
     protected int value;
+    protected int itemCount = 1;
     
     public Item(String giveName, String giveStatus, String giveSpriteLocation, Double giveDropRate, String giveDescription, int giveValue) {
         super(giveName, giveStatus, giveSpriteLocation);
@@ -38,4 +39,15 @@ public abstract class Item extends Object{
     {
         return value;
     }
+    
+    public int getItemCount()
+    {
+        return itemCount;
+    }
+    
+    public void incrementItemCOunt(int x)
+    {
+        itemCount += x;
+    }
+    
 }

@@ -57,6 +57,7 @@ public class Specie extends Object{
         return hp;
     }
     
+    
     public String getLoot()
     {
         String lootStats = null;
