@@ -23,8 +23,4 @@ public class BearBlood extends Item{
         super(name, status, location, dropRate, description, value);
     }
     
-    public Item getBearBlood()
-    {
-        return this;
-    }
 }

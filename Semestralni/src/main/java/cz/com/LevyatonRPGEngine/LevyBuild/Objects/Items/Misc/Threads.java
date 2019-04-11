@@ -23,8 +23,5 @@ public class Threads extends Item{
         super(name, status, location, dropRate, description, value);
     }
     
-    public Item getThreads()
-    {
-        return this;
-    }
+  
 }

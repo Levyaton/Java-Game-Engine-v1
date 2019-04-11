@@ -17,12 +17,21 @@ public abstract class Item extends Object{
     protected String description;
     protected int value;
     protected int itemCount = 1;
+    protected int healthGain = 0;
     
     public Item(String giveName, String giveStatus, String giveSpriteLocation, Double giveDropRate, String giveDescription, int giveValue) {
         super(giveName, giveStatus, giveSpriteLocation);
         dropRate = giveDropRate;
         description = giveDescription;
         value = giveValue;
+    }
+    
+     public Item(String giveName, String giveStatus, String giveSpriteLocation, Double giveDropRate, String giveDescription, int giveValue, int giveHealthGain) {
+        super(giveName, giveStatus, giveSpriteLocation);
+        dropRate = giveDropRate;
+        description = giveDescription;
+        value = giveValue;
+        healthGain = giveHealthGain;
     }
     
     public Double getDropRate()
@@ -50,4 +59,13 @@ public abstract class Item extends Object{
         itemCount += x;
     }
     
+    public Item getThis()
+    {
+        return this;
+    }
+    
+    public int getHealthGain()
+    {
+        return healthGain;
+    }
 }

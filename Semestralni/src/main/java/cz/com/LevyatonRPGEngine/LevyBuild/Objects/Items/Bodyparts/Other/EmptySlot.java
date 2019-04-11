@@ -6,7 +6,7 @@
 package cz.com.LevyatonRPGEngine.LevyBuild.Objects.Items.Bodyparts.Other;
 
 import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Items.Bodypart;
-
+import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Attacks.*;
 /**
  *
  * @author czech

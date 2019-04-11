@@ -23,8 +23,5 @@ public class BearSkin extends Item{
         super(name, status, location, dropRate, description, value);
     }
     
-    public Item getBearSkin()
-    {
-        return this;
-    }
+    
 }

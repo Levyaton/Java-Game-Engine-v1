@@ -10,6 +10,7 @@ package cz.com.LevyatonRPGEngine.LevyBuild.Objects.Items.Bodyparts.Heads;
  * @author czech
  */
 import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Items.Bodypart;
+import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Attacks.;
 
 public class Head_Bear extends Bodypart{
     

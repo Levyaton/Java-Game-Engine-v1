@@ -20,25 +20,29 @@ import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Item;
 import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Items.Misc.*;
 
 
-public class Bear {
+public class Bear extends Specie {
     //Specie parameters are (String givenName, int giveStr, int giveSpeed, Double giveLuck, int giveDef, int giveHP, Item[] giveLoot)
-    Fish fish = new Fish();
-    BearMeat meat = new BearMeat();
-    BearBlood blood = new BearBlood();
-    BearBone bone = new BearBone();
-    BearClaw claw = new BearClaw();
-    BearEye eye = new BearEye();
-    BearSkin skin = new BearSkin();
-    BearTooth tooth = new BearTooth();
-    Gold gold = new Gold();
-    Needle needle = new Needle();
-    Threads thread = new Threads();
-    Hand_Bear hand = new Hand_Bear();
-    Head_Bear head = new Head_Bear();
-    Leg_Bear leg = new Leg_Bear();
-    Tail_Bear tail = new Tail_Bear();
-    Torso_Bear torso = new Torso_Bear();
-    Item[] bearSuit = {head.getHead(), hand.getHand(),leg.getLeg(),tail.getTail(), torso.getTorso()};
-    Item[] loot = {fish.getFish(),meat.getBearMeat(), blood.getBearBlood(), bone.getBearBonde(), claw.getBearClaw(), eye.getBearEye(),skin.getBearSkin(),tooth.getBearTooth(),gold.getGold(),needle.getNeedle(),thread.getThreads()};
-    Specie s = new Specie("Bear", 32, 16, 0.8, 28, 60, loot);
+    final private static Fish fish = new Fish();
+   final private static  BearMeat meat = new BearMeat();
+    final private static BearBlood blood = new BearBlood();
+    final private static BearBone bone = new BearBone();
+    final private static BearClaw claw = new BearClaw();
+    final private static BearEye eye = new BearEye();
+    final private static BearSkin skin = new BearSkin();
+    final private static BearTooth tooth = new BearTooth();
+    final private static Gold gold = new Gold();
+    final private static Needle needle = new Needle();
+    final private static Threads thread = new Threads();
+    final private static Hand_Bear hand = new Hand_Bear();
+    final private static Head_Bear head = new Head_Bear();
+    final private static Leg_Bear leg = new Leg_Bear();
+    final private static Tail_Bear tail = new Tail_Bear();
+    final private static Torso_Bear torso = new Torso_Bear();
+    final private static Item[] bearSuit = {head.getHead(), hand.getHand(),leg.getLeg(),tail.getTail(), torso.getTorso()};
+    final private static Item[] loot = {fish.getThis(),meat.getThis(), blood.getThis(), bone.getThis(), claw.getThis(), eye.getThis(),skin.getThis(),tooth.getThis(),gold.getThis(),needle.getThis(),thread.getThis()};
+  
+
+    public Bear() {
+        super("Bear", 32, 16, 0.8, 28, 60, loot);
+    }
 }

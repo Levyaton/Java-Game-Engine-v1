@@ -5,25 +5,20 @@
  */
 package cz.com.LevyatonRPGEngine.LevyBuild.Objects.Attacks;
 
+import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Attack;
+
 /**
  *
  * @author czech
  */
-
-import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Attack;
-
-
-public class Slash extends Attack{
-    
-    final private static String effect = "Slashes the oppopnent with mighty claws";
+public class EmptyAttack extends Attack {
+    final private static String effect = "Do nothing";
     final private static int turnLength = 1;
-    final private static int damage = 10;//Adds up with stats and modefiers
-    final private static String name = "Slash";
+    final private static int damage = 0;//Adds up with stats and modefiers
+    final private static String name = "Do nothing";
+    
 
-    public Slash() {
+    public EmptyAttack() {
         super(name, damage, turnLength, effect);
     }
-    
-    
-    
 }

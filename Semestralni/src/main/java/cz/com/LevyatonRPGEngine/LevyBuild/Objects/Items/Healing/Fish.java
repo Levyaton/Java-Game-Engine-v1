@@ -9,10 +9,10 @@ package cz.com.LevyatonRPGEngine.LevyBuild.Objects.Items.Healing;
  *
  * @author czech
  */
-import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Items.HealingItem;
+import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Item;
 
 
-public class Fish extends HealingItem {
+public class Fish extends Item {
     
         private static int healthGain = 10;//How much health will the Fish restore
         private static String spriteLocation = "C:\\Users\\czech\\Documents\\NetBeansProjects\\levymaty\\Semestralni\\src\\main\\java\\cz\\com\\GameFiles\\LevyBuild\\Sprites\\Objects\\Fish.png";//Currently doesn't exist
@@ -21,11 +21,6 @@ public class Fish extends HealingItem {
         public Fish()
         {
            super("Apple", "Movable", spriteLocation, 0.8,description,value,healthGain);
-        }
-
-        public HealingItem getFish()
-        {
-            return this;
         }
 
 }

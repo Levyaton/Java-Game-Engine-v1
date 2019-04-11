@@ -23,8 +23,5 @@ public class Needle extends Item{
         super(name, status, location, dropRate, description, value);
     }
     
-    public Item getNeedle()
-    {
-        return this;
-    }
+    
 }

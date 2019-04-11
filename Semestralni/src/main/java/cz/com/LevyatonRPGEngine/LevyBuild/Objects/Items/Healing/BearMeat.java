@@ -9,8 +9,8 @@ package cz.com.LevyatonRPGEngine.LevyBuild.Objects.Items.Healing;
  *
  * @author czech
  */
-import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Items.HealingItem;
-public class BearMeat extends HealingItem{
+import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Item;
+public class BearMeat extends Item{
     
     final static private int healthGain = 5;//How much health will the Apple restore
      final static private String spriteLocation = "C:\\Users\\czech\\Documents\\NetBeansProjects\\levymaty\\Semestralni\\src\\main\\java\\cz\\com\\GameFiles\\LevyBuild\\Sprites\\Objects\\Items\\HealingItems\\BearMeat.png";//Currently doesn't exist
@@ -25,8 +25,5 @@ public class BearMeat extends HealingItem{
         
     }
     
-    public HealingItem getBearMeat()
-    {
-        return this;
-    }
+   
 }

@@ -10,6 +10,7 @@ package cz.com.LevyatonRPGEngine.LevyBuild.Objects.Items.Bodyparts.Legs;
  * @author czech
  */
 import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Items.Bodypart;
+import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Attacks.*;
     public class Leg_Bear extends Bodypart{
        
         private static int baseSpeedMod = 4; //This number is doubled while equipped with both hands of the same class and then doubled yet aggain while wearing the full bear costume

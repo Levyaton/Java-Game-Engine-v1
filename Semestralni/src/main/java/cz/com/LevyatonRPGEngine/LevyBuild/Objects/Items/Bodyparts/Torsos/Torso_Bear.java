@@ -10,6 +10,7 @@ package cz.com.LevyatonRPGEngine.LevyBuild.Objects.Items.Bodyparts.Torsos;
  * @author czech
  */
 import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Items.Bodypart;
+import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Attacks.*;
 public class Torso_Bear extends Bodypart{
     
         private static int baseDefMod = 14; //This number is doubled while wearing the full bear costume

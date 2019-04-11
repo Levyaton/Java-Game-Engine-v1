@@ -9,6 +9,8 @@ package cz.com.LevyatonRPGEngine.LevyBuild.Objects.Character.Player;
  *
  * @author czech
  */
+import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Attacks.*;
+import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Attack;
 import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Items.Bodypart;
 import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Items.Bodyparts.Other.EmptySlot;
 
@@ -21,8 +23,8 @@ public class Equipment {
     private Bodypart rightLeg;
     private Bodypart leftLeg;
     private Bodypart tail;
-    
     private Bodypart[] equipment = {head,torso,rightHand,leftHand,rightLeg,leftLeg,tail};
+    private Attack[] attacks = {};
     
     public Equipment()
     {
@@ -36,6 +38,16 @@ public class Equipment {
         tail = nothing;
     }
     
+    
+    //Attacks
+    
+    private void appendAttack(Bodypart limb)
+    {
+        for (Attack attack : attacks) 
+        {
+            if(limb.)
+        }
+    }
     
     //Setters
     
@@ -112,3 +124,4 @@ public class Equipment {
     }
          
 }
+

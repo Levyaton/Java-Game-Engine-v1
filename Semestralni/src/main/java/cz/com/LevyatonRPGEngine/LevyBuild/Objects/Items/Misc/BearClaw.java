@@ -23,8 +23,5 @@ public class BearClaw extends Item{
         super(name, status, location, dropRate, description, value);
     }
     
-    public Item getBearClaw()
-    {
-        return this;
-    }
+   
 }

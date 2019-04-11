@@ -23,8 +23,5 @@ public class BearBone extends Item{
        super(name, status, location, dropRate, description, value);
     }
     
-    public Item getBearBonde()
-    {
-        return this;
-    }
+    
 }

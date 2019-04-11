@@ -31,7 +31,7 @@ public class Player extends Object {
     
     
    
-    Object[] inventory = new Object[100];
+   Inventory inv = new Inventory();
     
     
     public Player() {
@@ -46,21 +46,30 @@ public class Player extends Object {
         return name;
     }
    
-    public Object getItem(int invPos)
-    {
-        return inventory[invPos];
-    }
-    
-   public Object setItem(Object item)
+   public int getHealth()
    {
-       int counter = 0;
-       for(int x = 0;x<inventory.length;x++)
-       {
-           if(inventory[x].getName().equals(item.getName()))
-           {
-               counter++;
-           }
-       }
-       if()
+       return health;
    }
+   
+   public int getSpeed()
+   {
+       return speed;
+   }
+   
+   public int getDef()
+   {
+       return def;
+   }
+   
+   public int getStr()
+   {
+       return str;
+   }
+   
+   public Double getLuck()
+   {
+       return luck;
+   }
+   
+   
 }

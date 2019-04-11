@@ -9,9 +9,9 @@ package cz.com.LevyatonRPGEngine.LevyBuild.Objects.Items.Healing;
  *
  * @author czech
  */
-import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Items.HealingItem;
+import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Item;
 
-public class Apple  extends HealingItem{
+public class Apple  extends Item{
     
      final static private int healthGain = 5;//How much health will the Apple restore
      final static private String spriteLocation = "C:\\Users\\czech\\Documents\\NetBeansProjects\\levymaty\\Semestralni\\src\\main\\java\\cz\\com\\GameFiles\\LevyBuild\\Sprites\\Objects\\Apple.png";//Currently doesn't exist
@@ -24,8 +24,5 @@ public class Apple  extends HealingItem{
         super("Apple", "Movable", spriteLocation, 0.8,description,value,healthGain);
     }
     
-    public HealingItem getApple()
-    {
-        return this;
-    }
+    
 }

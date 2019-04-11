@@ -10,7 +10,6 @@ package cz.com.LevyatonRPGEngine.LevyBuild.Objects;
  * @author czech
  */
 
-import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Items.Bodypart;
 public abstract class Attack extends Object{
     
     //Manditory information
@@ -23,19 +22,26 @@ public abstract class Attack extends Object{
     protected int speedMod;
     protected int luckMod;
     protected int hPMod;
-    //Required Bodypart to use the attack
-   protected Bodypart[] bodypart;
+    protected int level = 0;
+    protected int experience = 0;
+    protected int experienceNeeded;
     
     
     
-    public Attack(String giveName, int giveDamage, int giveTurnLength, String giveEffect, Bodypart[] giveBodypart) {
+    
+    public Attack(String giveName, int giveDamage, int giveTurnLength, String giveEffect) {
         super(giveName);
         effect = giveEffect;
         turnLength = giveTurnLength;
         damage = giveDamage;
-        
-        bodypart = giveBodypart;
-        
+        if(turnLength>1)
+        {
+            experienceNeeded = (level*1000)/turnLength + 500;
+        }
+        else
+        {
+            experienceNeeded = level*1000 + 500;
+        }
     }
     
     
@@ -55,10 +61,29 @@ public abstract class Attack extends Object{
         return damage;
     }
     
-    public Bodypart getBodypart(int i)
+    public int getLevel()
     {
-        return bodypart[i];
+        return level;
     }
     
+    public int getExp()
+    {
+        return experience;
+    }
+    
+    public void levelUp()
+    {
+        level++;
+    }
+    
+    public void gainExp(int expGained)
+    {
+        experience += expGained;
+        if(experience>experienceNeeded-1)
+        {
+            experience = experience - experienceNeeded;
+            levelUp();
+        }
+    }
     
 }

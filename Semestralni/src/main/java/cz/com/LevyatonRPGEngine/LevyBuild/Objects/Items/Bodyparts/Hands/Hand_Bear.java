@@ -10,6 +10,7 @@ package cz.com.LevyatonRPGEngine.LevyBuild.Objects.Items.Bodyparts.Hands;
  * @author czech
  */
 import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Items.Bodypart;
+import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Attacks.Slash;
     
 public class Hand_Bear extends Bodypart{
     

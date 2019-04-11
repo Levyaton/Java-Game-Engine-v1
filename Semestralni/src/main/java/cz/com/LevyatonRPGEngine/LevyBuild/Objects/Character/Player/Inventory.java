@@ -12,7 +12,7 @@ package cz.com.LevyatonRPGEngine.LevyBuild.Objects.Character.Player;
 
 import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Item;
 import java.util.Arrays;
-import java.lang.reflect.Array;
+
 
 
 
@@ -103,4 +103,30 @@ public class Inventory {
              
         }
     }
-}
+    
+        public String getHealing()
+        {
+            String healingItem = "";
+            for (Item inventorySlot : inventory)
+            {
+                if(inventorySlot.getHealthGain() > 0)
+                {
+                    healingItem = healingItem + inventorySlot.getName() + "\n";
+                }
+            }
+            return healingItem;
+        }
+        
+        public Item getItem(String name)
+        {
+            for (Item inventorySlot : inventory)
+            {
+                if(inventorySlot.getName().equals(name))
+                {
+                    return inventorySlot;
+                }
+            }
+            return null;
+        }
+    }
+

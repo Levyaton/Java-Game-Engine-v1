@@ -23,8 +23,5 @@ public class BearTooth extends Item{
         super(name, status, location, dropRate, description, value);
     }
     
-    public Item getBearTooth()
-    {
-        return this;
-    }
+   
 }

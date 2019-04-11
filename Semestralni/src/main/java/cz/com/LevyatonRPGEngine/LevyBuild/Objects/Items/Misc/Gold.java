@@ -26,9 +26,6 @@ public class Gold extends Item
         super(name, status, location, dropRate, description, value);
     }
     
-    public Item getGold()
-    {
-        return this;
-    }
+   
     
 }

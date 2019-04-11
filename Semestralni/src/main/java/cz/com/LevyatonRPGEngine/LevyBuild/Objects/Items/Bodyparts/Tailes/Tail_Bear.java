@@ -9,7 +9,9 @@ package cz.com.LevyatonRPGEngine.LevyBuild.Objects.Items.Bodyparts.Tailes;
  *
  * @author czech
  */
+import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Attacks.*;
 import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Items.Bodypart;
+
     public class Tail_Bear extends Bodypart{
        
         private static Double baseLuckMod = 0.4; //This number is doubled while wearing the full bear costume
