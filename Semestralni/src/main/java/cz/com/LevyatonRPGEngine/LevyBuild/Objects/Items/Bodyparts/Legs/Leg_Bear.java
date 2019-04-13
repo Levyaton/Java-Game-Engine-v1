@@ -11,6 +11,8 @@ package cz.com.LevyatonRPGEngine.LevyBuild.Objects.Items.Bodyparts.Legs;
  */
 import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Items.Bodypart;
 import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Attacks.*;
+import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Attacks.Charge;
+
     public class Leg_Bear extends Bodypart{
        
         private static int baseSpeedMod = 4; //This number is doubled while equipped with both hands of the same class and then doubled yet aggain while wearing the full bear costume
@@ -18,9 +20,11 @@ import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Attacks.*;
         private static String description = "The severed back leg of a bear";
         private static int value = 20;
         private static Double dropRate = 0.3;
+        private static Charge attack = new Charge();
+        private static String category = "Bear";
         public Leg_Bear()
         {
-            super("Bear Front Leg", "Movable", spriteLocation, dropRate,description,value,baseSpeedMod);
+            super("Bear Back Leg", category,"Movable", spriteLocation, dropRate,description,value,baseSpeedMod,attack);
         }
 
         public Bodypart getLeg()

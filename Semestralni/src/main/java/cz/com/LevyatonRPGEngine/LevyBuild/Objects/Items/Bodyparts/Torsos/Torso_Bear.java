@@ -18,9 +18,11 @@ public class Torso_Bear extends Bodypart{
         private static String description = "The severed torso of a bear";
         private static int value = 70;
         private static Double dropRate = 0.1;
+        private static String category = "Bear";
+         private static ThickSkin thickSkin = new ThickSkin();
         public Torso_Bear()
         {
-            super("Bear Front Leg", "Movable", spriteLocation, dropRate,description,value,baseDefMod);
+            super("Bear Torso", category, "Movable", spriteLocation, dropRate,description,value,baseDefMod,thickSkin);
         }
 
         public Bodypart getTorso()

@@ -20,7 +20,8 @@ public class Fish extends Item {
         private static int value = 7;
         public Fish()
         {
-           super("Apple", "Movable", spriteLocation, 0.8,description,value,healthGain);
+           super("Fish", "Movable", spriteLocation, 0.8,description,value,healthGain);
+           System.out.println("Fish loaded");
         }
 
 }

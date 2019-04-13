@@ -10,7 +10,7 @@ package cz.com.LevyatonRPGEngine.LevyBuild.Objects.Items.Bodyparts.Heads;
  * @author czech
  */
 import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Items.Bodypart;
-import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Attacks.;
+import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Attacks.EatUp;
 
 public class Head_Bear extends Bodypart{
     
@@ -19,9 +19,11 @@ public class Head_Bear extends Bodypart{
     private static String description = "The severed head of a bear";
     private static int value = 50;
     private static Double dropRate = 0.15;
+    private static EatUp attack = new EatUp();
+    private static String category = "Bear";
     public Head_Bear()
     {
-        super("Bear Head", "Movable", spriteLocation, dropRate,description,value,baseHpMod);
+        super("Bear Head", category,"Movable", spriteLocation, dropRate,description,value,baseHpMod,attack);
     }
     
     public Bodypart getHead()

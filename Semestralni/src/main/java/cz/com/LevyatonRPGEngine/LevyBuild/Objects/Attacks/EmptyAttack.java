@@ -12,13 +12,13 @@ import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Attack;
  * @author czech
  */
 public class EmptyAttack extends Attack {
-    final private static String effect = "Do nothing";
+    final private static boolean effect = false;//Do nothing
     final private static int turnLength = 1;
     final private static int damage = 0;//Adds up with stats and modefiers
     final private static String name = "Do nothing";
     
 
     public EmptyAttack() {
-        super(name, damage, turnLength, effect);
+        super(name, damage, turnLength, effect,true,0,true);
     }
 }

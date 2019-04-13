@@ -20,8 +20,8 @@ public class Apple  extends Item{
      
     public Apple()
     {
-        
         super("Apple", "Movable", spriteLocation, 0.8,description,value,healthGain);
+        System.out.println("Apple loaded");
     }
     
     

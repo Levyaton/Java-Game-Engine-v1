@@ -17,7 +17,9 @@ import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Items.Bodyparts.Legs.Leg_Bear;
 import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Items.Bodyparts.Tailes.Tail_Bear;
 import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Items.Bodyparts.Torsos.Torso_Bear;
 import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Item;
+import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Attacks.*;
 import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Items.Misc.*;
+import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Attack;
 
 
 public class Bear extends Specie {
@@ -30,19 +32,29 @@ public class Bear extends Specie {
     final private static BearEye eye = new BearEye();
     final private static BearSkin skin = new BearSkin();
     final private static BearTooth tooth = new BearTooth();
-    final private static Gold gold = new Gold();
+    final private static Gold gold = new Gold(100);
     final private static Needle needle = new Needle();
     final private static Threads thread = new Threads();
-    final private static Hand_Bear hand = new Hand_Bear();
-    final private static Head_Bear head = new Head_Bear();
-    final private static Leg_Bear leg = new Leg_Bear();
-    final private static Tail_Bear tail = new Tail_Bear();
-    final private static Torso_Bear torso = new Torso_Bear();
-    final private static Item[] bearSuit = {head.getHead(), hand.getHand(),leg.getLeg(),tail.getTail(), torso.getTorso()};
+    final private static Slash slash = new Slash();
+    final private static Charge charge = new Charge();
+    final private static TailPeacocking tailPeacocking = new TailPeacocking();
+    final private static EatUp eatUp = new EatUp();
+    final private static ThickSkin thickSkin = new ThickSkin();
     final private static Item[] loot = {fish.getThis(),meat.getThis(), blood.getThis(), bone.getThis(), claw.getThis(), eye.getThis(),skin.getThis(),tooth.getThis(),gold.getThis(),needle.getThis(),thread.getThis()};
-  
-
+    final private static Attack[] attacks = {eatUp,slash,thickSkin,charge,tailPeacocking};
+    
+            
+    /*      
+    [0] = HEAD
+    [1] = RIGHT HAND
+    [2] = LEFT HAND
+    [3] = TORSO
+    [4] = RIGHT LEG
+    [5] = LEFT LEG
+    [6] = TAIL
+    */
+            
     public Bear() {
-        super("Bear", 32, 16, 0.8, 28, 60, loot);
+        super("Bear", 32, 16, 0.8, 28, 60, loot,attacks);
     }
 }

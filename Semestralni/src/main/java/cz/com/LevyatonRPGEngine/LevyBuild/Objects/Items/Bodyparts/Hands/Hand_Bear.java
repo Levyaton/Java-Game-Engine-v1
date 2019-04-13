@@ -19,9 +19,11 @@ public class Hand_Bear extends Bodypart{
     final static private String description = "The severed front leg of a bear";
     final static private int value = 20;
     final static private Double dropRate = 0.35;
+    final static private Slash attack = new Slash();
+    private static String category = "Bear";
     public Hand_Bear()
     {
-        super("Bear Front Leg", "Movable", spriteLocation, dropRate,description,value,baseStrMod);
+        super("Bear Front Leg", category,"Movable", spriteLocation, dropRate,description,value,baseStrMod, attack);
     }
     
     public Bodypart getHand()

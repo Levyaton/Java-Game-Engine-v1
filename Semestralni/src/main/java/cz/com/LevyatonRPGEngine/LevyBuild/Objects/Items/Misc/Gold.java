@@ -14,7 +14,7 @@ import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Item;
 public class Gold extends Item
 {
     
-    final static int value = 1;//The value of a single gold coin
+    static int value = 1;//The value of a single gold coin
     final static String description = "A single gold coin";
     final static String location = "C:\\Users\\czech\\Documents\\NetBeansProjects\\levymaty\\Semestralni\\src\\main\\java\\cz\\com\\GameFiles\\LevyBuild\\Sprites\\Objects\\Items\\Misc\\Gold_Coin.png";//Currently doesn't exist
     final static String name = "Gold Coin";
@@ -26,6 +26,11 @@ public class Gold extends Item
         super(name, status, location, dropRate, description, value);
     }
     
+    public Gold(int coinNumber)
+    {
+        super(name, status, location, dropRate, description, coinNumber);
+               
+    }
    
     
 }

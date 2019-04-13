@@ -7,27 +7,35 @@ package cz.com.LevyatonRPGEngine.LevyBuild.Objects.Attacks;
 
 import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Item;
 import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Items.Healing.*;
+import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Attack;
 
 /**
  *
  * @author czech
  */
-public class EatUp {
-    final private static String effect = "Run off and find some food to heal yourself with";
+public class EatUp extends Attack {
+    final private static boolean enemyCanMove = true;//Run off and find some food to heal yourself with
+    final private static boolean playerCanMove = true;
+    final private static boolean hasEffect = false;
     
-    Apple apple = new Apple();
-    Fish fish = new Fish();
     
-    Item[] tier1 = {apple.getThis(),fish.getThis()};
+     final private static Apple apple = new Apple();
+     final private static Fish fish = new Fish();
     
-    java.util.Random random = new java.util.Random();
-    random.nextInt(5)
+    final private static Item[] tier1 = {apple.getThis(),fish.getThis()};
+    
     final private static int turnLength = 2;
-    final private static int damage = 35;//Adds up with stats and modefiers
+    final private static int damage = 0;//Adds up with stats and modefiers
     final private static String name = "Eat Up!";
+    final private static int strMod = 0;
+    final private static int defMod = 0;
+    final private static int speedMod = 0;
+    final private static Double luckMod = 0.0;
+    final private static int hpMod = 5;
+    
 
 
     public EatUp() {
-        super(name, damage, turnLength, effect);
+        super(name, damage, turnLength, enemyCanMove, playerCanMove,0,hasEffect,tier1);
     }
 }

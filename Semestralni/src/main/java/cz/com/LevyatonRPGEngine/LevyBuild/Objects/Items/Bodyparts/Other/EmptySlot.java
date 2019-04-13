@@ -7,6 +7,7 @@ package cz.com.LevyatonRPGEngine.LevyBuild.Objects.Items.Bodyparts.Other;
 
 import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Items.Bodypart;
 import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Attacks.*;
+import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Attacks.EmptyAttack;
 /**
  *
  * @author czech
@@ -18,10 +19,12 @@ public class EmptySlot extends Bodypart{
     final static private String description = "An empty equipment slot";
     final static private int value = 0;
     final static private Double dropRate = 0.0;
+    final static private EmptyAttack attack = new EmptyAttack();
+    private static String category = "Nothing";
     
     public EmptySlot()
     {
-        super("Bear Front Leg", "Static", spriteLocation, dropRate,description,value,noMod);
+        super("Bear Front Leg", category,"Static", spriteLocation, dropRate,description,value,noMod,attack);
     }
     
     

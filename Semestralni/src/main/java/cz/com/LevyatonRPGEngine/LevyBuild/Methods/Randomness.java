@@ -11,6 +11,9 @@ package cz.com.LevyatonRPGEngine.LevyBuild.Methods;
  */
 
 import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
+import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Item;
+import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Attack;
 
 public class Randomness {
     
@@ -18,7 +21,40 @@ public class Randomness {
     
     public int numberFromSequence(int numberAfterLast)
     {
-        int chosenNum = rand.nextInt(50);
+        int chosenNum = rand.nextInt(numberAfterLast);
         return chosenNum;
     }
+    
+    public boolean success(Double modifier)
+    {
+        if(Math.random() <= modifier)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    
+    public int getRandomFromRange(int min, int max)
+    {
+        int result = ThreadLocalRandom.current().nextInt(min,max+1);
+        return result;
+    }
+    
+    public int getRandomObjectFromSelection(Attack[] obj)
+    {
+        int chosen = numberFromSequence(obj.length);
+        return chosen;
+    }
+    
+    public int getRandomObjectFromSelection(Item[] obj)
+    {
+        int chosen = numberFromSequence(obj.length);
+        return chosen;
+    }
+    
 }
+
+
