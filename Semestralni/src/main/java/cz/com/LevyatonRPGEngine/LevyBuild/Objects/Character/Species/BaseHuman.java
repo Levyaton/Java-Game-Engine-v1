@@ -15,22 +15,37 @@ import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Items.Healing.Apple;
 import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Item;
 import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Attacks.*;
 
-public class BaseHuman extends Specie{
-    final static Apple a = new Apple();
-    final static Item[] loot = {a.getThis()};
-    
-    //Specie parameters are (String givenName, int giveStr, int giveSpeed, Double giveLuck, int giveDef, int giveHP, Item[] giveLoot)
+public class BaseHuman extends Specie {
 
-    final static String name = "Basic Human";
-    final static int health = 50;
-    final static int speed = 5;
-    final static int str = 5;
-    final static Double luck = 0.06;
-    final static int def = 5;
-    final static EmptyAttack nothing = new EmptyAttack();
-    final static Attack[] attacks = {nothing};
-    
+    private Apple a;
+    private static Item[] loot;
+
+    //Specie parameters are (String givenName, int giveStr, int giveSpeed, Double giveLuck, int giveDef, int giveHP, Item[] giveLoot)
+    private static String name;
+    private static int health;
+    private static int speed;
+    private static int str;
+    private static Double luck;
+    private static int def;
+    private static DoNothing nothing = new DoNothing();
+    private static Attack[] attacks = new Attack[]{nothing};
+
     public BaseHuman() {
-        super("Basic Human", str, speed, luck, def, health, loot,attacks);
+        super("Basic Human", str, speed, luck, def, health, loot, attacks,"random");
+        properties();
+    }
+
+    private void properties() {
+        this.a = new Apple();
+        this.loot = new Item[]{a.getThis()};
+
+        //Specie parameters are (String givenName, int giveStr, int giveSpeed, Double giveLuck, int giveDef, int giveHP, Item[] giveLoot)
+        this.name = "Basic Human";
+        this.health = 50;
+        this.speed = 5;
+        this.str = 5;
+        this.luck = 0.06;
+        this.def = 1;
+       
     }
 }

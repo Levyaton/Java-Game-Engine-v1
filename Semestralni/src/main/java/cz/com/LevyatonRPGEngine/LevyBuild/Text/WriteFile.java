@@ -46,7 +46,7 @@ public class WriteFile
             }
             catch (IOException writingFailure)
             {
-                System.out.println("The file path was: " + path + "/nThe file name was: " + name + "/nThe file text was: " + text + "/n");
+                System.out.println("The file path was: " + path + "\nThe file name was: " + name + "\nThe file text was: " + text + "\n");
             }
     }
     public void write(int height, int width){
@@ -70,7 +70,7 @@ public class WriteFile
             }
             catch (IOException writingFailure)
             {
-                System.out.println("The file path was: " + path + "/nThe file name was: " + name + "/nThe file text was: a 2D String Array\n");
+                System.out.println("The file path was: " + path + "\nThe file name was: " + name + "\nThe file text was: a 2D String Array\n");
             }
         }
     }

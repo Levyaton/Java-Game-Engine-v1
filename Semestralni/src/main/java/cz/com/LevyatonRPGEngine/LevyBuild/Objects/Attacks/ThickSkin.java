@@ -23,11 +23,11 @@ public class ThickSkin extends Attack{
     final private static int speedMod = 0;
     final private static Double luckMod = 0.0;
     final private static int hpMod = 0;
-    
+    final private static String type = "torso";
     
     public ThickSkin()
     {
         //int giveStrMod, int giveDefMod, int giveSpeedMod, Double giveLuckMod, int giveHpMod
-        super(name, damage, turnLength, enemyCanMove, playerCanMove,0,hasEffect, strMod, defMod, speedMod, luckMod,hpMod);
+        super(name, damage, turnLength, enemyCanMove, playerCanMove,0,hasEffect, strMod, defMod, speedMod, luckMod,hpMod,type);
     }
 }

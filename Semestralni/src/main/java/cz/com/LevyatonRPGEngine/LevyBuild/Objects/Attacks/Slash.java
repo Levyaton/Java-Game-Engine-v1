@@ -20,10 +20,11 @@ public class Slash extends Attack{
     final private static int turnLength = 1;
     final private static int damage = 4;//Adds up with stats and modefiers
     final private static String name = "Slash";
-
+    final private static String type = "hand";
+    
     public Slash() 
     {
-        super(name, damage, turnLength, enemyCanMove, playerCanMove,0,hasEffect);
+        super(name, damage, turnLength, enemyCanMove, playerCanMove,0,hasEffect,type);
     }
     
     

@@ -18,7 +18,7 @@ public class BearMeat extends Item{
      final static private String name = "Bear Meat";
      final static private int value = 10;
      final static private Double dropRate = 0.7;
-     final static private String status = "Interactable";
+     final static private String status = "Movable";
     
     public BearMeat() {
         super(BearMeat.name, BearMeat.status, BearMeat.spriteLocation, BearMeat.dropRate, BearMeat.description, BearMeat.value, BearMeat.healthGain);

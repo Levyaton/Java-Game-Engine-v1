@@ -17,11 +17,11 @@ public class Apple  extends Item{
      final static private String spriteLocation = "C:\\Users\\czech\\Documents\\NetBeansProjects\\levymaty\\Semestralni\\src\\main\\java\\cz\\com\\GameFiles\\LevyBuild\\Sprites\\Objects\\Apple.png";//Currently doesn't exist
      final static private String description = "A juicy looking apple";
      final static int value = 3;
-     
+     final static Double dropRate = 0.8;
     public Apple()
     {
-        super("Apple", "Movable", spriteLocation, 0.8,description,value,healthGain);
-        System.out.println("Apple loaded");
+        super("Apple", "Movable", spriteLocation, dropRate,description,value,healthGain);
+        
     }
     
     

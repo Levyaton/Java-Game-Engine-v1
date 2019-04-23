@@ -25,16 +25,51 @@ public class Randomness {
         return chosenNum;
     }
     
-    public boolean success(Double modifier)
+    public int chanceOfMultiple(Double one, Double two, Double three)
     {
-        if(Math.random() <= modifier)
+        Double num = Math.random();
+        if(num <= one && num > two)
         {
-            return true;
+            return 0;
+        }
+        else if(num <=two && num> 0.02)
+        {
+            return 1;
+        }
+        else if(num>one)
+        {
+            return 2;
+        }
+        else if(num<=0.02 && num >0.01)
+        {
+            return 10;
         }
         else
         {
-            return false;
+            return 666;
         }
+    }
+    
+    public int choiceOfThree(Double one, Double two)
+    {
+        Double num = Math.random();
+        if(num<=one)
+        {
+            return 0;
+        }
+        else if(num<=two)
+        {
+            return 1;
+        }
+        else
+        {
+            return 2;
+        }
+    }
+    
+    public boolean success(Double modifier)
+    {
+        return Math.random() <= modifier;
     }
     
     public int getRandomFromRange(int min, int max)
@@ -53,6 +88,34 @@ public class Randomness {
     {
         int chosen = numberFromSequence(obj.length);
         return chosen;
+    }
+    
+    public int getChanceOfEffect(Double chanceOfEffect, int effectActivated, int effectFailed)
+    {
+        if(success(chanceOfEffect))
+        {
+           return effectActivated;
+        }
+       return effectFailed;
+    }
+    
+     public Double getChanceOfEffect(Double chanceOfEffect, Double effectActivated, Double effectFailed)
+    {
+        if(success(chanceOfEffect))
+        {
+           return effectActivated;
+        }
+       return effectFailed;
+    }
+     
+     public int healthGiver(int getPlayerDef, int getPlayerMaxHealth, int min, int max, Double penalty)
+    {
+        int witchAttack = getRandomFromRange(min, max);
+        if(getPlayerDef>witchAttack)
+        {
+            return getPlayerMaxHealth;
+        }
+        return -((int) Math.round(getPlayerMaxHealth*penalty));
     }
     
 }

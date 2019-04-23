@@ -11,14 +11,14 @@ import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Attack;
  *
  * @author czech
  */
-public class EmptyAttack extends Attack{
-    
+public class OnePunch extends Attack {
     final private static boolean effect = false;//Do nothing
     final private static int turnLength = 1;
-    final private static int damage = 0;//Adds up with stats and modefiers
-    final private static String name = "NullAttack";
-    final private static String type = "null";
-    public EmptyAttack() {
-        super(name, damage, turnLength, true,true,0,effect,1,type);
+    final private static int damage = 20;//Adds up with stats and modefiers
+    final private static String name = "One Punch";
+    final private static String type = "hand";
+    
+    public OnePunch() {
+        super(name, damage, turnLength, true, true,0,effect,1,type);
     }
 }

@@ -109,7 +109,7 @@ public class Inventory {
             String healingItem = "";
             for (Item inventorySlot : inventory)
             {
-                if(inventorySlot.getHealthGain() > 0)
+                if(inventorySlot.getGain()> 0)
                 {
                     healingItem = healingItem + inventorySlot.getName() + "\n";
                 }

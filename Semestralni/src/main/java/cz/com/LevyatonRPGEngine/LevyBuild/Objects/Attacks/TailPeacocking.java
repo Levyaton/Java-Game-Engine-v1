@@ -22,11 +22,11 @@ public class TailPeacocking extends Attack{
     final private static int enemyBLockedForTurns = 15; //1-5 turns
     final private static int damage = 0;//Adds up with stats and modefiers
     final private static String name = "Tail Peacocking";
-    final private static String[] textToBeWritten = {" stops everything they are doing to turn around and flaunt their beutifull tail. What magnifisance, what an astounding beuty!/n"," stares in admiration, thinking 'What a glorious tail! I cant possably harm such perfection/n'", " stops everything they are doing to turn around and flaunt their beutifull tail, but to no avail!/n", " looses intres and is no longer focused on the tail (they are still totes jelly, though)/n"};
-    
+    final private static String[] textToBeWritten = {" stops everything they are doing to turn around and flaunt their beutifull tail. What magnifisance, what astounding beuty!\n"," stares in admiration, thinking 'What a glorious tail! I can't possably harm such perfection\n", " stops everything they are doing to turn around and flaunt their beutifull tail, but to no avail!\n", " looses interest and they are no longer focused on the tail (they are still totes jelly, though)\n"};
+    final private static String type = "tail";
     
     public TailPeacocking() {
-         super(name, damage, turnLength, enemyCanMove, characterCanMove,enemyBLockedForTurns,hasEffect, textToBeWritten);
+         super(name, damage, turnLength, enemyCanMove, characterCanMove,enemyBLockedForTurns,hasEffect, textToBeWritten,type);
     }
     
     

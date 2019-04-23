@@ -13,7 +13,7 @@ import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Item;
 import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Object;
 import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Attack;
 
-public class Specie extends Object{
+public abstract class Specie extends Object{
     
     protected int str;//Strength
     protected int speed;
@@ -23,9 +23,22 @@ public class Specie extends Object{
     protected Item[] loot; //What loot will be possible
     protected Attack[] attacks;
     protected int givenExp;
+    protected int levelAttacks = 1;
+    protected String focus;
     
-    public Specie(String givenName, int giveStr, int giveSpeed, Double giveLuck, int giveDef, int giveHP, Item[] giveLoot, Attack[] giveAttacks) {
+    public Specie(String givenName, int giveStr, int giveSpeed, Double giveLuck, int giveDef, int giveHP, Item[] giveLoot, Attack[] giveAttacks, String giveFocus) {
         super(givenName);
+        properties(giveStr,giveSpeed,giveLuck,giveDef,giveHP,giveLoot,giveAttacks, giveFocus);
+    
+    }
+    
+    public Specie(String givenName, int giveStr, int giveSpeed, Double giveLuck, int giveDef, int giveHP, Item[] giveLoot, Attack[] giveAttacks, int giveAttackLevel, String giveFocus) {
+        super(givenName);
+        properties(giveStr,giveSpeed,giveLuck,giveDef,giveHP,giveLoot,giveAttacks,giveAttackLevel, giveFocus);
+    }
+    
+    protected void properties(int giveStr, int giveSpeed, Double giveLuck, int giveDef, int giveHP, Item[] giveLoot, Attack[] giveAttacks, String giveFocus)
+    {
         str = giveStr;
         speed = giveSpeed;
         luck = giveLuck;
@@ -33,7 +46,36 @@ public class Specie extends Object{
         hp = giveHP;
         loot = giveLoot;
         attacks = giveAttacks;
-        givenExp = str*(hp/10 + speed/4 + def/2)*attacks.length;
+        givenExp = Math.round(this.str*(this.hp/10 + this.speed/4 + this.def/2)*this.attacks.length); 
+        focus = giveFocus;
+    }
+    
+    protected void properties(int giveStr, int giveSpeed, Double giveLuck, int giveDef, int giveHP, Item[] giveLoot, Attack[] giveAttacks,  int giveAttackLevel,String giveFocus)
+    {
+        str = giveStr;
+        speed = giveSpeed;
+        luck = giveLuck;
+        def = giveDef;
+        hp = giveHP;
+        loot = giveLoot;
+        attacks = giveAttacks;
+        levelAttacks = giveAttackLevel;
+        setLevels(levelAttacks);
+        givenExp = Math.round(this.str*(this.hp/10 + this.speed/4 + this.def/2)*this.attacks.length); 
+        focus = giveFocus;
+    }
+    
+    public String getFocus()
+    {
+        return focus;
+    }
+    
+    private void setLevels(int levelAttacks)
+    {
+        for(Attack attack : attacks)
+        {
+            attack.setLevel(levelAttacks);
+        }
     }
     
     public int getStr()
@@ -53,6 +95,7 @@ public class Specie extends Object{
     
     public int getDef()
     {
+        
         return def;
     }
     

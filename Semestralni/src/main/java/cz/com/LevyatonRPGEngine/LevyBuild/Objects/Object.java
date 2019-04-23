@@ -30,7 +30,6 @@ public abstract class Object {
         name = giveName;
         status = giveStatus;
         spriteLocation = giveSpriteLocation;
-        System.out.print(name + "\n");
     }
     
     public String getName() //Returns the name of the object

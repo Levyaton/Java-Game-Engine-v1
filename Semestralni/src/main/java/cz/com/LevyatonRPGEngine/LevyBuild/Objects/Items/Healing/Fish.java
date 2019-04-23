@@ -18,10 +18,11 @@ public class Fish extends Item {
         private static String spriteLocation = "C:\\Users\\czech\\Documents\\NetBeansProjects\\levymaty\\Semestralni\\src\\main\\java\\cz\\com\\GameFiles\\LevyBuild\\Sprites\\Objects\\Fish.png";//Currently doesn't exist
         private static String description = "A raw fish";
         private static int value = 7;
+        private static Double dropRate = 0.8;
         public Fish()
         {
-           super("Fish", "Movable", spriteLocation, 0.8,description,value,healthGain);
-           System.out.println("Fish loaded");
+           super("Fish", "Movable", spriteLocation, dropRate,description,value,healthGain);
+           
         }
 
 }

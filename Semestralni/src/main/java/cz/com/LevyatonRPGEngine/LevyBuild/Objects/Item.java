@@ -17,7 +17,7 @@ public abstract class Item extends Object{
     protected String description;
     protected int value;
     protected int itemCount = 1;
-    protected int healthGain = 0;
+    protected int gain = 0;
     
     public Item(String giveName, String giveStatus, String giveSpriteLocation, Double giveDropRate, String giveDescription, int giveValue) {
         super(giveName, giveStatus, giveSpriteLocation);
@@ -31,7 +31,7 @@ public abstract class Item extends Object{
         dropRate = giveDropRate;
         description = giveDescription;
         value = giveValue;
-        healthGain = giveHealthGain;
+        gain = giveHealthGain;
     }
     
     public Double getDropRate()
@@ -64,8 +64,8 @@ public abstract class Item extends Object{
         return this;
     }
     
-    public int getHealthGain()
+    public int getGain()
     {
-        return healthGain;
+        return gain;
     }
 }
