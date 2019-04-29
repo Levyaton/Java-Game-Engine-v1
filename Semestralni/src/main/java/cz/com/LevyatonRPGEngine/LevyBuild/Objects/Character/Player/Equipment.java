@@ -10,15 +10,21 @@ package cz.com.LevyatonRPGEngine.LevyBuild.Objects.Character.Player;
  * @author czech
  */
 import java.util.*;
-import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Character.Species.BaseHuman;
+import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Character.Species.Species;
 import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Attack;
 import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Items.Bodypart;
-import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Items.Bodyparts.Other.*;
+import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Items.Bodyparts.Bodyparts;
+import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Attacks.Attacks;
+import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Character.Specie;
+
 
 public class Equipment {
     
-    private EmptySlot nothing = new EmptySlot();
-    private EmptyTail nothingt = new EmptyTail();
+    private Species species = new Species();
+    private Specie human = species.getBasicHuman();
+    private Bodyparts bodyparts = new Bodyparts(0,0);
+    private Bodypart nothing = bodyparts.getEmptySlot();
+    private Bodypart nothingt = bodyparts.getEmptyTail();
     private Bodypart head = nothing;
     private Bodypart rightHand = nothing;
     private Bodypart leftHand = nothing;
@@ -26,14 +32,26 @@ public class Equipment {
     private Bodypart rightLeg = nothing;
     private Bodypart leftLeg = nothing;
     private Bodypart tail = nothingt;
+
+    
     private Bodypart[] equipment = {head,rightHand,leftHand,torso,rightLeg,leftLeg,tail};
-    private ArrayList<Attack> attacks = new ArrayList<Attack>();
-    private Attack[] availableAttacks = {nothing.getAttack(),nothing.getAttack(),nothing.getAttack(),nothing.getAttack(),nothing.getAttack(),nothing.getAttack(),nothingt.getAttack()};//{nothing.getAttack(),nothing.getAttack(),nothing.getAttack(),nothing.getAttack(),nothing.getAttack(),nothing.getAttack(),nothingt.getAttack()};
+    
+    
+    private Attacks attacks;
+    
+   
+    
+    private ArrayList<Attack> allAttacks;
+    
+    
+    
+    
     private Boolean playerFullSuitBonus = false;
     private Boolean playerHandBonus = false;
     private Boolean playerLegBonus = false;
-    private BaseHuman human = new BaseHuman();
     
+    
+   
     
     
     /*/
@@ -47,15 +65,36 @@ public class Equipment {
     /*/    
     public Equipment()
     {
-    
+        attacks = new Attacks(human.getHP() + 100, human.getDef() + 500);
+        this.allAttacks = attacks.getAllAttacks();
         this.setHead(nothing);
-
         this.setRightHand(nothing);
         this.setLeftHand(nothing);
         this.setTorso(nothing);
         this.setRightLeg(nothing);
         this.setLeftLeg(nothing);
         this.setTail(nothingt);
+        setBonus();
+        if(playerFullSuitBonus)
+        {
+            attacks = new Attacks((this.head.getGain()+human.getHP()*2),this.torso.getStatModefier()*2+human.getDef());
+        }
+        else
+        {
+            attacks = new Attacks((this.head.getGain() +human.getHP()),this.torso.getStatModefier() + human.getDef());
+        }
+        
+        this.allAttacks = attacks.getAllAttacks();
+        this.setHead(nothing);
+        this.setRightHand(nothing);
+        this.setLeftHand(nothing);
+        this.setTorso(nothing);
+        this.setRightLeg(nothing);
+        this.setLeftLeg(nothing);
+        this.setTail(nothingt);
+        
+        
+
        //System.out.println(tail.getAttack().getName());
        //System.out.println(head.getAttack().getName());
        
@@ -78,47 +117,54 @@ public class Equipment {
         }
     }
     
-    public int bonusMod(String bodypart, int stat)
+    public Double bonusMod(String bodypart)
     {
         switch(bodypart)
         {
             case "str": 
                 if(playerFullSuitBonus==true)
                 {
-                    return stat*4;
+                    return 4.0;
                 }
                 else if(playerHandBonus == true)
                 {
-                    return (stat*2 + stat/2);
+                    return 5/2.0;
                 }
-                break;
+               
                 
             case "speed": 
                 if(playerFullSuitBonus==true)
                 {
-                    return stat*4;
+                    return 4.0;
                 }
                 else if(playerLegBonus == true)
                 {
-                    return (stat*2 + stat/2);
+                    return 5/2.0;
                 }
                 break;
                 
             case "maxHealth": 
                 if(playerFullSuitBonus==true)
                 {
-                    return stat*2;
+                    return 2.0;
+                    
                 }
-                break;
+               break;
+          
             case "def": 
                 if(playerFullSuitBonus==true)
                 {
-                    return stat*22;
+                    return 2.0;
                 }
                 break;
+            case  "luck" :
+                if(playerFullSuitBonus == true)
+                {
+                    return 2.0;
+                }
         }
+        return 1.0;
     
-            return stat;
     }
     public void updateEquipment()
     {
@@ -132,229 +178,172 @@ public class Equipment {
         
     }
     
-    public Double luckMod(Double luck)
-    {
-       if(playerFullSuitBonus==true)
-        {
-            return luck*2;
-        }
-       return luck;
-    }
-    //Attacks
-   
     
-    public int getAttackSlot(Attack attack)
-    {
-        int y = 666;
-        for (int x = 0; x<attacks.size();x++)
-        {
-            if(attack.getName().equals(attack.getName()))
-            {
-                y = x;
-                return y;
-            }
-        }
-        return y;//If the index is out of bounds, the attack wasnt found
-    }
+    
+    //Attacks
     
     public void levelAttack(Attack attack, int exp)
     {
-        if(attacks.contains(attack))
-        {
-            this.appendAttack(attack);
-            attacks.get(attacks.indexOf(attack)).gainExp(exp);
-            this.appendAttack(attack);
-        }
-        else
-        {
-            this.appendAttack(attack);
-            attacks.get(attacks.indexOf(attack)).gainExp(exp);
-            this.appendAttack(attack);
-        }    
+        allAttacks.get(attacks.getAttackIndex(attack)).gainExp(exp);
     }
     
     public void setLevelAttack(Attack attack, int newLevel)
     {
-        if(attacks.contains(attack))
-        {
-            this.appendAttack(attack);
-            attacks.get(attacks.indexOf(attack)).setLevel(newLevel);
-            this.appendAttack(attack);
-        }
-        else
-        {
-            this.appendAttack(attack);
-            attacks.get(attacks.indexOf(attack)).setLevel(newLevel);
-            this.appendAttack(attack);
-        }
+       allAttacks.get(attacks.getAttackIndex(attack)).setLevel(newLevel);
+       this.makeAttackAvailable(attack, true);
     }
     
     
-    public void appendAttack(Attack giveAttack)
+    public void makeAttackAvailable(Bodypart bodypart, boolean trueOrFalse)
     {
-        int position = 0;
-        if(attacks.contains(giveAttack) == false)
+        Attack checkedAttack = bodypart.getAttack();
+        Attack attack = allAttacks.get(attacks.getAttackIndex(checkedAttack));
+        if(attack.getLevel()>0)
         {
-            attacks.add(giveAttack); 
-        }
-        for(Bodypart limb : equipment)
-        {
-            /*
-            System.out.println(limb.getAttack().getName());
-            System.out.println(giveAttack.getName());
-            System.out.println(limb);
-            */
-            if(limb.getAttack().getName().equals(giveAttack.getName()))
-            {
-                this.availableAttacks[position] = giveAttack;
-                break;
-            }
-            position++;
+            attack.setAvailability(trueOrFalse);
         }
     }
     
-    public void appendAttack(Bodypart limb, int slotNum)
+    public void makeAttackAvailable(Attack giveAttack, boolean trueOrFalse)
     {
-       if(limb.getAttack().equals(nothing))
-       {
-           availableAttacks[slotNum] = limb.getAttack();
-       }
-       else{
-            boolean attackEquipped = false;
-            if(attacks.contains(limb.getAttack()) == false)
-            {
-                attacks.add(limb.getAttack());  
-            }
-
-            for(Attack attack : availableAttacks)
-            {
-                if(limb.getAttack().getName().equals(attack.getName()))
-                {
-                    attackEquipped = true;
-                    break;
-                }
-            }
-            if(attackEquipped == false)
-            {
-                availableAttacks[slotNum] = limb.getAttack();
-            }
-       }
+        Attack checkedAttack = giveAttack;
+        Attack attack = allAttacks.get(attacks.getAttackIndex(checkedAttack));
+        if(attack.getLevel()>0)
+        {
+            attack.setAvailability(trueOrFalse);
+        }
     }
     
+   
     //Setters
     
     public void setHead(Bodypart giveHead)
     {
+        makeAttackAvailable(head,false);
         head = giveHead;
-        appendAttack(head,0);
         setBonus();
         updateEquipment();
+        makeAttackAvailable(head,true);
     }
     
     public void setRightHand(Bodypart giveHand)
     {
+        makeAttackAvailable(rightHand,false);
         rightHand = giveHand;
-        appendAttack(rightHand,1);
         setBonus();
         updateEquipment();
+        makeAttackAvailable(rightHand,true);
     }
     
     public void setLeftHand(Bodypart giveHand)
     {
+        makeAttackAvailable(leftHand,true);
         leftHand = giveHand;
-        appendAttack(leftHand,2);
         setBonus();
         updateEquipment();
+        makeAttackAvailable(leftHand,true);
+        
     }
     
     public void setTorso(Bodypart giveTorso)
     {
+        makeAttackAvailable(torso,false);
         torso = giveTorso;
-        appendAttack(torso,3);
         setBonus();
         updateEquipment();
+        makeAttackAvailable(torso,true);
     }
     
     public void setRightLeg(Bodypart giveLeg)
     {
+        makeAttackAvailable(rightLeg,false);
         rightLeg = giveLeg;
-        appendAttack(rightLeg,4);
         setBonus();
         updateEquipment();
+        makeAttackAvailable(rightLeg,true);
     }
     
     public void setLeftLeg(Bodypart giveLeg)
     {
+        makeAttackAvailable(leftLeg,false);
         leftLeg = giveLeg;
-        appendAttack(leftLeg,5);
         setBonus();
         updateEquipment();
+        makeAttackAvailable(leftLeg,true);
     }
     
     public void setTail(Bodypart giveTail)
     {
+        makeAttackAvailable(tail,false);
         tail = giveTail;
-        appendAttack(tail,6);
         setBonus();
         updateEquipment();
+        makeAttackAvailable(tail,true);
     }
     
     //Unequippers
     
     public void unequipHead()
     {
+        makeAttackAvailable(head,false);
         head = nothing;
-        appendAttack(head,0);
         setBonus();
         updateEquipment();
+        makeAttackAvailable(head,true);
     }
     
     public void unequipTorso()
     {
+        makeAttackAvailable(torso,false);
         torso = nothing;
-        appendAttack(torso,3);
         setBonus();
         updateEquipment();
+        makeAttackAvailable(torso,true);
     }
     
     public void unequipRightHand()
     {
+        makeAttackAvailable(rightHand,false);
         rightHand = nothing;
-        appendAttack(rightHand,1);
         setBonus();
         updateEquipment();
+        makeAttackAvailable(rightHand,true);
     }
     
     public void unequipLeftHand()
     {
+        makeAttackAvailable(leftHand,false);
         leftHand = nothing;
-        appendAttack(leftHand,2);
         setBonus();
         updateEquipment();
+        makeAttackAvailable(leftHand,true);
     }
     
     public void unequipRightLeg()
     {
+        makeAttackAvailable(rightLeg,false);
         rightLeg = nothing;
-        appendAttack(rightLeg,4);
         setBonus();
         updateEquipment();
+        makeAttackAvailable(rightLeg,true);
     }
     
     public void unequipLeftLeg()
     {
+        makeAttackAvailable(leftLeg,false);
         leftLeg = nothing;
-        appendAttack(leftLeg,5);
         setBonus();
         updateEquipment();
+        makeAttackAvailable(leftLeg,true);
     }
     
     public void unequipTail()
     {
+        makeAttackAvailable(tail,false);
         tail = nothingt;
-        appendAttack(tail,6);
         setBonus();
         updateEquipment();
+        makeAttackAvailable(tail,true);
     }
     
 
@@ -395,17 +384,27 @@ public class Equipment {
         return tail;
     }
          
-    public Attack[] getAvailableAttacks()
+    public ArrayList<Attack> getAvailableAttacks()
     {
-        /*
-        for(Attack attack: availableAttacks)
+        ArrayList<Attack> availableAttacks = new ArrayList<Attack>();
+        
+        for (Attack attack : allAttacks) 
         {
-            System.out.println("first");
-            System.out.println(attack.getName());
-             System.out.println("second");
+            if(attack.getAvailability() == true)
+            {
+                if(!availableAttacks.contains(attack))
+                {
+                    availableAttacks.add(attack);
+                }
+            }
         }
-        */
+        
         return availableAttacks;
+    }
+    
+    public ArrayList<Attack> getAllAttacks()
+    {
+        return allAttacks;
     }
     
     public Bodypart[] getEquipment()

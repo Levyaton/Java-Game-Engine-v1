@@ -11,17 +11,36 @@ package cz.com.LevyatonRPGEngine.LevyBuild.Objects.Items;
  */
 import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Item;
 import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Attack;
-public abstract class Bodypart extends Item{
+public class Bodypart extends Item{
     
     protected String category;
     protected int statModefier;
     protected Double luckModefier;
     protected Attack correspondingAttack;
+    protected int level = 1;
+    
+    
     public Bodypart(String giveName, String giveCategory,String giveStatus, String giveSpriteLocation, Double giveDropRate, String giveDescription, int giveValue, int giveStatModefier, Attack giveAttack) {
         super(giveName, giveStatus, giveSpriteLocation,giveDropRate, giveDescription, giveValue);
         statModefier = giveStatModefier;   
         correspondingAttack = giveAttack;
         category = giveCategory;
+    }
+    
+    public Bodypart(String giveName, String giveCategory,String giveStatus, String giveSpriteLocation, Double giveDropRate, String giveDescription, int giveValue, int giveStatModefier, Attack giveAttack, int giveLevel) {
+        super(giveName, giveStatus, giveSpriteLocation,giveDropRate, giveDescription, giveValue);
+        statModefier = giveStatModefier;   
+        correspondingAttack = giveAttack;
+        category = giveCategory;
+        level = giveLevel;
+    }
+    
+    public Bodypart(String giveName, String giveCategory,String giveStatus, String giveSpriteLocation, Double giveDropRate, String giveDescription, int giveValue, Double giveLuckModefier, Attack giveAttack, int giveLevel) {
+        super(giveName, giveStatus, giveSpriteLocation,giveDropRate, giveDescription, giveValue);
+        luckModefier = giveLuckModefier;
+        category = giveCategory;
+        correspondingAttack = giveAttack;
+        level = giveLevel;
     }
     
     public Bodypart(String giveName, String giveCategory,String giveStatus, String giveSpriteLocation, Double giveDropRate, String giveDescription, int giveValue, Double giveLuckModefier, Attack giveAttack) {
@@ -31,19 +50,37 @@ public abstract class Bodypart extends Item{
         correspondingAttack = giveAttack;
     }
     
+    public void setLevel(int getLevel)
+    {
+        level = getLevel;
+    }
+    
     public String getCategory()
     {
         return category;
     }
     
+    public int getLevel()
+    {
+        return level;
+    }
+    
     public int getStatModefier()
     {
-        return statModefier;
+        if(this.spriteLocation.contains("Heads"))
+        {
+            return (statModefier + level*5);
+        }
+        else
+        {
+            return (statModefier + level);
+        }
+        
     }
     
     public Double getLuckModefier()
     {
-        return luckModefier;
+        return (luckModefier + level/1000);
     }
     
     public Attack getAttack()

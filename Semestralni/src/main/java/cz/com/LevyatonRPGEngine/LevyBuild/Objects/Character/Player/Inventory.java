@@ -11,6 +11,9 @@ package cz.com.LevyatonRPGEngine.LevyBuild.Objects.Character.Player;
  */
 
 import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Item;
+import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Items.Bodypart;
+import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Items.Bodyparts.Bodyparts;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 
@@ -19,41 +22,28 @@ import java.util.Arrays;
 
 
 public class Inventory {
-    Item[] inventory;
+    ArrayList<Item> inventory;
+    ArrayList<Bodypart> costumes;
    
     public Inventory()
     {
-        inventory = new Item[100];
+        inventory = new ArrayList<Item>();
+        costumes = new ArrayList<Bodypart>();
     }
     
-    public void addItem(Item addedItem)
+    public  ArrayList<Bodypart> getCostumes()
     {
-       int position = -1;
-       boolean findSpace = true;
-        int firstEmptySlot = 0;
-        for (Item inventorySlot : inventory) {
-            position++;
-            if(inventory[position]==null && findSpace)
-            {
-                firstEmptySlot = position;
-                findSpace = false;
-            }
-            if (inventorySlot.getName().equals(addedItem.getName())) 
-            {
-                inventorySlot.incrementItemCOunt(1);
-                break;
-            }
-        }
-        inventory[firstEmptySlot] = addedItem; 
+        return costumes;
     }
-     
+            
+            
     public String seeInventory()
      {
          String inv = "";
          int position = 0;
-         while(inventory[position] != null)
+         for(Item i : inventory)
          {
-            inv = inv + inventory[position].getName() + "\n";
+            inv = inv + i.getName() + "\n";
          }
          return inv;
      }
@@ -69,64 +59,223 @@ public class Inventory {
                  inventorySlot.incrementItemCOunt(-1);
                  if(inventorySlot.getItemCount() == 0)
                  {
-                    removeItem(counter);
+                    inventory.remove(item);
                  }
              }
          }
     }
-
-    public void removeItem(int counter)
+    
+    public void decrementItem(Bodypart item)
     {
-        Item[] merged = new Item[100];
-        if(counter>0 && counter<inventory.length-1)
-        {
-            Item[] newInv1 = Arrays.copyOfRange(inventory,0,counter);
-            Item[] newInv2 = Arrays.copyOfRange(inventory,counter+1,inventory.length);
+        int counter = -1;
+         for (Bodypart inventorySlot : costumes)
+         {
+             counter++;
+             if(inventorySlot.getName().equals(item.getName()))
+             {
+                 inventorySlot.incrementItemCOunt(-1);
+                 if(inventorySlot.getItemCount() == 0)
+                 {
+                    costumes.remove(item);
+                 }
+             }
+         }
+    }
+    
+    public void decrementItem(Item item, int amount)
+    {
+        int counter = -1;
+         for (Item inventorySlot : inventory)
+         {
+             counter++;
+             if(inventorySlot.getName().equals(item.getName()))
+             {
+                 inventorySlot.incrementItemCOunt(amount);
+                 if(inventorySlot.getItemCount() == 0)
+                 {
+                    inventory.remove(item);
+                 }
+             }
+         }
+    }
+    
+    public void decrementItem(Bodypart item, int amount)
+    {
+        int counter = -1;
+         for (Bodypart inventorySlot : costumes)
+         {
+             counter++;
+             if(inventorySlot.getName().equals(item.getName()))
+             {
+                 inventorySlot.incrementItemCOunt(amount);
+                 if(inventorySlot.getItemCount() == 0)
+                 {
+                    costumes.remove(item);
+                 }
+             }
+         }
+    }
+    
+    public void incrementItem(Item item)
+    {
+        boolean exists = false;
+         int counter = -1;
+         for (Item inventorySlot : inventory)
+         {
+             counter++;
+             if(inventorySlot.getName().equals(item.getName()))
+             {
+                 inventorySlot.incrementItemCOunt(1);
+                 exists = true;
+             }
+         }
+         if(exists == false)
+         {
+             inventory.add(item);
+         }
+    }
+    
+    public void incrementItem(Bodypart item)
+    {
+        boolean exists = false;
+         int counter = -1;
+         for (Bodypart inventorySlot : costumes)
+         {
+             counter++;
+             if(inventorySlot.getName().equals(item.getName()))
+             {
+                 inventorySlot.incrementItemCOunt(1);
+                 exists = true;
+             }
+         }
+         if(exists == false)
+         {
+             costumes.add(item);
+         }
+    }
+    
+    public void incrementItem(Item item, int amount)
+    {
+        boolean exists = false;
+         int counter = -1;
+         for (Item inventorySlot : inventory)
+         {
+             counter++;
+             if(inventorySlot.getName().equals(item.getName()))
+             {
+                 inventorySlot.incrementItemCOunt(amount);
+                 exists = true;
+             }
+         }
+         if(exists == false)
+         {
+            inventory.add(item);
+         }
+         
+         
+    }
 
+    public void incrementItem(Bodypart item, int amount)
+    {
+        boolean exists = false;
+         int counter = -1;
+         for (Bodypart inventorySlot : costumes)
+         {
+             counter++;
+             if(inventorySlot.getName().equals(item.getName()))
+             {
+                 inventorySlot.incrementItemCOunt(amount);
+                 exists = true;
+             }
+         }
+         if(exists == false)
+         {
+            costumes.add(item);
+         }
+    }
+    public void removeItem(Item item)
+    {
+        inventory.remove(item);
+    }
+    
+    public void removeItem(Bodypart item)
+    {
+        costumes.remove(item);
+    }
+    
+    public String getHealing()
+    {
+        String healingItem = "";
+        for (Item inventorySlot : inventory)
+        {
+            if(inventorySlot.getGain()> 0)
+            {
+                healingItem = healingItem + inventorySlot.getName() + "\n";
+            }
+        }
+        return healingItem;
+    }
 
-            System.arraycopy(newInv1, 0, merged, 0, newInv1.length);
-            System.arraycopy(newInv2, newInv1.length, merged, newInv1.length, newInv2.length - newInv1.length);
-            inventory = merged;
-        }
-        else if(counter == 0)
+    public ArrayList<Item> getInventory()
+    {
+        return inventory;
+    }
+   
+
+    public Item getItem(String name)
+    {
+        for (Item inventorySlot : inventory)
         {
-            Item[] newInv1 = Arrays.copyOfRange(inventory,1,inventory.length);
-            System.arraycopy(newInv1, 0, merged, 0, newInv1.length);
-            inventory = merged;
-             
+            if(inventorySlot.getName().equals(name))
+            {
+                return inventorySlot;
+            }
         }
-        else
+        return null;
+    }
+    
+    public Bodypart getCostume(String name)
+    {
+        for (Bodypart inventorySlot : costumes)
         {
-            Item[] newInv1 = Arrays.copyOfRange(inventory,0,inventory.length-1);
-            System.arraycopy(newInv1, 0, merged, 0, newInv1.length);
-            inventory = merged;
-             
+            if(inventorySlot.getName().equals(name))
+            {
+                return inventorySlot;
+            }
+        }
+        return null;
+    }
+
+    public void addItem(Item item)
+    {
+        inventory.add(item);
+    }
+    
+    public void addCostume(Bodypart item)
+    {
+        costumes.add(item);
+    }
+    
+    public void upgradeCostume(Bodypart givenItem)
+    {
+        for(Bodypart item : costumes)
+        {
+            if(item.getName().equals(givenItem.getName()))
+            {
+                item.setLevel(item.getLevel()+1);
+            }
         }
     }
     
-        public String getHealing()
+    public void upgradeCostume(Bodypart givenItem, int level)
+    {
+        for(Bodypart item : costumes)
         {
-            String healingItem = "";
-            for (Item inventorySlot : inventory)
+            if(item.getName().equals(givenItem.getName()))
             {
-                if(inventorySlot.getGain()> 0)
-                {
-                    healingItem = healingItem + inventorySlot.getName() + "\n";
-                }
+                item.setLevel(level);
             }
-            return healingItem;
-        }
-        
-        public Item getItem(String name)
-        {
-            for (Item inventorySlot : inventory)
-            {
-                if(inventorySlot.getName().equals(name))
-                {
-                    return inventorySlot;
-                }
-            }
-            return null;
         }
     }
+ }
 

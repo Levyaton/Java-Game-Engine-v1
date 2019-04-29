@@ -13,7 +13,7 @@ import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Item;
 import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Object;
 import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Attack;
 
-public abstract class Specie extends Object{
+public class Specie extends Object{
     
     protected int str;//Strength
     protected int speed;

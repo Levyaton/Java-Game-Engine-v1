@@ -11,7 +11,7 @@ package cz.com.LevyatonRPGEngine.LevyBuild.Objects;
  */
 import java.util.Arrays;
 import cz.com.LevyatonRPGEngine.LevyBuild.Methods.Randomness;
-public abstract class Attack extends Object {
+public class Attack extends Object {
     
     //Manditory information
     protected int eBlockLength;//how many turns is the enemy immobilized
@@ -35,6 +35,7 @@ public abstract class Attack extends Object {
     protected boolean randomStat = false;
     protected String type;
     protected Item[][] items;
+    protected boolean available = false;
     
     
     public Attack(String giveName, int giveDamage, int giveTurnLength, boolean giveEnemyStatus, boolean giveCharacterStatus, int enemyBlockedForTurns, boolean giveHasEffect, String giveType) {
@@ -132,9 +133,14 @@ public abstract class Attack extends Object {
         hasEffect = false;
     }
     
+    public void setAvailability(boolean givenAvailability)
+    {    
+        available = givenAvailability;
+    }
+    
     public int setRandomStatFromItems(int stat)
     {
-            
+        
         if(stat != 0)
         {
             
@@ -233,6 +239,11 @@ public abstract class Attack extends Object {
             return stat;
     }
     
+    public boolean getAvailability()
+    {
+        return available;
+    }
+    
     public int getEBlockLength()
     {
         return getRandomOrNormLength(eBlockLength);
@@ -294,8 +305,10 @@ public abstract class Attack extends Object {
     public void gainExp(int expGained)
     {
         experience += expGained;
-        if(experience>experienceNeeded-1)
+        while(experience>=experienceNeeded){
             
+        
+        if(experience>=experienceNeeded)
         {
             if(level == 0)
             {
@@ -313,6 +326,7 @@ public abstract class Attack extends Object {
             experience = experience - experienceNeeded;
             levelUp();
         }
+      }
     }
     
     public int getStrMod()

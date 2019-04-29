@@ -11,12 +11,12 @@ package cz.com.LevyatonRPGEngine.LevyBuild.Objects;
  */
 
 
-public abstract class Item extends Object{
+public class Item extends Object{
     
     protected Double dropRate;
     protected String description;
     protected int value;
-    protected int itemCount = 1;
+    protected int itemCount = 0;
     protected int gain = 0;
     
     public Item(String giveName, String giveStatus, String giveSpriteLocation, Double giveDropRate, String giveDescription, int giveValue) {
@@ -54,6 +54,10 @@ public abstract class Item extends Object{
         return itemCount;
     }
     
+    public void addItem()
+    {
+        itemCount++;
+    }
     public void incrementItemCOunt(int x)
     {
         itemCount += x;

@@ -8,14 +8,11 @@ package cz.com.LevyatonRPGEngine.LevyBuild.Methods;
 import cz.com.LevyatonRPGEngine.LevyBuild.Mechanics.Battle;
 import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Attack;
 import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Character.Player.Player;
-import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Character.Species.Bear;
-import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Items.Bodyparts.Hands.Hand_Bear;
-import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Items.Bodyparts.Heads.Head_Bear;
-import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Items.Bodyparts.Legs.Leg_Bear;
-import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Items.Bodyparts.Other.EmptySlot;
-import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Items.Bodyparts.Tailes.Tail_Bear;
-import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Items.Bodyparts.Torsos.Torso_Bear;
-
+import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Character.Specie;
+import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Character.Species.Species;
+import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Items.Bodypart;
+import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Items.Bodyparts.Bodyparts;
+import java.io.IOException;
 /**
  *
  * @author czech
@@ -24,21 +21,18 @@ import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Items.Bodyparts.Torsos.Torso_B
 
 
 public class Main {
-    
- 
-    
-    
-    public static void main(String[] args)
-    {
-        Hand_Bear hand = new Hand_Bear();
-        Head_Bear head = new Head_Bear();
-        Leg_Bear leg = new Leg_Bear();
-        Torso_Bear torso = new Torso_Bear();
-        Tail_Bear tail = new Tail_Bear();
-        EmptySlot nothing = new EmptySlot();
         
-        //head, hand, hand, torso, leg, nothing, tail
-        Player player = new Player();
+        static Player player = new Player();
+        static Bodyparts bodyparts = new Bodyparts(player.getMaxHealth(),player.getDef());
+        static Bodypart head = bodyparts.getHeadBear();
+        static Bodypart hand = bodyparts.getHandBear();
+        static Bodypart nothing = bodyparts.getEmptySlot();
+        static Bodypart torso = bodyparts.getTorsoBear();
+        static Bodypart leg = bodyparts.getLegBear();
+        static Bodypart tail = bodyparts.getEmptyTail();
+    
+    private static void setters()
+    {
         player.setHead(head);
         player.setLeftHand(hand);
         player.setRightHand(nothing);
@@ -51,12 +45,22 @@ public class Main {
         player.setLevelAttack(leg.getAttack(), 5);
         player.setLevelAttack(torso.getAttack(), 5);
         player.setLevelAttack(tail.getAttack(), 5);
-        //System.out.println(player.getEquipment().getHead().getAttack().getLevel());
-        //System.out.println(player.getAvailableAttacks()[0].getName());
-        
-        Bear bear = new Bear();
+    }
+    
+    public static void main(String[] args) throws IOException
+    {
+        Species species = new Species();
+        setters();
+        bodyparts = new Bodyparts(player.getMaxHealth(),player.getDef());
+        setters();
+        Specie bear = species.getBasicBear();
         Battle b = new Battle(bear, player);
         player = b.updatePlayer();
+        Save s = new Save();
+        s.saveGame(player);
+        Load l = new Load();
+        player = l.loadPlayer();
+        System.out.println(player.getName());
         
     }
 }

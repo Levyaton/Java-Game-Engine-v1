@@ -7,10 +7,12 @@ package cz.com.LevyatonRPGEngine.LevyBuild.Objects.Character.Player;
 
 import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Object;
 import java.util.Scanner;
-import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Character.Species.BaseHuman;
+import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Character.Species.Species;
 import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Attack;
+import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Character.Specie;
 import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Item;
 import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Items.Bodypart;
+import java.util.ArrayList;
 
 /**
  *
@@ -19,7 +21,8 @@ import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Items.Bodypart;
 public class Player extends Object {
 
     protected static Equipment equipped = new Equipment();
-    protected BaseHuman human;
+    protected static Species species = new Species();
+    protected Specie human = species.getBasicHuman();
     protected int maxHealth;
     protected int speed;
     protected int str;
@@ -33,7 +36,12 @@ public class Player extends Object {
 
     public Player() {
         super(name, "Player Controlled", "user.dir" + "src\\main\\java\\cz\\com\\GameFiles\\LevyBuild\\Sprites\\Objects\\Items\\Misc\\BearClaw.png");
-        this.human = new BaseHuman();
+        properties();
+       
+    }
+    
+    public Player(String givenName) {
+        super(givenName, "Player Controlled", "user.dir" + "src\\main\\java\\cz\\com\\GameFiles\\LevyBuild\\Sprites\\Objects\\Items\\Misc\\BearClaw.png");
         properties();
     }
 
@@ -46,11 +54,12 @@ public class Player extends Object {
     }
 
     public void updatePlayerStats() {
-        maxHealth = (human.getHP() + equipped.getHead().getStatModefier()) * equipped.bonusMod("maxHealth", maxHealth);
-        speed = (human.getSpeed() + equipped.getLeftLeg().getStatModefier() + equipped.getRightLeg().getStatModefier()) * equipped.bonusMod("speed", speed);
-        str = (human.getStr() + equipped.getLeftHand().getStatModefier() + equipped.getRightHand().getStatModefier()) * equipped.bonusMod("str", str);
-        luck = (human.getLuck() + equipped.getTail().getLuckModefier()) * equipped.luckMod(luck);
-        def = (human.getDef() + equipped.getTorso().getStatModefier()) * equipped.bonusMod("def", def);
+        maxHealth = (int) Math.round((human.getHP() + equipped.getHead().getStatModefier()) * equipped.bonusMod("maxHealth") + 0.5);
+        speed = (int) Math.round((human.getSpeed() + equipped.getLeftLeg().getStatModefier() + equipped.getRightLeg().getStatModefier()) * equipped.bonusMod("speed")+0.5);
+        str = (int) Math.round((human.getStr() + equipped.getLeftHand().getStatModefier() + equipped.getRightHand().getStatModefier()) * equipped.bonusMod("str")+0.5);
+        luck = ((human.getLuck() + equipped.getTail().getLuckModefier()) * equipped.bonusMod("luck") + 0.5);
+        def = (int) Math.round((human.getDef() + equipped.getTorso().getStatModefier()) * equipped.bonusMod("def") + 0.5);
+        
     }
     
 
@@ -82,7 +91,7 @@ public class Player extends Object {
         return luck;
     }
 
-    public Attack[] getAvailableAttacks() 
+    public ArrayList<Attack> getAvailableAttacks() 
     {
 
         return equipped.getAvailableAttacks();
@@ -99,7 +108,6 @@ public class Player extends Object {
     }
 
     public void levelAttack(Attack attack, int exp) {
-        equipped.appendAttack(attack);
         equipped.levelAttack(attack, exp);
     }
     
@@ -118,54 +126,120 @@ public class Player extends Object {
    
      public void setHead(Bodypart giveHead)
     {
+        Double percentageOfHealth = (currentHealth*100)/(maxHealth*1.0);
         equipped.setHead(giveHead);
-    }
+        updatePlayerStats();
+        currentHealth = (int) Math.round(maxHealth*percentageOfHealth +0.5);
+        if(currentHealth>maxHealth)
+        {
+            currentHealth = maxHealth;
+        }
+        if(!inv.costumes.contains(giveHead))
+        {
+            inv.costumes.add(giveHead);
+        }
+    }   
     
     public void setRightHand(Bodypart giveHand)
     {
        equipped.setRightHand(giveHand);
+       updatePlayerStats();
+       if(!inv.costumes.contains(giveHand))
+        {
+            inv.costumes.add(giveHand);
+        }
     }
     
     public void setLeftHand(Bodypart giveHand)
     {
         equipped.setLeftHand(giveHand);
+        updatePlayerStats();
+        if(!inv.costumes.contains(giveHand))
+        {
+            inv.costumes.add(giveHand);
+        }
     }
     
     public void setTorso(Bodypart giveTorso)
     {
         equipped.setTorso(giveTorso);
+        updatePlayerStats();
+        if(!inv.costumes.contains(giveTorso))
+        {
+            inv.costumes.add(giveTorso);
+        }
     }
     
     public void setRightLeg(Bodypart giveLeg)
     {
         equipped.setRightLeg(giveLeg);
+        updatePlayerStats();
+        if(!inv.costumes.contains(giveLeg))
+        {
+            inv.costumes.add(giveLeg);
+        }
     }
     
     public void setLeftLeg(Bodypart giveLeg)
     {
         equipped.getLeftLeg();
+        updatePlayerStats();
+        if(!inv.costumes.contains(giveLeg))
+        {
+            inv.costumes.add(giveLeg);
+        }
     }
     
     public void setTail(Bodypart giveTail)
     {
         equipped.setTail(giveTail);
+        updatePlayerStats();
+        if(!inv.costumes.contains(giveTail))
+        {
+            inv.costumes.add(giveTail);
+        }
+    }
+    
+    public ArrayList<Attack> getAllAttacks()
+    {
+       return equipped.getAllAttacks();
+    }
+    
+    public ArrayList<Item> getInventory()
+    {
+        return inv.getInventory();
+    }
+    
+    public Inventory getInv()
+    {
+        return inv;
+    }
+    
+    public ArrayList<Bodypart> getCostumes()
+    {
+        return inv.getCostumes();
     }
     
     private void properties() {
         
-        this.maxHealth = equipped.bonusMod("maxHealth", (human.getHP() + equipped.getHead().getStatModefier()));
-        this.speed = equipped.bonusMod("speed", human.getSpeed() + equipped.getLeftLeg().getStatModefier() + equipped.getRightLeg().getStatModefier());
+        this.maxHealth = human.getHP();
+        //System.out.println(maxHealth);
+        //System.out.println(human.getHP());
+        ///System.out.println(equipped.getHead().getName());
+        //System.out.println(equipped.getHead().getStatModefier());
+        this.speed = human.getSpeed()*2;
         
-        this.str = equipped.bonusMod("str", human.getStr() + equipped.getLeftHand().getStatModefier() + equipped.getRightHand().getStatModefier());
+        this.str = human.getStr()*2;
    
-        this.luck = equipped.luckMod(human.getLuck() + equipped.getTail().getLuckModefier());
+        this.luck = human.getLuck();
        
-        this.def = equipped.bonusMod("def", human.getDef() + equipped.getTorso().getStatModefier());
+        this.def = human.getDef();
    
        
         this.currentHealth = maxHealth;
        
         this.wealth = 0;
+
     }
 
 }

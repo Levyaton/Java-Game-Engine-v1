@@ -13,22 +13,16 @@ import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Character.Player.Player;
 import cz.com.LevyatonRPGEngine.LevyBuild.Methods.Randomness;
 import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Character.Specie;
 import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Attack;
-import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Character.Species.Bear;
 import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Item;
 import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Items.Bodypart;
 import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Attacks.*;
-import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Items.Bodyparts.Hands.Hand_Bear;
-import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Items.Bodyparts.Heads.Head_Bear;
-import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Items.Bodyparts.Legs.Leg_Bear;
-import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Items.Bodyparts.Tailes.Tail_Bear;
-import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Items.Bodyparts.Torsos.Torso_Bear;
 import java.util.Scanner;
-import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Items.Bodyparts.Other.*;
+import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Items.Bodyparts.Bodyparts;
 import java.util.ArrayList;
+import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Attacks.Attacks;
 
 
 public class Battle{
-    private EmptyAttack nothing = new EmptyAttack();
     private Randomness rand = new Randomness();
     private Specie enemy;
     private Player player;
@@ -39,8 +33,8 @@ public class Battle{
     private Boolean enemyCanMove = true;
     private int pImmobileCounter;
     private int eImmobileCounter;
-    private Attack[] availableAttacks;
-    private Attack[] usableAttacks = {nothing, nothing, nothing, nothing, nothing, nothing, nothing};
+    
+    
     private Scanner sc = new Scanner(System.in);
     private Bodypart[] equipment;
     
@@ -66,7 +60,7 @@ public class Battle{
     private Attack attackResponsableForEnemyBlock;
     private boolean selfImposedEnemyBlock;
     
-    
+    private Attacks attacks;
     
     private void enemyProperties()
     {
@@ -87,8 +81,9 @@ public class Battle{
         pSpeed = player.getSpeed();
         pLuck = player.getLuck();
         pHealth = player.getCurrentHealth();
-        availableAttacks = player.getAvailableAttacks();
+        
         equipment = player.getEquipped();
+        attacks = new Attacks(player.getMaxHealth(), pDef);
     }
     
     public Battle(Specie getEnemy, Player getPlayer)
@@ -226,18 +221,16 @@ public class Battle{
     
     public Attack chooseAttack()
     {
+        ArrayList<Attack> usableAttacks = player.getAvailableAttacks();
         System.out.println("Please enter the number of you're chosen attack\n");
         while(true)
         {  
+            
             this.attackWriter();
             try{
                 int chosenAttack = sc.nextInt();
-                Attack chosen = usableAttacks[chosenAttack-1];
+                Attack chosen = usableAttacks.get(chosenAttack-1);
                 String testName = chosen.getName();
-                if(chosen.equals(nothing))
-                {
-                    testName = usableAttacks[666].getName();
-                }
                 return chosen;
             }
             catch(Exception p)
@@ -247,67 +240,17 @@ public class Battle{
         }
     }
     
-    public void getUsableAttacks()
-    {
-        int storedPosition = 666;
-        boolean exists = false;
-        for(int x = 0;x<availableAttacks.length;x++)
-        {
-            //System.out.println(availableAttacks[x].getName());
-            //System.out.println(availableAttacks[x].getLevel());
-            if(availableAttacks[x].getLevel() != 0)
-            {
-                
-                for(Attack attack : usableAttacks)
-                {
-                    if(availableAttacks[x].equals(attack))
-                    {
-                        exists = true;     
-                    }
-                    if(exists == false)
-                    { 
-                        usableAttacks[x] = availableAttacks[x];
-                        //System.out.println("Hello, bor"); 
-                    }
-                    exists = false;
-                }
-                
-            }
-            
-        }
-        for(int y = 0; y<usableAttacks.length;y++)
-        {
-            if(usableAttacks[y].equals(nothing))
-            {
-                storedPosition = y;
-            }
-            else
-            {
-                if(y>storedPosition)
-                {
-                    usableAttacks[storedPosition] = usableAttacks[y];
-                    usableAttacks[y] = nothing;
-                    storedPosition = y;
-                }
-            }
-        }
-        /*
-        for(Attack attack : availableAttacks)
-        {
-            System.out.println(attack.getName());
-        }
-        */
-    }
+    
     
     public void attackWriter()
     {
-        getUsableAttacks();
+        ArrayList<Attack> usableAttacks = player.getAvailableAttacks();
         System.out.println("Your attacks are: \n");
-        for(int x = 0; x<usableAttacks.length;x++)
+        for(int x = 0; x<usableAttacks.size();x++)
         {
-            if(!usableAttacks[x].equals(nothing))
+            if(!usableAttacks.get(x).equals(attacks.getEmptyAttack()))
             {
-                System.out.println("Attack " + (x+1) + ":   " + usableAttacks[x].getName() + "\n");
+                System.out.println("Attack " + (x+1) + ":   " + usableAttacks.get(x).getName() + "\n");
             }
         }
     }
