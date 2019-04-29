@@ -14,6 +14,7 @@ import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Character.Player.Player;
 import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Item;
 import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Items.Bodypart;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
@@ -26,58 +27,136 @@ public class Save {
         this.saveEquipped(player);
         this.saveInventory(player);
         this.saveName(player);
+        this.saveWealth(player);
         
     }
     
     public void saveAttack(Player player) throws IOException
     {
-        BufferedWriter writer = new BufferedWriter(new FileWriter (System.getProperty("user.dir" + "src\\main\\java\\cz\\com\\GameFiles\\Save\\AllAttacks.txt")));
+        System.out.println((System.getProperty("user.dir") + "\\src\\main\\java\\cz\\com\\GameFiles\\Save\\AllAttacks.txt"));
+        BufferedWriter bw = null;
+
+        String path = (System.getProperty("user.dir") + "\\src\\main\\java\\cz\\com\\GameFiles\\Save\\AllAttacks.txt");
+        File file = new File(path);
+        
+        if (!file.exists()) {
+	     file.createNewFile();
+        }
+        FileWriter fw = new FileWriter(file);
+        bw = new BufferedWriter(fw);
+
         for(Attack attack : player.getAllAttacks())
         {
-            writer.write(attack.getName() + '@' + attack.getExpTotal()+ '\n');
-    
+            String content = ('$'+attack.getName() + '@' + attack.getExpTotal());
+            bw.write(content);
+
         }
-        writer.close();
+        bw.close();
+        
     }
     
     public void saveName(Player player) throws IOException
     {
-        BufferedWriter writer = new BufferedWriter(new FileWriter (System.getProperty("user.dir" + "src\\main\\java\\cz\\com\\GameFiles\\Save\\Name.txt")));
-        writer.write(player.getName());
-        writer.close();
+        //System.out.println((System.getProperty("user.dir") + "\\src\\main\\java\\cz\\com\\GameFiles\\Save\\Name.txt"));
+        
+        //System.out.println((System.getProperty("user.dir") + "\\src\\main\\java\\cz\\com\\GameFiles\\Save\\AllAttacks.txt"));
+        BufferedWriter bw = null;
+
+        String path = (System.getProperty("user.dir") + "\\src\\main\\java\\cz\\com\\GameFiles\\Save\\Name.txt");
+        File file = new File(path);
+        
+        if (!file.exists()) {
+	     file.createNewFile();
+        }
+        FileWriter fw = new FileWriter(file);
+        bw = new BufferedWriter(fw);
+
+        bw.write(player.getName());
+        bw.close();
+    }
+    
+    public void saveWealth(Player player) throws IOException
+    {
+        //System.out.println((System.getProperty("user.dir") + "\\src\\main\\java\\cz\\com\\GameFiles\\Save\\Name.txt"));
+        
+        //System.out.println((System.getProperty("user.dir") + "\\src\\main\\java\\cz\\com\\GameFiles\\Save\\AllAttacks.txt"));
+        BufferedWriter bw = null;
+
+        String path = (System.getProperty("user.dir") + "\\src\\main\\java\\cz\\com\\GameFiles\\Save\\Wealth.txt");
+        File file = new File(path);
+        
+        if (!file.exists()) {
+	     file.createNewFile();
+        }
+        FileWriter fw = new FileWriter(file);
+        bw = new BufferedWriter(fw);
+
+        bw.write(Integer.toString(player.getWealth()));
+        bw.close();
     }
     
     public void saveInventory(Player player) throws IOException
     {
-        BufferedWriter writer = new BufferedWriter(new FileWriter (System.getProperty("user.dir" + "src\\main\\java\\cz\\com\\GameFiles\\Save\\Inventory.txt")));
+        BufferedWriter bw = null;
+
+        String path = (System.getProperty("user.dir") + "\\src\\main\\java\\cz\\com\\GameFiles\\Save\\Inventory.txt");
+        File file = new File(path);
+        
+        if (!file.exists()) {
+	     file.createNewFile();
+        }
+        FileWriter fw = new FileWriter(file);
+        bw = new BufferedWriter(fw);
         for(Item item : player.getInventory())
         {
-            writer.write(item.getName()+ '@' + item.getItemCount() + '\n');
-    
+            bw.write('$'+item.getName()+ '@' + item.getItemCount());
         }
-        writer.close();
+        bw.close();
     }
     
     public void saveEquipped(Player player) throws IOException
     {
-        BufferedWriter writer = new BufferedWriter(new FileWriter (System.getProperty("user.dir" + "src\\main\\java\\cz\\com\\GameFiles\\Save\\Equipped.txt")));
-        for(Bodypart bodypart  : player.getEquipped())
+        
+        BufferedWriter bw = null;
+
+        String path = (System.getProperty("user.dir") + "\\src\\main\\java\\cz\\com\\GameFiles\\Save\\Equipped.txt");
+        File file = new File(path);
+        
+        if (!file.exists()) 
         {
-            writer.write(bodypart.getName() + '@' + bodypart.getLevel() + '\n');
-    
+	    file.createNewFile();
         }
-        writer.close();
+        FileWriter fw = new FileWriter(file);
+        bw = new BufferedWriter(fw);
+       for(Bodypart bodypart  : player.getEquipped())
+        {
+            bw.write('$'+bodypart.getName() + '@' + bodypart.getLevel());
+        }
+       bw.close();
     }
     
      public void saveCostumes(Player player) throws IOException
     {
-        BufferedWriter writer = new BufferedWriter(new FileWriter (System.getProperty("user.dir" + "src\\main\\java\\cz\\com\\GameFiles\\Save\\Costumes.txt")));
-        for(Bodypart bodypart : player.getCostumes())
+       
+        BufferedWriter bw = null;
+
+        String path = (System.getProperty("user.dir") + "\\src\\main\\java\\cz\\com\\GameFiles\\Save\\Costumes.txt");
+        File file = new File(path);
+        
+        if (!file.exists()) 
         {
-            writer.write(bodypart.getName() + '@' + bodypart.getLevel() + '\n');
-    
+	    file.createNewFile();
         }
-        writer.close();
+        FileWriter fw = new FileWriter(file);
+        bw = new BufferedWriter(fw);
+
+
+       for(Bodypart bodypart : player.getCostumes())
+        {
+            bw.write('$'+bodypart.getName() + '@' + bodypart.getLevel() + '$');   
+        }
+        
+        bw.close();
     }
     
 }

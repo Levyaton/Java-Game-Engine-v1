@@ -119,11 +119,20 @@ public class Player extends Object {
         if (item.getName().equals("Gold Coin")) {
             wealth += item.getValue();
         } else {
-            inv.addItem(item);
+            
+            inv.incrementItem(item);
         }
     }
     
+   public void setWealth(int number)
+   {
+       this.wealth = number;
+   }
    
+   public int getWealth()
+   {
+       return wealth;
+   }
      public void setHead(Bodypart giveHead)
     {
         Double percentageOfHealth = (currentHealth*100)/(maxHealth*1.0);

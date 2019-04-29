@@ -7,6 +7,7 @@ package cz.com.LevyatonRPGEngine.LevyBuild.Methods;
 
 import cz.com.LevyatonRPGEngine.LevyBuild.Mechanics.Battle;
 import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Attack;
+import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Items.Items;
 import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Character.Player.Player;
 import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Character.Specie;
 import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Character.Species.Species;
@@ -30,6 +31,7 @@ public class Main {
         static Bodypart torso = bodyparts.getTorsoBear();
         static Bodypart leg = bodyparts.getLegBear();
         static Bodypart tail = bodyparts.getEmptyTail();
+        static Items items = new Items();
     
     private static void setters()
     {
@@ -45,6 +47,8 @@ public class Main {
         player.setLevelAttack(leg.getAttack(), 5);
         player.setLevelAttack(torso.getAttack(), 5);
         player.setLevelAttack(tail.getAttack(), 5);
+        player.addItemToInv(items.getApple());
+        player.setWealth(666);
     }
     
     public static void main(String[] args) throws IOException
@@ -53,14 +57,14 @@ public class Main {
         setters();
         bodyparts = new Bodyparts(player.getMaxHealth(),player.getDef());
         setters();
-        Specie bear = species.getBasicBear();
+        /*Specie bear = species.getBasicBear();
         Battle b = new Battle(bear, player);
         player = b.updatePlayer();
+        */
         Save s = new Save();
         s.saveGame(player);
         Load l = new Load();
         player = l.loadPlayer();
-        System.out.println(player.getName());
-        
+       
     }
 }

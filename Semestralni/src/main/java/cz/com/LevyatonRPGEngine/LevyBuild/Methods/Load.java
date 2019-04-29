@@ -80,16 +80,19 @@ public class Load {
         ArrayList<Attack> oldAttacks;
         ArrayList<Item> oldItems;
                 
-                
+                /*
         System.setOut(new PrintStream(new OutputStream() {
             @Override
             public void write(int b) throws IOException {
                 throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
             }
         }));
-        
+        */
         name = loadName();
+        
+        
         player = new Player(name);
+        player.setWealth(loadWealth());
         oldAttacks = loadAttacks();
         
         for(Attack attack : oldAttacks)
@@ -151,52 +154,84 @@ public class Load {
     
                 
         
-    
+    public int loadWealth() throws FileNotFoundException, IOException
+    {
+        String location = (System.getProperty("user.dir") + "\\src\\main\\java\\cz\\com\\GameFiles\\Save\\Wealth.txt");
+        File file = new File(location); 
+  
+        BufferedReader br = new BufferedReader(new FileReader(file)); 
+  
+        int wealth = Integer.parseInt(br.readLine()); 
+        br.close();
+        return wealth;
+    }
     
     public String loadName() throws FileNotFoundException, IOException
     {
-        File file = new File(System.getProperty("user.dir" + "src\\main\\java\\cz\\com\\GameFiles\\Save\\AllAttacks.txt")); 
+        String location = (System.getProperty("user.dir") + "\\src\\main\\java\\cz\\com\\GameFiles\\Save\\Name.txt");
+        File file = new File(location); 
   
         BufferedReader br = new BufferedReader(new FileReader(file)); 
   
         String name = br.readLine(); 
-        
+        br.close();
         return name;
     }
     
     public ArrayList<Attack> loadAttacks() throws FileNotFoundException, IOException
     {
-        File file = new File(System.getProperty("user.dir" + "src\\main\\java\\cz\\com\\GameFiles\\Save\\AllAttacks.txt")); 
-  
+        String location = (System.getProperty("user.dir") + "\\src\\main\\java\\cz\\com\\GameFiles\\Save\\AllAttacks.txt");
+        File file = new File(location); 
+        String attackName;
+        String attackLevelString;
         BufferedReader br = new BufferedReader(new FileReader(file)); 
         
         ArrayList<Attack> oldAttacks = new ArrayList<Attack>();
         
-        while ((br.readLine()) != null) 
-        {
-            String line = br.readLine();
-            int seperatorIndex = line.indexOf('@');
-            String attackName = line.substring(0, seperatorIndex);
-            String attackLevelString = line.substring(seperatorIndex + 1, line.length());
-            int attackExp = Integer.parseUnsignedInt(attackLevelString);
-            
-            for(Attack attack : attacks.getAllAttacks())
+       
+            String line;
+            line = br.readLine();
+            System.out.println(line.length());
+            while(line.length()>1)
             {
-                if(attack.getName().equals(attackName))
-                {
-                    Attack currentAttack = attack;
-                    currentAttack.gainExp(attackExp);
-                    oldAttacks.add(currentAttack);
+            
+                int seperatorIndex = line.indexOf('@');
+                int seperatorIndex2 = line.indexOf('$');
+
+                attackName = line.substring(seperatorIndex2+1, seperatorIndex);
+                try{
+                attackLevelString = line.substring(seperatorIndex + 1, seperatorIndex2);
                 }
+                catch(Exception e)
+                {
+                    attackLevelString = line.substring(seperatorIndex+1, line.length());
+                }
+                line.replace('$' + attackName, "");
+                line.replace('@' + attackLevelString, "");
+                
+                int attackExp = Integer.parseUnsignedInt(attackLevelString);
+
+                for(Attack attack : attacks.getAllAttacks())
+                {
+                    if(attack.getName().equals(attackName))
+                    {
+                        Attack currentAttack = attack;
+                        currentAttack.gainExp(attackExp);
+                        oldAttacks.add(currentAttack);
+                    }
+                }
+
             }
-        }
+            br.close();
         
-        return oldAttacks;
+        
+            return oldAttacks;
     }
     
     public ArrayList<Item> loadInventory() throws FileNotFoundException, IOException
     {
-        File file = new File(System.getProperty("user.dir" + "src\\main\\java\\cz\\com\\GameFiles\\Save\\Inventory.txt")); 
+        String location = (System.getProperty("user.dir") + "\\src\\main\\java\\cz\\com\\GameFiles\\Save\\Inventory.txt");
+        File file = new File(location); 
   
         BufferedReader br = new BufferedReader(new FileReader(file)); 
         
@@ -226,7 +261,9 @@ public class Load {
         
     public ArrayList<Bodypart>  loadEquipment() throws FileNotFoundException, IOException
     {
-        File file = new File(System.getProperty("user.dir" + "src\\main\\java\\cz\\com\\GameFiles\\Save\\Equipped.txt")); 
+        String location = (System.getProperty("user.dir") + "\\src\\main\\java\\cz\\com\\GameFiles\\Save\\Equipped.txt");
+        File file = new File(location); 
+       
   
         BufferedReader br = new BufferedReader(new FileReader(file)); 
         
@@ -250,14 +287,15 @@ public class Load {
                 }
             }
         }
-        
+        br.close();
         return oldEquipped;
     }
     
      public ArrayList<Bodypart> loadCostumes() throws FileNotFoundException, IOException
     {
-        File file = new File(System.getProperty("user.dir" + "src\\main\\java\\cz\\com\\GameFiles\\Save\\Costumes.txt")); 
-  
+        String location = (System.getProperty("user.dir") + "\\src\\main\\java\\cz\\com\\GameFiles\\Save\\Costumes.txt");
+        File file = new File(location); 
+       
         BufferedReader br = new BufferedReader(new FileReader(file)); 
         
         ArrayList<Bodypart> costumes = new ArrayList<Bodypart>();
@@ -280,7 +318,7 @@ public class Load {
                 }
             }
         }
-        
+        br.close();
         return costumes;
     }
 }
