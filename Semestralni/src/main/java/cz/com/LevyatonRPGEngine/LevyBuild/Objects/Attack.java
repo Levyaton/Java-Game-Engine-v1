@@ -271,7 +271,7 @@ public class Attack extends Object {
     
     public void levelUp()
     {
-        level = levelUpStat(level);
+        level ++;
         damage =levelUpStat(damage);
         eBlockLength = levelUpStat(eBlockLength);
         strMod = levelUpStat(strMod);
@@ -280,6 +280,7 @@ public class Attack extends Object {
         levelUpLuck();
         hPMod = levelUpStat(hPMod);
         setExp();
+        
     }
     
     public int levelUpStat(int stat)

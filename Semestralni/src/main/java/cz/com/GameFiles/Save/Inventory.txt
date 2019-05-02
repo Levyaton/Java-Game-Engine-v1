@@ -1,1 +1,2 @@
-$Apple@1
+Apple@0
+Fish@0

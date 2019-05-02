@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package cz.com.LevyatonRPGEngine.LevyBuild.Objects.Items;
+package cz.com.GameFiles.LevyBuild.customClasses;
 
 /**
  *
@@ -12,7 +12,7 @@ package cz.com.LevyatonRPGEngine.LevyBuild.Objects.Items;
 
 import cz.com.LevyatonRPGEngine.LevyBuild.Methods.Randomness;
 import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Item;
-import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Items.Bodyparts.Bodyparts;
+import cz.com.GameFiles.LevyBuild.customClasses.Bodyparts;
 import java.util.ArrayList;
 
 
@@ -186,6 +186,7 @@ public class Items {
         String status = "Movable";
         
         bearMeat = new Item(name, status, spriteLocation, dropRate, description, value, healthGain);
+        bearMeat.countable(false);
         this.allItems.add(bearMeat);
         this.healingItems.add(bearMeat);
     }
@@ -244,6 +245,7 @@ public class Items {
         Double dropRate = 0.35;
         
         honey = new Item(name, state, spriteLocation, dropRate, description, value, healthGain);
+        honey.countable(false);
         this.allItems.add(honey);
         this.healingItems.add(honey);
     }
@@ -286,6 +288,7 @@ public class Items {
     String status = "Interactable";
     Double dropRate = 0.6;
     bearBlood = new Item(name, status, location, dropRate, description, value);
+    bearBlood.countable(false);
     allItems.add(bearBlood);
     misc.add(bearBlood);
     }
@@ -382,6 +385,7 @@ public class Items {
     String status = "Interactable";
     Double dropRate = 0.000000001;;
     thread = new Item(name, status, location, dropRate, description, value);
+    thread.countable(false);
     allItems.add(thread);
     misc.add(thread);
     }

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package cz.com.LevyatonRPGEngine.LevyBuild.Objects.Items.Bodyparts;
+package cz.com.GameFiles.LevyBuild.customClasses;
 
 /**
  *
@@ -11,8 +11,7 @@ package cz.com.LevyatonRPGEngine.LevyBuild.Objects.Items.Bodyparts;
  */
 import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Attack;
 import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Item;
-import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Attacks.Attacks;
-import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Items.Items;
+import cz.com.GameFiles.LevyBuild.customClasses.Attacks;
 import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Items.Bodypart;
 import java.util.ArrayList;
 
@@ -214,7 +213,7 @@ public class Bodyparts {
         Attack attack = attacks.getDoNothing();
         String category = "Nothing";
         
-        emptyTail = new Bodypart("Empty Slot", category,"Static", spriteLocation, dropRate,description,value,noMod,attack);
+        emptyTail = new Bodypart("Empty Tail Slot", category,"Static", spriteLocation, dropRate,description,value,noMod,attack);
         allBodyparts.add(emptyTail);
         empty.add(emptyTail);
     }

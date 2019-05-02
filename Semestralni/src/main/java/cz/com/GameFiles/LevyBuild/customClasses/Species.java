@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package cz.com.LevyatonRPGEngine.LevyBuild.Objects.Character.Species;
+package cz.com.GameFiles.LevyBuild.customClasses;
 
 /**
  *
@@ -11,11 +11,11 @@ package cz.com.LevyatonRPGEngine.LevyBuild.Objects.Character.Species;
  */
 
 import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Attack;
-import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Attacks.Attacks;
+import cz.com.GameFiles.LevyBuild.customClasses.Attacks;
 import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Character.Specie;
 import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Item;
-import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Items.Items;
 import java.util.ArrayList;
+import cz.com.LevyatonRPGEngine.LevyBuild.Methods.Randomness;
 
 public class Species {
     
@@ -23,10 +23,12 @@ public class Species {
     Specie basicHuman;
     ArrayList<Specie> allSpecies = new ArrayList<Specie> ();
     
+    Randomness rand = new Randomness();
+    
     public void basicBear()
     {
-        int str = 60;
-        int def = 4;
+        int str = 80;
+        int def = 20;
         int hp = 100;
         Double luck = 0.4;
         int speed = 16;
@@ -34,6 +36,7 @@ public class Species {
         Attacks attacks = new Attacks(hp, def);
         Items items = new Items(hp, def);
         Item[] loot = new Item[]{items.getFish(), items.getBearMeat(), items.getBearBllod(), items.getBearBone(), items.getBearClaw(), items.getBearEye(), items.getBearSkin(), items.getBearTooth(), items.getGold(), items.getNeedle(), items.getThread()};
+        loot[8].incrementItemCOunt(rand.getRandomFromRange(20, 60));
         Attack[] attacksUsed = new Attack[]{attacks.getEatUp(), attacks.getSlash(), attacks.getThickSkin(), attacks.getCharge(), attacks.getTailPeacocking()};
         
         for(Attack attack : attacksUsed)

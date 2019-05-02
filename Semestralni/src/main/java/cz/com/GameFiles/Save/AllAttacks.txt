@@ -1,1 +1,8 @@
-$NullAttack@1500$Do nothing@17500$Eat Up!@13125$One Punch@4000$Slash@20000$Tail Peacocking@0$Thick Skin@19375$Charge@41250
+NullAttack@12000
+Do nothing@40000
+Eat Up!@17250
+One Punch@22000
+Slash@35000
+Tail Peacocking@1500
+Thick Skin@35875
+Charge@41250

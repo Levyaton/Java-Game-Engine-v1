@@ -15,27 +15,27 @@ import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Character.Specie;
 import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Attack;
 import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Item;
 import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Items.Bodypart;
-import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Attacks.*;
 import java.util.Scanner;
-import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Items.Bodyparts.Bodyparts;
+import cz.com.GameFiles.LevyBuild.customClasses.Bodyparts;
+import cz.com.GameFiles.LevyBuild.customClasses.Items;
 import java.util.ArrayList;
-import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Attacks.Attacks;
+import cz.com.GameFiles.LevyBuild.customClasses.Attacks;
 
 
 public class Battle{
+    private Items items = new Items();
     private Randomness rand = new Randomness();
     private Specie enemy;
     private Player player;
     private Attack[] enemyAttacks;
+    private ArrayList<Item> playerItems;
     private Object faster;
     private Object slower;
     private Boolean playerCanMove = true;
     private Boolean enemyCanMove = true;
     private int pImmobileCounter;
     private int eImmobileCounter;
-    
-    
-    private Scanner sc = new Scanner(System.in);
+    private boolean playerRan = false;
     private Bodypart[] equipment;
     
     private int pStr;
@@ -84,6 +84,7 @@ public class Battle{
         
         equipment = player.getEquipped();
         attacks = new Attacks(player.getMaxHealth(), pDef);
+        playerItems = player.getInv().getHealingItems();
     }
     
     public Battle(Specie getEnemy, Player getPlayer)
@@ -96,18 +97,25 @@ public class Battle{
         while(pHealth>0 && eHealth>0)
         {
             turns(); 
+            if(playerRan==true)
+            {
+                break;
+            }
             turnNumber++;
         }
-        if(pHealth<=0)
+        if(playerRan==false)
         {
-            System.out.println("RIP, you got killed by a " + enemy.getName() + ". Try bragging about that to your friends! See what happens ;-)\n");
+            if(pHealth<=0)
+            {
+                System.out.println("RIP, you got killed by a " + enemy.getName() + ". Try bragging about that to your friends! See what happens ;-)\n");
+            }
+            if(eHealth<=0)
+            {
+                System.out.println("Yay, you have slain the " + enemy.getName()+ "!\n");
+                getLoot();
+            }   
         }
-        if(eHealth<=0)
-        {
-            System.out.println("Yay, you have slain the " + enemy.getName()+ "!\n");
-            
-        }
-    
+        player.setCurrentHealth(pHealth);
     }
     
     public void enemyStrat()
@@ -127,7 +135,7 @@ public class Battle{
         {
             eStrat = enemy.getFocus();
         }
-        System.out.println(eStrat);
+        //System.out.println(eStrat);
     }
     
     public Player updatePlayer()
@@ -156,24 +164,111 @@ public class Battle{
     
     public void getLoot()
     {
-        String reward = "You got ";
+        String reward = "You got";
         Item[] possibleLoot = enemy.getLoot();
-        for(Item item : possibleLoot)
+        ArrayList<Item> acctualLoot = new ArrayList<Item>();
+        
+        for(int x = 0;x<possibleLoot.length;x++)
         {
-            if(rand.success(item.getDropRate()))
+            if(rand.success(possibleLoot[x].getDropRate()))
             {
-                player.addItemToInv(item);
-                if(item.getName().equals("Gold Coin"))
+                acctualLoot.add(possibleLoot[x]);
+                if(possibleLoot[x].getName().equals("Gold Coin"))
                 {
-                    reward += item.getValue() + " Gold Coins";
+                    player.setWealth(player.getWealth()+possibleLoot[x].getItemCount());
                 }
                 else
                 {
-                   reward += AorAn(item.getName()) + item.getName();
+                    player.addItemToInv(possibleLoot[x]);
                 }
                 
             }
         }
+        for(Item item : acctualLoot)
+        {
+        
+            if(acctualLoot.size()>1)
+            {   
+                if(acctualLoot.get(0).getName().equals(item.getName()))
+                {
+                    if(item.getName().equals("Gold Coin"))
+                    {
+                        if(item.getItemCount()>1)
+                        {
+                            reward += " " + item.getItemCount() + " Gold Coins";
+                        }
+                        else
+                        {
+                            reward += " a Gold Coin";
+                        }
+                    }
+                    else
+                    {
+                       if(item.isCountable())
+                       {
+                        reward += AorAn(item.getName()) + item.getName();
+                       }
+                       else
+                       {
+                        reward += " some " + item.getName();
+                       }
+                    }
+                }
+                else if(acctualLoot.get(acctualLoot.size()-1).getName().equals(item.getName()))
+                {
+                    if(item.getName().equals("Gold Coin"))
+                    {
+                        if(item.getItemCount()>1)
+                        {
+                            reward += ", and " + item.getItemCount() + " Gold Coins";
+                        }
+                        else
+                        {
+                            reward += ", and a Gold Coin";
+                        }
+                    }
+                    else
+                    {
+                       if(item.isCountable())
+                       {
+                        reward += ", and " + AorAn(item.getName()) + item.getName();
+                       }
+                       else
+                       {
+                        reward += ", and some " + item.getName();
+                       }
+
+                    }
+                }
+                else
+                {
+                    if(item.getName().equals("Gold Coin"))
+                    {
+                        if(item.getItemCount()>1)
+                        {
+                            reward += ", " + item.getItemCount() + " Gold Coins";
+                        }
+                        else
+                        {
+                            reward += ", a Gold Coin";
+                        }
+                    }
+                    else
+                    {
+                       if(item.isCountable())
+                       {
+                        reward += "," + AorAn(item.getName()) + item.getName();
+                       }
+                       else
+                       {
+                        reward += ", some " + item.getName();
+                       }
+                    }
+                }    
+
+                }
+            }
+        
         System.out.println(reward + ", great job!\n");
     }
     
@@ -182,7 +277,7 @@ public class Battle{
         if(pSpeed>eSpeed)
         {
             playerTurn();
-            if(eHealth>0)
+            if(eHealth>0 && playerRan==false)
             {
             enemyTurn();
             }
@@ -201,7 +296,7 @@ public class Battle{
             if(f == 0)
             {
                 playerTurn();
-                if(eHealth>0)
+                if(eHealth>0 && playerRan==false)
                 {
                 enemyTurn();
                 }
@@ -219,23 +314,36 @@ public class Battle{
           
     }
     
-    public Attack chooseAttack()
+    public void chooseAttack()
     {
         ArrayList<Attack> usableAttacks = player.getAvailableAttacks();
-        System.out.println("Please enter the number of you're chosen attack\n");
+        System.out.println("Please enter the number of you're chosen attack, or type 'back' to return to the action selection\n");
         while(true)
-        {  
-            
-            this.attackWriter();
-            try{
-                int chosenAttack = sc.nextInt();
-                Attack chosen = usableAttacks.get(chosenAttack-1);
+        {   
+            attackWriter();
+            Scanner sc = new Scanner(System.in);
+            String chosenAttack = sc.nextLine();
+            try
+            {
+                Attack chosen = usableAttacks.get(Integer.parseInt(chosenAttack)-1);
                 String testName = chosen.getName();
-                return chosen;
+                
+                System.out.println("You used " + chosen.getName()+ "\n");
+                pPreformAttack(chosen);
+                player.levelAttack(chosen,  chosen.getExpTotal()/1000 + enemy.getStr() + enemy.getDef() + enemy.getSpeed() + enemy.getHP());
+                break;
             }
             catch(Exception p)
             {
-            System.out.println("\nChosen attack does not exist, please reenter the number of your chosen attack: \n");
+                if(chosenAttack.toLowerCase().equals("back"))
+                {
+                    attackRunHeal();
+                    break;
+                }
+                else
+                {
+                System.out.println("\nChosen attack does not exist, please reenter the number of your chosen attack: \n");
+                }
             }
         }
     }
@@ -253,6 +361,7 @@ public class Battle{
                 System.out.println("Attack " + (x+1) + ":   " + usableAttacks.get(x).getName() + "\n");
             }
         }
+        System.out.println("Back\n");
     }
     
     public Double pDamageCalculator(Attack attack)
@@ -397,6 +506,108 @@ public class Battle{
         }
     }
     
+    public int playerDecision()
+    {
+        int option;
+        while(true)
+        {  
+            try
+            {
+                Scanner sc = new Scanner(System.in);
+                option = sc.nextInt();
+                if(option==1 || option==2 || option==3)
+                {
+                    return option;
+                }
+            }
+            catch(Exception p)
+            {
+            System.out.println("Sorry, I couldn't quite catch that. Please enter the number of your chosen option");
+            }
+        }
+    }
+    
+    public void run()
+    {
+        Double chance;
+        if(pSpeed>(3/2)*eSpeed)
+        {
+            chance = 0.9;
+        }
+        else
+        {
+            chance = (2*pSpeed/(eSpeed*1.0));
+        }
+        if(rand.success(chance))
+        {
+            System.out.println("You successfully escabed the " + enemy.getName() + "!\n");
+            this.playerRan = true;
+        }
+        else
+        {
+            System.out.println("In a valiant effort to escape the " + enemy.getName()+ ", you have been caught off guard by you persuer! You couldn't escape.\n");
+        }
+    }
+    
+    public void useAnItem()
+    {
+        System.out.println("Enter the name of the item you wish to consume, or type in 'back' to return to the action selection");
+        System.out.println("Your healing items are: ");
+        System.out.println(player.getInv().getHealing());//Prints out the healing items available to the player
+        while(true)
+        {
+            try
+            {
+                Scanner sc = new Scanner(System.in);
+                String itemName = sc.nextLine().toLowerCase();
+                if(itemName.equals("back"))
+                {
+                    attackRunHeal();
+                    break;
+                }
+                else
+                {
+                    for(Item item : items.getHealingItems())
+                    {
+                        if(item.getName().toLowerCase().equals(itemName))
+                        {
+                           this.pHealth = item.getGain();
+                           player.getInv().decrementItem(item);
+                           break;
+                        }
+                    }
+                }  
+            }
+            catch(Exception a)
+            {
+                System.out.println("Sorry, I couldn't quite catch that. Please enter the name of the item you wish to consume, or type 'back' to return to action selection.\n");
+                System.out.println("Your healing items are: ");
+                System.out.println(player.getInv().getHealing());//Prints out the healing items available to the player
+            }
+        }
+    }
+    
+    public void attackRunHeal()
+    {
+        System.out.println("What would you like to do? (type the corresponding number of the option you picked)");
+        System.out.println("Option 1:   Attack");
+        System.out.println("Option 2:   Use healing item");
+        System.out.println("Option 3:   Run");
+        int choice = playerDecision();
+        if(choice == 1)
+        {
+           chooseAttack();
+        }
+        else if(choice == 2)
+        {
+            useAnItem();
+        }
+        else
+        {
+            run();
+        }
+    }
+    
     public void playerTurn()
     {
         
@@ -413,10 +624,7 @@ public class Battle{
         */
         if(playerCanMove)
         {
-           Attack chosenAttack = chooseAttack();
-           System.out.println("You used " + chosenAttack.getName()+ "\n");
-           pPreformAttack(chosenAttack);
-           player.levelAttack(chosenAttack,  chosenAttack.getExpTotal()/1000 + enemy.getStr() + enemy.getDef() + enemy.getSpeed() + enemy.getHP());
+           attackRunHeal();
         }
         else
         {

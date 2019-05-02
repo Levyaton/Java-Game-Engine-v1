@@ -10,11 +10,11 @@ package cz.com.LevyatonRPGEngine.LevyBuild.Objects.Character.Player;
  * @author czech
  */
 import java.util.*;
-import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Character.Species.Species;
+import cz.com.GameFiles.LevyBuild.customClasses.Species;
 import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Attack;
 import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Items.Bodypart;
-import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Items.Bodyparts.Bodyparts;
-import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Attacks.Attacks;
+import cz.com.GameFiles.LevyBuild.customClasses.Bodyparts;
+import cz.com.GameFiles.LevyBuild.customClasses.Attacks;
 import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Character.Specie;
 
 
@@ -411,5 +411,7 @@ public class Equipment {
     {
         return equipment;
     }
+    
+   
 }
 

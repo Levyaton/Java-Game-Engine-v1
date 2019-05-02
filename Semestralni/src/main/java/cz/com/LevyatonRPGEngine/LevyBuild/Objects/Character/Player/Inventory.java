@@ -12,9 +12,10 @@ package cz.com.LevyatonRPGEngine.LevyBuild.Objects.Character.Player;
 
 import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Item;
 import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Items.Bodypart;
-import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Items.Bodyparts.Bodyparts;
+import cz.com.GameFiles.LevyBuild.customClasses.Bodyparts;
 import java.util.ArrayList;
 import java.util.Arrays;
+import cz.com.GameFiles.LevyBuild.customClasses.Items;
 
 
 
@@ -24,6 +25,7 @@ import java.util.Arrays;
 public class Inventory {
     ArrayList<Item> inventory;
     ArrayList<Bodypart> costumes;
+    Items items = new Items(0,0);
    
     public Inventory()
     {
@@ -37,6 +39,22 @@ public class Inventory {
     }
             
             
+    public ArrayList<Item> getHealingItems()
+    {
+        ArrayList<Item> healingItems = new ArrayList<Item>();
+        for(Item item : inventory)
+        {
+            for(Item healing : items.getHealingItems())
+            {
+                if(item.getName().equals(healing.getName()))
+                {
+                    healingItems.add(item);
+                }
+            }
+        }
+        return healingItems;
+    }
+    
     public String seeInventory()
      {
          String inv = "";
@@ -202,6 +220,8 @@ public class Inventory {
     {
         costumes.remove(item);
     }
+    
+
     
     public String getHealing()
     {

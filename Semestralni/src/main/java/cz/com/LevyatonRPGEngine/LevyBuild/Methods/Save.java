@@ -28,12 +28,12 @@ public class Save {
         this.saveInventory(player);
         this.saveName(player);
         this.saveWealth(player);
-        
+        this.saveCurrentHealth(player);
     }
     
     public void saveAttack(Player player) throws IOException
     {
-        System.out.println((System.getProperty("user.dir") + "\\src\\main\\java\\cz\\com\\GameFiles\\Save\\AllAttacks.txt"));
+        //System.out.println((System.getProperty("user.dir") + "\\src\\main\\java\\cz\\com\\GameFiles\\Save\\AllAttacks.txt"));
         BufferedWriter bw = null;
 
         String path = (System.getProperty("user.dir") + "\\src\\main\\java\\cz\\com\\GameFiles\\Save\\AllAttacks.txt");
@@ -47,12 +47,29 @@ public class Save {
 
         for(Attack attack : player.getAllAttacks())
         {
-            String content = ('$'+attack.getName() + '@' + attack.getExpTotal());
+            String content = (attack.getName() + '@' + attack.getExpTotal()+"\n");
             bw.write(content);
 
         }
         bw.close();
         
+    }
+    
+    public void saveCurrentHealth(Player player) throws IOException
+    {
+        BufferedWriter bw = null;
+
+        String path = (System.getProperty("user.dir") + "\\src\\main\\java\\cz\\com\\GameFiles\\Save\\CurrentHealth.txt");
+        File file = new File(path);
+        
+        if (!file.exists()) {
+	     file.createNewFile();
+        }
+        FileWriter fw = new FileWriter(file);
+        bw = new BufferedWriter(fw);
+
+        bw.write(Integer.toString(player.getCurrentHealth()));
+        bw.close();
     }
     
     public void saveName(Player player) throws IOException
@@ -109,7 +126,7 @@ public class Save {
         bw = new BufferedWriter(fw);
         for(Item item : player.getInventory())
         {
-            bw.write('$'+item.getName()+ '@' + item.getItemCount());
+            bw.write(item.getName()+ '@' + item.getItemCount() + "\n");
         }
         bw.close();
     }
@@ -128,11 +145,15 @@ public class Save {
         }
         FileWriter fw = new FileWriter(file);
         bw = new BufferedWriter(fw);
-       for(Bodypart bodypart  : player.getEquipped())
-        {
-            bw.write('$'+bodypart.getName() + '@' + bodypart.getLevel());
-        }
-       bw.close();
+        bw.write(player.getEquipment().getHead().getName() + '@' + player.getEquipment().getHead().getLevel() + "\n");
+        bw.write(player.getEquipment().getRightHand().getName() + '@' + player.getEquipment().getRightHand().getLevel() + "\n");
+        bw.write(player.getEquipment().getLeftHand().getName() + '@' + player.getEquipment().getLeftHand().getLevel() + "\n");
+        bw.write(player.getEquipment().getTorso().getName() + '@' + player.getEquipment().getTorso().getLevel() + "\n");
+        bw.write(player.getEquipment().getRightLeg().getName() + '@' + player.getEquipment().getRightLeg().getLevel() + "\n");
+        bw.write(player.getEquipment().getLeftLeg().getName() + '@' + player.getEquipment().getLeftLeg().getLevel() + "\n");
+        bw.write(player.getEquipment().getTail().getName() + '@' + player.getEquipment().getTail().getLevel() + "\n");
+        
+        bw.close();
     }
     
      public void saveCostumes(Player player) throws IOException
@@ -153,7 +174,7 @@ public class Save {
 
        for(Bodypart bodypart : player.getCostumes())
         {
-            bw.write('$'+bodypart.getName() + '@' + bodypart.getLevel() + '$');   
+            bw.write(bodypart.getName() + '@' + bodypart.getLevel()+"\n");   
         }
         
         bw.close();

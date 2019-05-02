@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package cz.com.LevyatonRPGEngine.LevyBuild.Objects.Attacks;
+package cz.com.GameFiles.LevyBuild.customClasses;
 
 /**
  *
@@ -13,7 +13,6 @@ package cz.com.LevyatonRPGEngine.LevyBuild.Objects.Attacks;
 import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Attack;
 import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Item;
 import java.util.ArrayList;
-import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Items.Items;
 
 public class Attacks {
     
@@ -66,7 +65,9 @@ public class Attacks {
         allAttacks.add(doNothing);
     }
     
-    public void eatUp(int giveHealth)//There seems to be a strange glitch here, which causes the the player to use tailPeacocking automaticly. I still dont know what causes this, but since it doesnt break the game, I will come back to it later
+    public void eatUp(int giveHealth)
+    //There seems to be a strange glitch here, which causes the the player to use tailPeacocking automaticly. I still dont know what causes this, but since it doesnt break the game, I will come back to it later
+    //Found another glitch. The number of health points given by the attack seems to differ from the real gain in some cases. My theory is that his happens when the given hp surpasses the max, though it seems to always happen when gaining 70 hp
     {
         boolean enemyCanMove = true;//Run off and find some food to heal yourself with
         boolean playerCanMove = true;
@@ -143,7 +144,7 @@ public class Attacks {
         int turnLength = 1;
         int damage = 0;//Adds up with stats and modefiers
         int strMod = 0;
-        int defMod = 3;
+        int defMod = 5;
         int speedMod = 0;
         int hpMod = 0;
         Double luckMod = 0.0;

@@ -7,7 +7,7 @@ package cz.com.LevyatonRPGEngine.LevyBuild.Objects.Character.Player;
 
 import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Object;
 import java.util.Scanner;
-import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Character.Species.Species;
+import cz.com.GameFiles.LevyBuild.customClasses.Species;
 import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Attack;
 import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Character.Specie;
 import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Item;
@@ -67,8 +67,12 @@ public class Player extends Object {
         return currentHealth;
     }
 
-    public void setCurrentHealth(int hpChange) {
+    public void incrementCurrentHealth(int hpChange) {
         currentHealth = currentHealth + hpChange;
+    }
+    
+    public void setCurrentHealth(int hpChange) {
+        currentHealth = hpChange;
     }
 
     public int getMaxHealth() {

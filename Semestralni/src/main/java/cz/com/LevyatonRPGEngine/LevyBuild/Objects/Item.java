@@ -18,6 +18,7 @@ public class Item extends Object{
     protected int value;
     protected int itemCount = 0;
     protected int gain = 0;
+    protected boolean countable = true;
     
     public Item(String giveName, String giveStatus, String giveSpriteLocation, Double giveDropRate, String giveDescription, int giveValue) {
         super(giveName, giveStatus, giveSpriteLocation);
@@ -34,6 +35,15 @@ public class Item extends Object{
         gain = giveHealthGain;
     }
     
+     
+    public boolean isCountable() 
+    {
+        return countable;
+    }
+    public void countable(boolean giveTrueOrFalse)
+    {
+        countable = giveTrueOrFalse;
+    } 
     public Double getDropRate()
     {
         return dropRate;
