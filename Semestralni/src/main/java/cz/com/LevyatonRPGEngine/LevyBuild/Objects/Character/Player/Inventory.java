@@ -26,11 +26,12 @@ public class Inventory {
     ArrayList<Item> inventory;
     ArrayList<Bodypart> costumes;
     Items items = new Items(0,0);
-   
+    ArrayList<Item> healingItems;
     public Inventory()
     {
         inventory = new ArrayList<Item>();
         costumes = new ArrayList<Bodypart>();
+        healingItems = new ArrayList<Item>();
     }
     
     public  ArrayList<Bodypart> getCostumes()
@@ -41,17 +42,6 @@ public class Inventory {
             
     public ArrayList<Item> getHealingItems()
     {
-        ArrayList<Item> healingItems = new ArrayList<Item>();
-        for(Item item : inventory)
-        {
-            for(Item healing : items.getHealingItems())
-            {
-                if(item.getName().equals(healing.getName()))
-                {
-                    healingItems.add(item);
-                }
-            }
-        }
         return healingItems;
     }
     
@@ -66,18 +56,40 @@ public class Inventory {
          return inv;
      }
     
+    public void updateHealingItems()
+    {
+        for(Item item : inventory)
+        {
+            for(Item healing : items.getHealingItems())
+            {
+                if(item.getName().equals(healing.getName()))
+                {
+                    healingItems.add(item);
+                }
+            }
+        }
+    }
+    
     public void decrementItem(Item item)
     {
-        int counter = -1;
+        
          for (Item inventorySlot : inventory)
          {
-             counter++;
              if(inventorySlot.getName().equals(item.getName()))
              {
                  inventorySlot.incrementItemCOunt(-1);
-                 if(inventorySlot.getItemCount() == 0)
+                 if(inventorySlot.getItemCount() <= 0)
                  {
                     inventory.remove(item);
+                    
+                    
+                    for(int i = 0; i<healingItems.size();i++)
+                    {
+                        if(healingItems.get(i).getName().equals(item.getName())){
+                            healingItems.remove(healingItems.get(i));
+                        }   
+                    }
+             
                  }
              }
          }
@@ -109,9 +121,14 @@ public class Inventory {
              if(inventorySlot.getName().equals(item.getName()))
              {
                  inventorySlot.incrementItemCOunt(amount);
-                 if(inventorySlot.getItemCount() == 0)
+                 if(inventorySlot.getItemCount() <= 0)
                  {
                     inventory.remove(item);
+                    if(healingItems.contains(item))
+                    {
+                        healingItems.remove(item);
+                    }
+                    return;
                  }
              }
          }
@@ -143,13 +160,18 @@ public class Inventory {
              counter++;
              if(inventorySlot.getName().equals(item.getName()))
              {
-                 inventorySlot.incrementItemCOunt(1);
+                 inventorySlot.addItem();
                  exists = true;
              }
          }
          if(exists == false)
          {
              inventory.add(item);
+             inventory.get(inventory.indexOf(item)).addItem();
+             if(items.heals(item))
+             {
+                 healingItems.add(item);
+             }
          }
     }
     
@@ -162,7 +184,7 @@ public class Inventory {
              counter++;
              if(inventorySlot.getName().equals(item.getName()))
              {
-                 inventorySlot.incrementItemCOunt(1);
+                 inventorySlot.addItem();
                  exists = true;
              }
          }
@@ -187,6 +209,7 @@ public class Inventory {
          }
          if(exists == false)
          {
+            item.incrementItemCOunt(amount);
             inventory.add(item);
          }
          
@@ -222,16 +245,17 @@ public class Inventory {
     }
     
 
-    
-    public String getHealing()
+    public ArrayList<Item> getHealing()
+    {
+        return this.healingItems;
+    }
+    public String getHealingString()
     {
         String healingItem = "";
-        for (Item inventorySlot : inventory)
+        for (Item heal : healingItems)
         {
-            if(inventorySlot.getGain()> 0)
-            {
-                healingItem = healingItem + inventorySlot.getName() + "\n";
-            }
+            healingItem = healingItem + heal.getName() + "     Item amount: " + heal.getItemCount()+"\n";
+            
         }
         return healingItem;
     }
@@ -268,12 +292,42 @@ public class Inventory {
 
     public void addItem(Item item)
     {
+        boolean heals = false;
         inventory.add(item);
+        for(Item currentItem : healingItems)
+        {
+            if(currentItem.getName().equals(item.getName()))
+            {
+                heals = true;
+            }
+        }
+        if(heals = true)
+        {
+            this.healingItems.add(item);
+            healingItems.get(healingItems.indexOf(item)).addItem();
+            //System.out.println(healingItems.get(healingItems.indexOf(item)).getItemCount());
+        }
+    }
+    
+    public void setInv(ArrayList<Item> giveInv)
+    {
+        inventory = giveInv;
+    }
+    
+    public void setHealing(ArrayList<Item> giveInv)
+    {
+        healingItems = giveInv;
+    }
+    
+    public void setCostumes(ArrayList<Bodypart> giveInv)
+    {
+        costumes = giveInv;
     }
     
     public void addCostume(Bodypart item)
     {
         costumes.add(item);
+        costumes.get(costumes.indexOf(item)).addItem();
     }
     
     public void upgradeCostume(Bodypart givenItem)

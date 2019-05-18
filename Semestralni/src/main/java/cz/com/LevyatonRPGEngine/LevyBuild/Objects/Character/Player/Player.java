@@ -5,7 +5,7 @@
  */
 package cz.com.LevyatonRPGEngine.LevyBuild.Objects.Character.Player;
 
-import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Object;
+import cz.com.LevyatonRPGEngine.LevyBuild.Objects.GameObject;
 import java.util.Scanner;
 import cz.com.GameFiles.LevyBuild.customClasses.Species;
 import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Attack;
@@ -18,7 +18,7 @@ import java.util.ArrayList;
  *
  * @author czech
  */
-public class Player extends Object {
+public class Player extends GameObject {
 
     protected static Equipment equipped = new Equipment();
     protected static Species species = new Species();
@@ -30,25 +30,25 @@ public class Player extends Object {
     protected int def;
     protected int currentHealth;
     protected int wealth;
-    final protected static String name = nameSetter();
 
     Inventory inv = new Inventory();
 
+    
     public Player() {
-        super(name, "Player Controlled", "user.dir" + "src\\main\\java\\cz\\com\\GameFiles\\LevyBuild\\Sprites\\Objects\\Items\\Misc\\BearClaw.png");
-        properties();
+       super(Player.nameSetter(), "Player Controlled", System.getProperty("user.dir") + "src\\main\\java\\cz\\com\\GameFiles\\LevyBuild\\Sprites\\Objects\\Items\\Misc\\BearClaw.png");
+      properties();
        
     }
     
     public Player(String givenName) {
-        super(givenName, "Player Controlled", "user.dir" + "src\\main\\java\\cz\\com\\GameFiles\\LevyBuild\\Sprites\\Objects\\Items\\Misc\\BearClaw.png");
+        super(givenName, "Player Controlled", System.getProperty("user.dir") + "src\\main\\java\\cz\\com\\GameFiles\\LevyBuild\\Sprites\\Objects\\Items\\Misc\\BearClaw.png");
         properties();
     }
 
    
     public static String nameSetter() {
         Scanner sc = new Scanner(System.in);
-        System.out.println("Please enter player name: ");
+        
         String name = sc.nextLine();
         return name;
     }
@@ -97,7 +97,6 @@ public class Player extends Object {
 
     public ArrayList<Attack> getAvailableAttacks() 
     {
-
         return equipped.getAvailableAttacks();
 
     }
@@ -122,9 +121,10 @@ public class Player extends Object {
     public void addItemToInv(Item item) {
         if (item.getName().equals("Gold Coin")) {
             wealth += item.getValue();
-        } else {
-            
-            inv.incrementItem(item);
+        } 
+        else 
+        {
+            inv.addItem(item);
         }
     }
     

@@ -90,6 +90,12 @@ public class Randomness {
         return chosen;
     }
     
+     public int getRandomObjectFromSelection(String[] obj)
+    {
+        int chosen = numberFromSequence(obj.length);
+        return chosen;
+    }
+    
     public int getChanceOfEffect(Double chanceOfEffect, int effectActivated, int effectFailed)
     {
         if(success(chanceOfEffect))

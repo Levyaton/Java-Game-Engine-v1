@@ -11,7 +11,7 @@ package cz.com.LevyatonRPGEngine.LevyBuild.Objects;
  */
 
 
-public class Item extends Object{
+public class Item extends GameObject{
     
     protected Double dropRate;
     protected String description;
@@ -35,6 +35,10 @@ public class Item extends Object{
         gain = giveHealthGain;
     }
     
+    public void setValue(int giveValue)
+    {
+        value = giveValue;
+    }
      
     public boolean isCountable() 
     {

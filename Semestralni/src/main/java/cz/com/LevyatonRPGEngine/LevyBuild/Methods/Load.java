@@ -20,7 +20,10 @@ import cz.com.GameFiles.LevyBuild.customClasses.Items;
 import java.io.OutputStream;
 import java.io.PrintStream;
 import cz.com.GameFiles.LevyBuild.customClasses.Bodyparts;
+import cz.com.GameFiles.LevyBuild.customClasses.Clerks;
+import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Character.Clerk;
 import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Character.Player.Inventory;
+import cz.com.LevyatonRPGEngine.LevyBuild.Objects.World;
 
 /**
  *
@@ -77,11 +80,22 @@ public class Load {
     Inventory inv = new Inventory();
     
     
-    public Player loadPlayer() throws IOException
+    public World loadWorld() throws IOException, FileNotFoundException, InterruptedException
+    {
+        
+        Player player = loadPlayer();
+        World world = new World(player);
+        ArrayList<Clerk> oldClerks = loadClerks();
+        world.setClerks(oldClerks);
+        return world;
+        //return null;
+    }
+    
+    public Player loadPlayer() throws IOException, FileNotFoundException, InterruptedException
     {
         
         PrintStream originalStream = System.out;
-
+        
         PrintStream dummyStream = new PrintStream(new OutputStream(){
             public void write(int b) {
         // NO-OP
@@ -105,22 +119,19 @@ public class Load {
         */
         name = loadName();
         
+//        player = new 
         
+        System.out.println("Foo");
         player = new Player(name);
         player.setWealth(loadWealth());
         oldAttacks = loadAttacks();
         
-        for(Attack attack : oldAttacks)
-        {
-           player.getAllAttacks().set(attacks.getAttackIndex(attack), attack);
-        }
+        
         
         oldItems = loadInventory();
-        
-        for(Item item : oldItems)
-        {
-            player.addItemToInv(item);
-        }
+        //System.out.println(oldItems.get(0).getItemCount());
+        player.getInv().setInv(oldItems);
+        player.getInv().updateHealingItems();
         
         ArrayList<Bodypart> oldEquipped = loadEquipment();
         player.setHead(oldEquipped.get(0));
@@ -133,20 +144,78 @@ public class Load {
         player.setTail(oldEquipped.get(6));
         player.setCurrentHealth(this.loadCurrentHealth());
 
-        
-        ArrayList<Bodypart> oldCostumes = loadCostumes();
-        
-        for(Bodypart item : oldCostumes)
+        boolean empty = true;
+        for(Bodypart bod : oldEquipped)
         {
-            player.getInv().addCostume(item);
+            if(!bod.getName().equals("Empty Slot"))
+            {
+                if(!bod.getName().equals("Empty Tail Slot"))
+                {
+                    empty = false;
+                    for(Attack a : oldAttacks)
+                    {
+                        if(bod.getAttack().getName().equals(a.getName()))
+                        {
+                            a.setAvailability(true);
+                        }
+                    }
+                }
+            }
+        }
+        if(empty == true)
+        {
+            for(Attack a : oldAttacks)
+            {
+                if(a.getName().equals("One Punch"))
+                {
+                    a.setAvailability(true);
+                }
+            }
         }
         
-        System.setOut(originalStream);
+        
+        for(Attack attack : oldAttacks)
+        {
+           player.getAllAttacks().set(attacks.getAttackIndex(attack), attack);
+        }
+        ArrayList<Bodypart> oldCostumes = loadCostumes();
+        
+        player.getInv().setCostumes(oldCostumes);
+        
+       System.setOut(originalStream);
         
         
      return player;
     }
+      
+    public ArrayList<Clerk> loadClerks() throws FileNotFoundException, IOException
+    {
+        String location = (System.getProperty("user.dir") + "\\src\\main\\java\\cz\\com\\GameFiles\\Save\\Clerks.txt");
+        File file = new File(location); 
+        BufferedReader br = new BufferedReader(new FileReader(file)); 
         
+        ArrayList<Clerk> oldClerks = new ArrayList<Clerk>();
+        String line;
+        String[] split;
+        String name;
+        String gender;
+        Clerks clerks = new Clerks();
+        int counter = 0;
+        
+        while((line = br.readLine()) != null)
+        {
+            Clerk clerk = clerks.getAllClerks().get(counter);
+            split = line.split("@");
+            name = split[0];
+            gender = split[1];
+            clerk.setClerk(name, gender);
+            counter++;
+        }
+        br.close();
+        
+        return oldClerks;
+    }
+    
     public int loadWealth() throws FileNotFoundException, IOException
     {
         String location = (System.getProperty("user.dir") + "\\src\\main\\java\\cz\\com\\GameFiles\\Save\\Wealth.txt");
@@ -184,7 +253,7 @@ public class Load {
         return currentHealth;
     }
     
-    public ArrayList<Attack> loadAttacks() throws FileNotFoundException, IOException
+    public ArrayList<Attack> loadAttacks() throws FileNotFoundException, IOException, InterruptedException
     {
         String location = (System.getProperty("user.dir") + "\\src\\main\\java\\cz\\com\\GameFiles\\Save\\AllAttacks.txt");
         File file = new File(location); 

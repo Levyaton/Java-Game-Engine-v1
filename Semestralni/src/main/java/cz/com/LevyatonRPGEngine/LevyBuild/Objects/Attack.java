@@ -11,7 +11,9 @@ package cz.com.LevyatonRPGEngine.LevyBuild.Objects;
  */
 import java.util.Arrays;
 import cz.com.LevyatonRPGEngine.LevyBuild.Methods.Randomness;
-public class Attack extends Object {
+import cz.com.LevyatonRPGEngine.LevyBuild.Window.BattlePanel;
+import cz.com.LevyatonRPGEngine.LevyBuild.Window.MainFrame;
+public class Attack extends GameObject {
     
     //Manditory information
     protected int eBlockLength;//how many turns is the enemy immobilized
@@ -303,7 +305,12 @@ public class Attack extends Object {
        
     }
     
-    public void gainExp(int expGained)
+    private void write(String text) throws InterruptedException
+    {
+        MainFrame.writeBattleText(text);
+    }
+    
+    public void gainExp(int expGained) throws InterruptedException
     {
         experience += expGained;
         while(experience>=experienceNeeded){
@@ -313,16 +320,16 @@ public class Attack extends Object {
         {
             if(level == 0)
             {
-                System.out.println("Congratulations! You just learned how to use the move " + name + "! You can use it while wearing the right equipment\n");
+                write("Congratulations! You just learned how to use the move " + name + "! You can use it while wearing the right equipment\n");
             }
  
             else if (name.equals("Do nothing"))
             {
-                System.out.println("All of you observationand hard work has paid of! By using and watching your enemies do nothing, you have improved your own performance! " + name + " has leveled up\n");
+                write("All of you observationand hard work has paid of! By using and watching your enemies do nothing, you have improved your own performance! " + name + " has leveled up\n");
             }
             else
             {
-                System.out.println("All of you observation and hard work has paid of! By using and watching your enemies use the move " + name + ", you have improved your own performance! " + name + " has leveled up\n");
+                write("All of you observation and hard work has paid of! By using and watching your enemies use the move " + name + ", you have improved your own performance! " + name + " has leveled up\n");
             }
             experience = experience - experienceNeeded;
             levelUp();

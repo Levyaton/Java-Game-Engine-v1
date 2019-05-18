@@ -123,6 +123,18 @@ public class Items {
         return index;
     }
     
+    public boolean heals(Item checkedItem)
+    {
+        for(Item item : healingItems)
+        {
+            if(item.getName().equals(checkedItem.getName()))
+            {
+                return true;
+            }
+        }
+       return false;
+    }
+    
     public int halingItemIndex(Item item)
     {
         int index = 0;

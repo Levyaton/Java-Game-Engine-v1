@@ -9,10 +9,14 @@ package cz.com.LevyatonRPGEngine.LevyBuild.Methods;
  *
  * @author czech
  */
+import cz.com.GameFiles.LevyBuild.customClasses.Clerks;
+import cz.com.GameFiles.LevyBuild.customClasses.Shops;
 import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Attack;
+import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Character.Clerk;
 import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Character.Player.Player;
 import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Item;
 import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Items.Bodypart;
+import cz.com.LevyatonRPGEngine.LevyBuild.Objects.World;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -20,7 +24,34 @@ import java.io.IOException;
 
 public class Save {
     
-    public void saveGame(Player player) throws IOException
+    public void saveGame(World world) throws IOException
+    {
+       this.savePlayer(world.getPlayer());
+       this.saveClerks(world.getClerks());
+    }
+    
+    public void saveClerks(Clerks clerks) throws IOException
+    {
+        BufferedWriter bw = null;
+
+        String path = (System.getProperty("user.dir") + "\\src\\main\\java\\cz\\com\\GameFiles\\Save\\Clerks.txt");
+        File file = new File(path);
+        
+        if (!file.exists()) {
+	     file.createNewFile();
+        }
+        FileWriter fw = new FileWriter(file);
+        bw = new BufferedWriter(fw);
+
+        for(Clerk clerk : clerks.getAllClerks())
+        {
+            String content = (clerk.getName() + '@' + clerk.getGender()+"\n");
+            bw.write(content);
+        }
+        bw.close();
+    }
+    
+    public void savePlayer(Player player) throws IOException
     {
         this.saveAttack(player);
         this.saveCostumes(player);

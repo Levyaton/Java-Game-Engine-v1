@@ -10,10 +10,10 @@ package cz.com.LevyatonRPGEngine.LevyBuild.Objects.Character;
  * @author czech
  */
 import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Item;
-import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Object;
+import cz.com.LevyatonRPGEngine.LevyBuild.Objects.GameObject;
 import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Attack;
 
-public class Specie extends Object{
+public class Specie extends GameObject{
     
     protected int str;//Strength
     protected int speed;

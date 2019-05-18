@@ -1,2 +1,3 @@
-Apple@0
-Fish@0
+Jerky@1
+Apple@1
+Honey@1

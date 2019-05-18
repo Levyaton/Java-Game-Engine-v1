@@ -390,6 +390,8 @@ public class Equipment {
         
         for (Attack attack : allAttacks) 
         {
+            System.out.println("\n"+attack.getName());
+            System.out.println("\n"+attack.getAvailability());
             if(attack.getAvailability() == true)
             {
                 if(!availableAttacks.contains(attack))

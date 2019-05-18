@@ -19,13 +19,12 @@ import cz.com.LevyatonRPGEngine.LevyBuild.Methods.Randomness;
 
 public class Species {
     
-    Specie basicBear;
-    Specie basicHuman;
+   
     ArrayList<Specie> allSpecies = new ArrayList<Specie> ();
     
     Randomness rand = new Randomness();
     
-    public void basicBear()
+    public Specie getBasicBear()
     {
         int str = 80;
         int def = 20;
@@ -44,11 +43,36 @@ public class Species {
             attack.setLevel(10);
         }
         
-        basicBear = new Specie("Bear", str, speed, luck, def, hp, loot, attacksUsed, 5, focus);
+        Specie basicBear = new Specie("Bear", str, speed, luck, def, hp, loot, attacksUsed, 5, focus);
         allSpecies.add(basicBear);
+        return basicBear;
     }
     
-    public void basicHuman()
+    public Specie getAttackerBear()
+    {
+        int str = 120;
+        int def = 10;
+        int hp = 100;
+        Double luck = 0.5;
+        int speed =20;
+        String focus = "aggressive";
+        Attacks attacks = new Attacks(hp, def);
+        Items items = new Items(hp, def);
+        Item[] loot = new Item[]{items.getFish(), items.getBearMeat(), items.getBearBllod(), items.getBearBone(), items.getBearClaw(), items.getBearEye(), items.getBearSkin(), items.getBearTooth(), items.getGold(), items.getNeedle(), items.getThread()};
+        loot[8].incrementItemCOunt(rand.getRandomFromRange(20, 60));
+        Attack[] attacksUsed = new Attack[]{attacks.getEatUp(), attacks.getSlash(), attacks.getThickSkin(), attacks.getCharge(), attacks.getTailPeacocking()};
+        
+        for(Attack attack : attacksUsed)
+        {
+            attack.setLevel(20);
+        }
+        
+        Specie attackerBear = new Specie("Aggresive Bear", str, speed, luck, def, hp, loot, attacksUsed, 7, focus);
+        allSpecies.add(attackerBear);
+        return attackerBear;
+    }
+    
+    public Specie getBasicHuman()
     {
         String name = "Basic Human";
         int health  = 50;
@@ -66,14 +90,15 @@ public class Species {
             attack.setLevel(10);
         }
         
-        basicHuman = new Specie("Basic Human", str, speed, luck, def, health, loot, attacks,"random");
+        Specie basicHuman = new Specie("Basic Human", str, speed, luck, def, health, loot, attacks,"random");
         allSpecies.add(basicHuman);
+        return basicHuman;
     }
     
     public Species()
     {
-        basicBear();
-        basicHuman();
+        getBasicBear();
+        getBasicHuman();
     }
     
     public int getAllSpeciesIndex(Item item)
@@ -90,18 +115,12 @@ public class Species {
         return index;
     }
     
-    public Specie getBasicBear()
-    {
-        return basicBear;
-    }
     
-    public Specie getBasicHuman()
-    {
-        return basicHuman;
-    }
     
     public ArrayList<Specie> getAllSpecies()
     {
         return allSpecies;
     }
+    
+    
 }
