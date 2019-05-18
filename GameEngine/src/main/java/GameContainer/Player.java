@@ -19,6 +19,7 @@ public class Player {
     private ReadInput readInput;
     private char facingDirection;
     private boolean facingEnemy;
+    private int numberOfEnemiesFaced = 0;
     
     
     public Player (String filename, int coordX, int coordY, GameContainer gc, ReadInput readInput, int canvasHeight, int windowWidth, int enemyColor, int obstacleColor) {
@@ -41,8 +42,14 @@ public class Player {
         this.updatePosition();
         this.checkFacedSquare();
         this.draw(filePath);
-        if (facingEnemy) {
-            
+        System.out.println("x:" + coordX + "y:" + coordY);
+        if (facingEnemy && readInput.isKeyReleased(KeyEvent.VK_SPACE)) {
+            System.out.println("FIGHT");
+            for (int i = 0; i < gc.getObjManager().getBcount(); i++) {
+                if (gc.getObjManager().getClassB()[i].getCoordX() == coordX - (coordX%50) + 50 || gc.getObjManager().getClassB()[i].getCoordY() == coordY - (coordY%50) + 50) {
+                    gc.getObjManager().getClassB()[i].remove();
+                }
+            }
             //starts fight
         }
     }
@@ -122,7 +129,7 @@ public class Player {
         if (facingDirection == 'W') {
             if (pixels[(coordY - 1) * WINDOW_WIDTH + coordX] == ENEMY_COLOR || pixels[(coordY - 1) * WINDOW_WIDTH + coordX + 49] == ENEMY_COLOR) {
                 facingEnemy = true;
-                System.out.println("facing enemy W");
+                //System.out.println("facing enemy W");
             } else {
                 facingEnemy = false;
             }
@@ -130,7 +137,7 @@ public class Player {
         if (facingDirection == 'S') {
             if (pixels[(coordY + 50/**/) * WINDOW_WIDTH + coordX] == ENEMY_COLOR || pixels[(coordY + 50/**/) * WINDOW_WIDTH + coordX + 49] == ENEMY_COLOR) {
                 facingEnemy = true;
-                System.out.println("facing enemy S");
+                //System.out.println("facing enemy S");
             } else {
                 facingEnemy = false;
             }
@@ -138,7 +145,7 @@ public class Player {
         if (facingDirection == 'A') {
             if (pixels[coordY * WINDOW_WIDTH + coordX - 1] == ENEMY_COLOR || pixels[(coordY + 49/**/) * WINDOW_WIDTH + coordX - 1] == ENEMY_COLOR) {
                 facingEnemy = true;
-                System.out.println("facing enemy A");
+                //System.out.println("facing enemy A");
             } else {
                 facingEnemy = false;
             }
@@ -146,7 +153,7 @@ public class Player {
         if (facingDirection == 'D') {
             if (pixels[coordY * WINDOW_WIDTH + coordX + 50/**/] == ENEMY_COLOR || pixels[(coordY + 49/**/) * WINDOW_WIDTH + coordX + 50/**/] == ENEMY_COLOR) {
                 facingEnemy = true;
-                System.out.println("facing enemy D");
+                //System.out.println("facing enemy D");
             } else {
                 facingEnemy = false;
             }

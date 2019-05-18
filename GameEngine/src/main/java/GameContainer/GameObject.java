@@ -24,14 +24,16 @@ public class GameObject {
     private final int OBSTACLE_COLOR;
     private final int CANVAS_HEIGHT;
     private final int CANVAS_WIDTH;
+    private int objectIdx;
     
-    public GameObject(String filename, int coordX, int coordY, GameContainer gc, int enemyColor, int obstacleColor, int canvasHeight, int canvasWidth, int blockSize) {
+    public GameObject(String filename, int coordX, int coordY, int objectIdx, GameContainer gc, int enemyColor, int obstacleColor, int canvasHeight, int canvasWidth, int blockSize) {
         ENEMY_COLOR = enemyColor;
         OBSTACLE_COLOR = obstacleColor;
         CANVAS_HEIGHT = canvasHeight;
         CANVAS_WIDTH = canvasWidth;
         BLOCK_SIZE = blockSize;
         
+        this.objectIdx = objectIdx;
         this.gc = gc;
         this.filename = filename;
         this.coordX = coordX;
@@ -41,6 +43,7 @@ public class GameObject {
     }
     
     public void remove() {
+        System.out.println("removed");
         pixels = DoubleCanvas.getPixels();
         visiblePixels = DoubleCanvas.getVisiblePixels();
         for (int i = 0; i < coordY + BLOCK_SIZE; i++) {
@@ -95,5 +98,17 @@ public class GameObject {
         
         gc.getGameFrame().setPixels(pixels);
         gc.getGameFrame().setVisiblePixels(visiblePixels);
+    }
+
+    public int getCoordX() {
+        return coordX;
+    }
+
+    public int getCoordY() {
+        return coordY;
+    }
+
+    public int getObjectIdx() {
+        return objectIdx;
     }
 }

@@ -12,10 +12,11 @@ public class ReadInput implements KeyListener {  //communicates with GC and Play
     
     public ReadInput(GameContainer gc) {
         this.gc = gc;
-        gc.getGameFrame().getFrontEndCanvas().addKeyListener(this);
+        gc.getGameFrame().getOverworldPanel().addKeyListener(this);
     }
      
     public void update() {
+        gc.getGameFrame().getOverworldPanel().grabFocus();
         for (int i = 0; i < KEYS_COUNT; i++) {
             keysLast[i] = keys[i];
         }
@@ -27,6 +28,10 @@ public class ReadInput implements KeyListener {  //communicates with GC and Play
     
     public boolean isKeyPressed(int keyId) {
         return keys[keyId] && !keysLast[keyId];
+    }
+    
+    public boolean isKeyReleased(int keyId) {
+        return keysLast[keyId] && !keys[keyId];
     }
     
     @Override

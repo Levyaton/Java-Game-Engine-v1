@@ -32,6 +32,8 @@ public class ObjectLoader {
         Scanner sc = new Scanner(file);
         int idx = 0;
         int idy = 0;
+        int classAcount = 0;
+        int classBcount = 0;
         while (sc.hasNext()) {
             String line = sc.nextLine();
             for (int i = 0; i < line.length(); i++) {
@@ -40,12 +42,14 @@ public class ObjectLoader {
                     //EMPTY FIELD
                 }
                 if (line.charAt(i) == 'A') {
-                    classA[i] = new GameObject("Obstacle.png", idx, idy, gc, ENEMY_COLOR, OBSTACLE_COLOR, CANVAS_HEIGHT, CANVAS_WIDTH, BLOCK_SIZE);
+                    classA[i] = new GameObject("Obstacle.png", idx, idy, classAcount, gc, ENEMY_COLOR, OBSTACLE_COLOR, CANVAS_HEIGHT, CANVAS_WIDTH, BLOCK_SIZE);
                     classA[i].draw("Obstacle.png");
+                    classAcount += 1;
                 }
                 if (line.charAt(i) == 'B') {
-                    classB[i] = new GameObject("jednorozec.png", idx, idy, gc, ENEMY_COLOR, OBSTACLE_COLOR, CANVAS_HEIGHT, CANVAS_WIDTH, BLOCK_SIZE);
+                    classB[i] = new GameObject("jednorozec.png", idx, idy, classBcount, gc, ENEMY_COLOR, OBSTACLE_COLOR, CANVAS_HEIGHT, CANVAS_WIDTH, BLOCK_SIZE);
                     classB[i].draw("jednorozec.png");
+                    classBcount += 1;
                 }
                 idx += BLOCK_SIZE;
             }
@@ -74,6 +78,26 @@ public class ObjectLoader {
         else {
             return false;
         }
+    }
+
+    public int getBLOCK_SIZE() {
+        return BLOCK_SIZE;
+    }
+
+    public int getAcount() {
+        return Acount;
+    }
+
+    public int getBcount() {
+        return Bcount;
+    }
+
+    public GameObject[] getClassA() {
+        return classA;
+    }
+
+    public GameObject[] getClassB() {
+        return classB;
     }
     
     public void addObject(GameObject go, char type) {

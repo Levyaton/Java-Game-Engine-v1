@@ -4,6 +4,7 @@ import java.awt.event.KeyEvent;
 import java.io.FileNotFoundException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.SwingUtilities;
 
 
 public class GameContainer implements Runnable {
@@ -18,6 +19,7 @@ public class GameContainer implements Runnable {
         private final int CANVAS_HEIGHT = 900;
         private final int WINDOW_HEIGHT = 900;
         private final int WINDOW_WIDTH = 1600;
+
         
         private boolean renderNow = false;
 	private boolean running = false;
@@ -38,6 +40,15 @@ public class GameContainer implements Runnable {
 
 	public void start() {
             thread = new Thread(this);
+            /*
+            SwingUtilities.invokeLater(new Runnable() {
+
+                @Override
+                public void run() {
+                    gameFrame = new DoubleCanvas(this, WINDOW_WIDTH, WINDOW_HEIGHT, CANVAS_HEIGHT);
+                }
+            });
+            */
             gameFrame = new DoubleCanvas(this, WINDOW_WIDTH, WINDOW_HEIGHT, CANVAS_HEIGHT);
             readInput = new ReadInput(this);
             player = new Player("Player", 150, 150, this, readInput, CANVAS_HEIGHT, WINDOW_WIDTH, ENEMY_COLOR, OBSTACLE_COLOR);
@@ -87,8 +98,8 @@ public class GameContainer implements Runnable {
                     }
                     renderNow = true;
                     
-                    readInput.update();
                     player.update();
+                    readInput.update();
                 }
                 
                 if (renderNow) {
@@ -115,6 +126,22 @@ public class GameContainer implements Runnable {
         return gameFrame;
     }
 
+    public int getCANVAS_HEIGHT() {
+        return CANVAS_HEIGHT;
+    }
+
+    public int getWINDOW_HEIGHT() {
+        return WINDOW_HEIGHT;
+    }
+
+    public int getWINDOW_WIDTH() {
+        return WINDOW_WIDTH;
+    }
+
+    public ObjectLoader getObjManager() {
+        return objManager;
+    }
+    
     public static void main(String[] args) {
         GameContainer gc = new GameContainer();
         gc.start();
