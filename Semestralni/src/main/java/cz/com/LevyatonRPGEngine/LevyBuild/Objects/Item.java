@@ -11,11 +11,14 @@ package cz.com.LevyatonRPGEngine.LevyBuild.Objects;
  */
 
 
-public class Item extends Object{
+public class Item extends GameObject{
     
     protected Double dropRate;
     protected String description;
     protected int value;
+    protected int itemCount = 0;
+    protected int gain = 0;
+    protected boolean countable = true;
     
     public Item(String giveName, String giveStatus, String giveSpriteLocation, Double giveDropRate, String giveDescription, int giveValue) {
         super(giveName, giveStatus, giveSpriteLocation);
@@ -24,6 +27,27 @@ public class Item extends Object{
         value = giveValue;
     }
     
+     public Item(String giveName, String giveStatus, String giveSpriteLocation, Double giveDropRate, String giveDescription, int giveValue, int giveHealthGain) {
+        super(giveName, giveStatus, giveSpriteLocation);
+        dropRate = giveDropRate;
+        description = giveDescription;
+        value = giveValue;
+        gain = giveHealthGain;
+    }
+    
+    public void setValue(int giveValue)
+    {
+        value = giveValue;
+    }
+     
+    public boolean isCountable() 
+    {
+        return countable;
+    }
+    public void countable(boolean giveTrueOrFalse)
+    {
+        countable = giveTrueOrFalse;
+    } 
     public Double getDropRate()
     {
         return dropRate;
@@ -37,5 +61,29 @@ public class Item extends Object{
     public int getValue()
     {
         return value;
+    }
+    
+    public int getItemCount()
+    {
+        return itemCount;
+    }
+    
+    public void addItem()
+    {
+        itemCount++;
+    }
+    public void incrementItemCOunt(int x)
+    {
+        itemCount += x;
+    }
+    
+    public Item getThis()
+    {
+        return this;
+    }
+    
+    public int getGain()
+    {
+        return gain;
     }
 }

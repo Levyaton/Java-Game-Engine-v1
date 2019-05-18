@@ -9,8 +9,8 @@ package cz.com.LevyatonRPGEngine.LevyBuild.Objects.Character;
  *
  * @author czech
  */
-import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Object;
-public class Character extends Object{
+import cz.com.LevyatonRPGEngine.LevyBuild.Objects.GameObject;
+public class Character extends GameObject{
     
     protected Specie species;
     
