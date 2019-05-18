@@ -19,6 +19,10 @@ import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Items.Bodypart;
 import cz.com.LevyatonRPGEngine.LevyBuild.Objects.World;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.SwingUtilities;
 
 /**
@@ -45,6 +49,10 @@ public class GameTest {
     }
     
 
+    public static void run() throws InterruptedException
+    {
+        b.run();
+    }
     
     public static void PlayerAttack(Attack attack) throws InterruptedException
     {
@@ -93,7 +101,15 @@ public class GameTest {
             @Override
             public void run() {
                m = new MainFrame();
-               m.setMainFrame();
+                try {
+                    m.setMainFrame();
+                } catch (IOException ex) {
+                    Logger.getLogger(GameTest.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (LineUnavailableException ex) {
+                    Logger.getLogger(GameTest.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (UnsupportedAudioFileException ex) {
+                    Logger.getLogger(GameTest.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
 

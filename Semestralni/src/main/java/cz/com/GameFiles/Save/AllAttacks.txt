@@ -1,7 +1,7 @@
-NullAttack@220000
-Do nothing@312000
+NullAttack@364000
+Do nothing@480000
 Eat Up!@13125
-One Punch@270000
+One Punch@429000
 Slash@20000
 Tail Peacocking@0
 Thick Skin@20625

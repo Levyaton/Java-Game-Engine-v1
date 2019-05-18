@@ -17,7 +17,10 @@ import java.awt.CardLayout;
 import java.awt.Color;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.util.ArrayList;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -38,7 +41,9 @@ public class MainFrame extends JFrame{
     private static ArrayList<Item> items;
     private static NameInputPanel nip;
     private static BattlePanel bp;
-    public void setMainFrame() throws IOException
+   
+    
+    public void setMainFrame() throws IOException, MalformedURLException, LineUnavailableException, UnsupportedAudioFileException
     {
         cards = new JPanel(new CardLayout());
 
@@ -47,6 +52,7 @@ public class MainFrame extends JFrame{
         setSize(1199, 1000);
         nip = new NameInputPanel(mod);
         bp = new BattlePanel();
+        
         cards.add(new WelcomePanel(mod), "welcome");
         cards.add(nip,"enter name");
         cards.add(bp, "battle");
@@ -140,6 +146,7 @@ public class MainFrame extends JFrame{
             }
             bp.setSelectedButtons(buttons);
             bp.setSelectedLabel("Bag");
+            
         }
         else if(isAttack(button.getName()))
         {   
@@ -162,7 +169,10 @@ public class MainFrame extends JFrame{
                 }
             }
         }
-        
+        else if(button.getName().equals("Run"))
+        {
+            GameTest.run();
+        }
         
     }
     

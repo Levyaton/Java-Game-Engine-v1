@@ -36,6 +36,7 @@ import javax.swing.SwingUtilities;
  */
 public class BattlePanel extends javax.swing.JPanel implements ActionListener{
 
+     Font mainFont;
     /**
      * Creates new form BattlePanel2
      */
@@ -45,7 +46,7 @@ public class BattlePanel extends javax.swing.JPanel implements ActionListener{
        // music();
     }
 
-    Font mainFont;
+   
     public void custom()
     {
         JPanel panel = new JPanel();
@@ -63,6 +64,7 @@ public class BattlePanel extends javax.swing.JPanel implements ActionListener{
         
         Attack.addActionListener(this);
         Bag.addActionListener(this);
+        Run.addActionListener(this);
         mainFont = battleText.getFont();
         this.setVisible(true);
     }
@@ -71,7 +73,8 @@ public class BattlePanel extends javax.swing.JPanel implements ActionListener{
     {
         this.selectedName.setText(name);
         this.selectedName.setFont(mainFont);
-        
+        revalidate();
+        repaint();
     }
     
     
