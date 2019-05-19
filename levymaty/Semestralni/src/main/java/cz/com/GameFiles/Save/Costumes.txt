@@ -1,0 +1,3 @@
+Bear Torso@1
+Bear Head@1
+Bear Front Leg@1
