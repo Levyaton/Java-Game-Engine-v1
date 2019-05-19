@@ -56,10 +56,7 @@ public class World {
     
     public void setClerks(ArrayList<Clerk> getClerks)
     {
-        for(int x = 0; x<getClerks.size();x++)
-        {
-            clerks.getAllClerks().get(x).setClerk(getClerks.get(x));
-        }
+        clerks.setFirstClerk(getClerks.get(0).getName());
         shops = new Shops(clerks);
     }
 }

@@ -43,11 +43,10 @@ public class Save {
         FileWriter fw = new FileWriter(file);
         bw = new BufferedWriter(fw);
 
-        for(Clerk clerk : clerks.getAllClerks())
-        {
-            String content = (clerk.getName() + '@' + clerk.getGender()+"\n");
-            bw.write(content);
-        }
+        
+        String content = (clerks.getFirstClerk().getName() + "\n");
+        bw.write(content);
+        
         bw.close();
     }
     

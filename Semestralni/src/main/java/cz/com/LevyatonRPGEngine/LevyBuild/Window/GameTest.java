@@ -10,8 +10,10 @@ import cz.com.GameFiles.LevyBuild.customClasses.Bodyparts;
 import cz.com.GameFiles.LevyBuild.customClasses.Items;
 import cz.com.GameFiles.LevyBuild.customClasses.Species;
 import cz.com.LevyatonRPGEngine.LevyBuild.Mechanics.Battle;
+import cz.com.LevyatonRPGEngine.LevyBuild.Mechanics.Shop;
 import cz.com.LevyatonRPGEngine.LevyBuild.Methods.Save;
 import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Attack;
+import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Character.Clerk;
 import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Character.Player.Player;
 import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Character.Specie;
 import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Item;
@@ -31,6 +33,8 @@ import javax.swing.SwingUtilities;
  */
 public class GameTest {
    
+    private static Shop shopping;
+    private static Clerk firstClerk;
     private static Battle b;
     private static World world;
     private static Player player;
@@ -38,12 +42,22 @@ public class GameTest {
     private static Specie bear;
     private static Species s;
     private static MainFrame m;
+    
+    
+    public static void writeShop(String text) throws InterruptedException
+    {
+        MainFrame.writeShopText(text);
+    }
+    
+    
+    
+    
     public static void setWorld(World getWorld) throws IOException
     {
     
         world = getWorld;
         player = world.getPlayer();
-        
+        firstClerk = world.getClerks().getFirstClerk();
         world.setPlayer(player);
         new Save().saveGame(world);
     }
@@ -59,6 +73,10 @@ public class GameTest {
         b.pPreformAttack(attack);
     }
     
+    public static Shop shop()
+    {
+        return new Shop(firstClerk);
+    }
     
     public static void battle() throws InterruptedException
     {
@@ -68,6 +86,13 @@ public class GameTest {
         b.doBattle();
         
     }
+    
+    
+    public static void shopping() throws InterruptedException
+    {
+        writeShop(firstClerk.getName() + " looks at you with stern eyes\n\n" + firstClerk.getName() + ":   What can I interest you in, traveller?");
+    }
+    
     
     public static void useItem(Item i) throws InterruptedException
     {
