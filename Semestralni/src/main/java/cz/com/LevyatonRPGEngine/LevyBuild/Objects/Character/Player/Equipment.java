@@ -182,7 +182,7 @@ public class Equipment {
     
     //Attacks
     
-    public void levelAttack(Attack attack, int exp)
+    public void levelAttack(Attack attack, int exp) throws InterruptedException
     {
         allAttacks.get(attacks.getAttackIndex(attack)).gainExp(exp);
     }

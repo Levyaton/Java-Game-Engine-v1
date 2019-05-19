@@ -49,7 +49,7 @@ public class Battle{
     private int eSpeed;
     private Double eLuck;
     private String eStrat;
-    
+    private boolean terminated = false;
    
     
     private int turnNumber = 1;
@@ -119,12 +119,14 @@ public class Battle{
         if(pHealth<1)
         {
             write("RIP, you got killed by a " + enemy.getName() + ". Try bragging about that to your friends! See what happens ;-)\n");
+            terminated = true;
             return true;
         }
         else if(eHealth<1)
-        {
+        {  
             write("Yay, you have slain the " + enemy.getName()+ "!\n");
             getLoot();
+            terminated = true;
             return true;
         }
         
@@ -528,7 +530,7 @@ public class Battle{
     }
     public void pPreformAttack(Attack attack) throws InterruptedException
     {
-        if(!battleEnded())
+        if(terminated==false)
         {
            
             if(attack.getTurnLength()<2)
@@ -580,7 +582,9 @@ public class Battle{
     
     public void run() throws InterruptedException
     {
-        Double chance;
+        if(terminated == false)
+        {
+            Double chance;
         if(pSpeed>(3/2)*eSpeed)
         {
             chance = 0.9;
@@ -592,12 +596,16 @@ public class Battle{
         if(rand.success(chance))
         {
             write("You successfully escabed the " + enemy.getName() + "!\n");
-            this.playerRan = true;
+            terminated = true;
         }
         else
         {
             write("In a valiant effort to escape the " + enemy.getName()+ ", you have been caught off guard by you persuer! You couldn't escape.\n");
+            this.turnNumber++;
+            enemyTurn();
         }
+        }
+        
     }
     
     public ArrayList<Item> getHealing()
@@ -639,7 +647,7 @@ public class Battle{
     
     public void playerTurn() throws InterruptedException
     {
-        if(!battleEnded())
+        if(terminated = false)
         {
             write(player.getName()+ "'s turn!\n");
 
@@ -973,38 +981,45 @@ public class Battle{
     
     public void enemyTurn() throws InterruptedException
     {
-        write(enemy.getName()+ "'s turn!\n");
-        if(enemyCanMove)
+        if(terminated==false)
         {
-           Attack chosenAttack = this.enemyChoosenAttack();
-           write("The " + enemy.getName()+ " used "+ chosenAttack.getName()+ "\n");
-           ePreformAttack(chosenAttack);
-           player.levelAttack(chosenAttack, chosenAttack.getExpTotal()/100 + 2*enemy.getStr() + 2*enemy.getDef() + 2*enemy.getSpeed() + 2*enemy.getHP());
-        }
-        else
-        {   
-            enemyBlockedCounter--;
-            if(enemyBlockedCounter == 0 && selfImposedEnemyBlock == true)
+            write(enemy.getName()+ "'s turn!\n");
+            if(enemyCanMove)
             {
-                //write("I got here");
-                //write( attackResponsableForPlayerBlock.getBlockedText()[2]);
-               write("The " + enemy.getName() + attackResponsableForEnemyBlock.getBlockedText()[2]+ "\n");
-               eDealDamage(attackResponsableForEnemyBlock);
-               eApplyAttackEffects(attackResponsableForEnemyBlock);
-               enemyCanMove = true;
-               player.levelAttack(attackResponsableForEnemyBlock,attackResponsableForEnemyBlock.getExpTotal()/100 + 2*enemy.getStr() + 2*enemy.getDef() + 2*enemy.getSpeed() + 2*enemy.getHP());
-            }
-            else if (enemyBlockedCounter == 0 && selfImposedEnemyBlock == false)
-            {
-                //write("playerBlockedCounter == 0 && selfImposedPlayerBlock == false");
-                //write(attackResponsableForEnemyBlock.getName());
-                //write("Here");
-                enemyCanMove=true;
-                write("The " + enemy.getName() + attackResponsableForEnemyBlock.getBlockedText()[3]+ "\n");
+               Attack chosenAttack = this.enemyChoosenAttack();
+               write("The " + enemy.getName()+ " used "+ chosenAttack.getName()+ "\n");
+               ePreformAttack(chosenAttack);
+               player.levelAttack(chosenAttack, chosenAttack.getExpTotal()/100 + 2*enemy.getStr() + 2*enemy.getDef() + 2*enemy.getSpeed() + 2*enemy.getHP());
             }
             else
-            {
-               write("The " + enemy.getName() + attackResponsableForEnemyBlock.getBlockedText()[1]+ "\n");
+            {   
+                enemyBlockedCounter--;
+                if(enemyBlockedCounter == 0 && selfImposedEnemyBlock == true)
+                {
+                    //write("I got here");
+                    //write( attackResponsableForPlayerBlock.getBlockedText()[2]);
+                   write("The " + enemy.getName() + attackResponsableForEnemyBlock.getBlockedText()[2]+ "\n");
+                   eDealDamage(attackResponsableForEnemyBlock);
+                   eApplyAttackEffects(attackResponsableForEnemyBlock);
+                   enemyCanMove = true;
+                   player.levelAttack(attackResponsableForEnemyBlock,attackResponsableForEnemyBlock.getExpTotal()/100 + 2*enemy.getStr() + 2*enemy.getDef() + 2*enemy.getSpeed() + 2*enemy.getHP());
+                }
+                else if (enemyBlockedCounter == 0 && selfImposedEnemyBlock == false)
+                {
+                    //write("playerBlockedCounter == 0 && selfImposedPlayerBlock == false");
+                    //write(attackResponsableForEnemyBlock.getName());
+                    //write("Here");
+                    enemyCanMove=true;
+                    write("The " + enemy.getName() + attackResponsableForEnemyBlock.getBlockedText()[3]+ "\n");
+                }
+                else
+                {
+                   write("The " + enemy.getName() + attackResponsableForEnemyBlock.getBlockedText()[1]+ "\n");
+                }
+                if(battleEnded()==false)
+                {
+                    playerTurn();
+                }
             }
         }
         

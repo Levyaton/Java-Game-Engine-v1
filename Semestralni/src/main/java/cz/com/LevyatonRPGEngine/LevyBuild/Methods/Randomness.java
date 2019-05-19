@@ -14,6 +14,7 @@ import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Item;
 import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Attack;
+import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Character.Clerk;
 
 public class Randomness {
     
@@ -91,6 +92,12 @@ public class Randomness {
     }
     
      public int getRandomObjectFromSelection(String[] obj)
+    {
+        int chosen = numberFromSequence(obj.length);
+        return chosen;
+    }
+     
+     public int getRandomObjectFromSelection(Clerk[] obj)
     {
         int chosen = numberFromSequence(obj.length);
         return chosen;

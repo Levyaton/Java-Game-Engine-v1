@@ -16,14 +16,15 @@ import java.util.ArrayList;
  */
 public class Clerk extends NPC{
     
-    
+    protected String trait;
     protected String gender;
     protected ArrayList<Item> inventory = new ArrayList<Item>();
     
-    public Clerk(String givenName, int giveStr, int giveSpeed, Double giveLuck, int giveDef, int giveHP, Item[] giveLoot, Attack[] giveAttacks, String giveFocus, String[] giveDialogue, String giveGender) {
+    public Clerk(String givenName, int giveStr, int giveSpeed, Double giveLuck, int giveDef, int giveHP, Item[] giveLoot, Attack[] giveAttacks, String giveFocus, String[] giveDialogue, String giveGender, String giveTrait) {
         super(givenName, giveStr, giveSpeed, giveLuck, giveDef, giveHP, giveLoot, giveAttacks, giveFocus, giveDialogue);
         setInventory();
         gender = giveGender;
+        trait = giveTrait;
     }
     
     
@@ -51,6 +52,11 @@ public class Clerk extends NPC{
             item.setValue(price);
             inventory.add(item);
         }
+    }
+    
+    public String getTrait()
+    {
+        return trait;
     }
     
     public String getGender()
