@@ -12,7 +12,7 @@ import cz.com.GameFiles.LevyBuild.customClasses.Items;
 import cz.com.LevyatonRPGEngine.LevyBuild.Mechanics.Battle;
 import cz.com.LevyatonRPGEngine.LevyBuild.Mechanics.Shop;
 import cz.com.LevyatonRPGEngine.LevyBuild.Methods.CustomOutputStream;
-import cz.com.LevyatonRPGEngine.LevyBuild.Methods.Load;
+import cz.com.LevyatonRPGEngine.LevyBuild.Methods.*;
 import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Attack;
 import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Character.Clerk;
 import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Character.Player.Player;
@@ -54,16 +54,29 @@ public class MainFrame extends JFrame{
     private   DoubleCanvas overworld;
     private GameContainer gc;
     private Battle b;
+    private Save s;
     
+    /**
+     *
+     * @param gc
+     * @param windowWidth
+     * @param windowHeight
+     * @param canvasHeight
+     * @throws IOException
+     * @throws MalformedURLException
+     * @throws LineUnavailableException
+     * @throws UnsupportedAudioFileException
+     */
     public MainFrame(GameContainer gc, int windowWidth, int windowHeight, int canvasHeight) throws IOException, MalformedURLException, LineUnavailableException, UnsupportedAudioFileException
     {
+        s = new Save();
         this.gc = gc;
         cards = new JPanel(new CardLayout());
         String[] panelNames = {"welcome","enter name"};
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(1600, 900);
         nip = new NameInputPanel(mod,this);
-        bp = new BattlePanel(this);
+        bp = new BattlePanel();
         shop = new ShopGUi(this);
         overworld = new DoubleCanvas(gc,windowWidth,windowHeight,canvasHeight);
         cards.add(new WelcomePanel(mod,this), "welcome");
@@ -79,21 +92,35 @@ public class MainFrame extends JFrame{
         this.setVisible(true);
     }
     
-    
+    /**
+     *
+     * @param card
+     */
     public void showCard(String card)
     {
         cl.show(cards, card);
-        this.revalidate();
+//        this.revalidate();
         this.repaint();
         
     }
     
-    
+    /**
+     *
+     * @return
+     */
     public ShopGUi getShop()
     {
         return shop;
     }
     
+    /**
+     *
+     * @param button
+     * @throws IOException
+     * @throws InterruptedException
+     * @throws LineUnavailableException
+     * @throws UnsupportedAudioFileException
+     */
     public  void buttonListener(JButton button) throws IOException, InterruptedException, LineUnavailableException, UnsupportedAudioFileException
     {
         //System.out.println(button.getName());
@@ -120,7 +147,7 @@ public class MainFrame extends JFrame{
            player.addItemToInv(new Items(0,0).getJerky());
            player.addItemToInv(new Items(0,0).getApple());         
            player.addItemToInv(new Items(0,0).getHoney());
-          
+           player.setWealth(100000);
        
            for(Attack a : player.getEquipment().getAllAttacks())
            {
@@ -135,76 +162,14 @@ public class MainFrame extends JFrame{
            }  
                    
             w = new World(player);
+            s.saveGame(w);
             gc.setWorld(w);
             JButton b = new JButton();
             
             showCard("overworld");
            
         }
-        else if(button.getName().equals("Attack"))
-        {
-           
-            attacks = gc.getWorld().getPlayer().getAvailableAttacks();
-            ArrayList<JButton> buttons = new ArrayList<JButton>();
-            for(Attack a : attacks)
-            {
-                
-                JButton b = new JButton();
-                b.setName(a.getName());
-                buttons.add(b);
-                
-            }
-            bp.setSelectedButtons(buttons);
-            bp.setSelectedLabel("Attacks");
-        }
-        else if(button.getName().equals("Bag"))
-        {
-            
-            items = gc.getWorld().getPlayer().getInv().getInventory();
-            ArrayList<JButton> buttons = new ArrayList<JButton>();
-            for(Item a : items)
-            {
-                
-                JButton b = new JButton();
-                b.setName(a.getName());
-                //b.setName(a.getName() + " x " + a.getItemCount());
-                buttons.add(b);
-                
-            }
-            bp.setSelectedButtons(buttons);
-            bp.setSelectedLabel("Bag");
-            
-        }
-        else if(isAttack(button.getName()))
-        {   
-            for(Attack a : attacks)
-            {
-                if(a.getName().equals(button.getName()))
-                {
-                    b.pPreformAttack(a);
-                }
-            }    
-        }
-        else if(isItem(button.getName()))
-        {   
-           
-            for(int i = 0; i<items.size();i++)
-            {
-               if(items.get(i).getName().equals(button.getName()))
-                {
-                    b.useAnItem(items.get(i));
-                   // if(items.get(i).getItemCount()<1)
-                    {
-                       // bp.updateSelectedPane(items.get(i).getName());
-                       
-                    }
-                }
-            }
-        }
-        else if(button.getName().equals("Run"))
-        {
-            b.run();
-        }
+       
         else if(button.getName().equals("Buy"))
         {  
            
@@ -221,9 +186,18 @@ public class MainFrame extends JFrame{
             shop.setSelectedButtons(buttons);
             shop.setSelectedLabel("Buy");
             
-            
         }
-        
+    }  
+    
+   // private boolean isShopItem(String itemName)
+    {
+       // for(Item a : gc.getWorld().getClerks().getFirstClerk().getInventory())
+        {
+            //if(a.getName().equals(itemName))
+            {
+                
+            }
+        }
     }
     
     private   boolean isAttack(String attack)
@@ -257,33 +231,57 @@ public class MainFrame extends JFrame{
         return false;
     }
     
-    
-    public   void shop() throws InterruptedException
+    /**
+     *
+     * @throws InterruptedException
+     */
+    public void shop() throws InterruptedException
     {
         PrintStream printStream = new PrintStream(new CustomOutputStream(shop.getShopTextArea())); 
         System.setOut(printStream);
         System.setErr(printStream);
+       
         Clerk clerk = gc.getWorld().getClerks().getFirstClerk();
+        shop.setShop(clerk,gc.getWorld().getPlayer());
         showCard("shop");
         System.out.println("Here, okoko");
-        shop.setPlayerWealthText(gc.getWorld().getPlayer().getName() + "'s gold:   " + gc.getWorld().getPlayer().getWealth()+"\n");
+        shop.setPlayerWealthText();
         shop.setText(clerk.getName() + " looks at you with " + clerk.getTrait() + " eyes\n\n" + clerk.getName() + ":   What can I interest you in, traveller?\n");
+        
     }
     
-    public  void startBattle(Specie enemy) throws InterruptedException, LineUnavailableException, UnsupportedAudioFileException, IOException
+    /**
+     *
+     * @param enemy
+     * @throws InterruptedException
+     * @throws LineUnavailableException
+     * @throws UnsupportedAudioFileException
+     * @throws IOException
+     */
+    public  void startBattle(Specie enemy ) throws InterruptedException, LineUnavailableException, UnsupportedAudioFileException, IOException
     {
         PrintStream printStream = new PrintStream(new CustomOutputStream(bp.getBattleText())); 
         System.setOut(printStream);
         System.setErr(printStream);
         b = new Battle(enemy,gc.getWorld().getPlayer(),this,gc);
-        System.out.println("What would you like to do?\n");
+       System.out.println("What would you like to do?\n");
+        bp.setBattle(b,gc.getWorld().getPlayer());
         b.doBattle();
         showCard("battle");//The card doesnt accually switch when starting a new game
         //System.out.println("Here");
         MusicController.battleMusic();
-       // cl.show(cards, "shop");
+        //shop();
+       //
+        //cl.show(cards, "shop");
     }
     
+    /**
+     *
+     * @return
+     * @throws IOException
+     * @throws FileNotFoundException
+     * @throws InterruptedException
+     */
     public   World loadWorld() throws IOException, FileNotFoundException, InterruptedException
     {
         Load l = new Load();
@@ -293,19 +291,30 @@ public class MainFrame extends JFrame{
         return w;
     }
     
+    /**
+     *
+     * @return
+     */
     public   DoubleCanvas getOverworld()
     {
         return overworld;
     }
     
-    
+    /**
+     *
+     * @param text
+     * @throws InterruptedException
+     */
     public void writeBattleText(String text) throws InterruptedException
     {
         bp.writeText(text);
     }
     
-    
-   
+    /**
+     *
+     * @param text
+     * @throws InterruptedException
+     */
     public   void writeShopText(String text) throws InterruptedException
     {
        

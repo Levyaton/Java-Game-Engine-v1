@@ -17,6 +17,10 @@ import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Item;
 import java.util.ArrayList;
 import cz.com.LevyatonRPGEngine.LevyBuild.Methods.Randomness;
 
+/**
+ *
+ * @author czech
+ */
 public class Species {
     
    
@@ -24,6 +28,10 @@ public class Species {
     
     Randomness rand = new Randomness();
     
+    /**
+     *
+     * @return
+     */
     public Specie getBasicBear()
     {
         int str = 80;
@@ -48,6 +56,10 @@ public class Species {
         return basicBear;
     }
     
+    /**
+     *
+     * @return
+     */
     public Specie getAttackerBear()
     {
         int str = 120;
@@ -72,6 +84,10 @@ public class Species {
         return attackerBear;
     }
     
+    /**
+     *
+     * @return
+     */
     public Specie getBasicHuman()
     {
         String name = "Basic Human";
@@ -95,12 +111,20 @@ public class Species {
         return basicHuman;
     }
     
+    /**
+     *
+     */
     public Species()
     {
         getBasicBear();
         getBasicHuman();
     }
     
+    /**
+     *
+     * @param item
+     * @return
+     */
     public int getAllSpeciesIndex(Item item)
     {
         int index = 0;
@@ -115,8 +139,10 @@ public class Species {
         return index;
     }
     
-    
-    
+    /**
+     *
+     * @return
+     */
     public ArrayList<Specie> getAllSpecies()
     {
         return allSpecies;

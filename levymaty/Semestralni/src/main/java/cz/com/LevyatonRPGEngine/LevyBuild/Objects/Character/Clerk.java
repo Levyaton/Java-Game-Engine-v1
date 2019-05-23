@@ -16,10 +16,36 @@ import java.util.ArrayList;
  */
 public class Clerk extends NPC{
     
+    /**
+     *
+     */
     protected String trait;
+
+    /**
+     *
+     */
     protected String gender;
+
+    /**
+     *
+     */
     protected ArrayList<Item> inventory = new ArrayList<Item>();
     
+    /**
+     *
+     * @param givenName
+     * @param giveStr
+     * @param giveSpeed
+     * @param giveLuck
+     * @param giveDef
+     * @param giveHP
+     * @param giveLoot
+     * @param giveAttacks
+     * @param giveFocus
+     * @param giveDialogue
+     * @param giveGender
+     * @param giveTrait
+     */
     public Clerk(String givenName, int giveStr, int giveSpeed, Double giveLuck, int giveDef, int giveHP, Item[] giveLoot, Attack[] giveAttacks, String giveFocus, String[] giveDialogue, String giveGender, String giveTrait) {
         super(givenName, "static","addSpriteLocationLater",giveStr, giveSpeed, giveLuck, giveDef, giveHP, giveLoot, giveAttacks, giveFocus, giveDialogue);
         setInventory();
@@ -27,7 +53,9 @@ public class Clerk extends NPC{
         trait = giveTrait;
     }
     
-    
+    /**
+     *
+     */
     public void setInventory()
     {
         for(Item item : loot)
@@ -36,6 +64,11 @@ public class Clerk extends NPC{
         }
     }
     
+    /**
+     *
+     * @param price
+     * @param item
+     */
     public void setItemPrice(int price, Item item)
     {
         boolean found = false;
@@ -54,21 +87,38 @@ public class Clerk extends NPC{
         }
     }
     
+    /**
+     *
+     * @return
+     */
     public String getTrait()
     {
         return trait;
     }
     
+    /**
+     *
+     * @return
+     */
     public String getGender()
     {
         return gender;
     }
     
+    /**
+     *
+     * @return
+     */
     public ArrayList<Item> getInventory()
     {
         return inventory;
     }
     
+    /**
+     *
+     * @param player
+     * @return
+     */
     public String seeInventory(Player player)
     {
         String inv = "";
@@ -94,12 +144,21 @@ public class Clerk extends NPC{
         return number;
     }
     
+    /**
+     *
+     * @param giveName
+     * @param giveGender
+     */
     public void setClerk(String giveName, String giveGender)
     {
         name = giveName;
         gender = giveGender;
     }
     
+    /**
+     *
+     * @param clerk
+     */
     public void setClerk(Clerk clerk)
     {
         name = clerk.getName();

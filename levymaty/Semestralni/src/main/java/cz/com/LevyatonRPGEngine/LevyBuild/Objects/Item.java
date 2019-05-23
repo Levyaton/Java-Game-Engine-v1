@@ -11,15 +11,47 @@ package cz.com.LevyatonRPGEngine.LevyBuild.Objects;
  */
 
 
-public class Item extends GameObject{
+public class Item extends basicGameObject{
     
+    /**
+     *
+     */
     protected Double dropRate;
+
+    /**
+     *
+     */
     protected String description;
+
+    /**
+     *
+     */
     protected int value;
+
+    /**
+     *
+     */
     protected int itemCount = 0;
+
+    /**
+     *
+     */
     protected int gain = 0;
+
+    /**
+     *
+     */
     protected boolean countable = true;
     
+    /**
+     *
+     * @param giveName
+     * @param giveStatus
+     * @param giveSpriteLocation
+     * @param giveDropRate
+     * @param giveDescription
+     * @param giveValue
+     */
     public Item(String giveName, String giveStatus, String giveSpriteLocation, Double giveDropRate, String giveDescription, int giveValue) {
         super(giveName, giveStatus, giveSpriteLocation);
         dropRate = giveDropRate;
@@ -27,7 +59,17 @@ public class Item extends GameObject{
         value = giveValue;
     }
     
-     public Item(String giveName, String giveStatus, String giveSpriteLocation, Double giveDropRate, String giveDescription, int giveValue, int giveHealthGain) {
+    /**
+     *
+     * @param giveName
+     * @param giveStatus
+     * @param giveSpriteLocation
+     * @param giveDropRate
+     * @param giveDescription
+     * @param giveValue
+     * @param giveHealthGain
+     */
+    public Item(String giveName, String giveStatus, String giveSpriteLocation, Double giveDropRate, String giveDescription, int giveValue, int giveHealthGain) {
         super(giveName, giveStatus, giveSpriteLocation);
         dropRate = giveDropRate;
         description = giveDescription;
@@ -35,53 +77,99 @@ public class Item extends GameObject{
         gain = giveHealthGain;
     }
     
+    /**
+     *
+     * @param giveValue
+     */
     public void setValue(int giveValue)
     {
         value = giveValue;
     }
      
+    /**
+     *
+     * @return
+     */
     public boolean isCountable() 
     {
         return countable;
     }
+
+    /**
+     *
+     * @param giveTrueOrFalse
+     */
     public void countable(boolean giveTrueOrFalse)
     {
         countable = giveTrueOrFalse;
     } 
+
+    /**
+     *
+     * @return
+     */
     public Double getDropRate()
     {
         return dropRate;
     }
     
+    /**
+     *
+     * @return
+     */
     public String getDescription()
     {
         return description;
     }
     
+    /**
+     *
+     * @return
+     */
     public int getValue()
     {
         return value;
     }
     
+    /**
+     *
+     * @return
+     */
     public int getItemCount()
     {
         return itemCount;
     }
     
+    /**
+     *
+     */
     public void addItem()
     {
         itemCount++;
     }
+
+    /**
+     *
+     * @param x
+     */
     public void incrementItemCOunt(int x)
     {
         itemCount += x;
     }
     
+    /**
+     *
+     * @return
+     */
     public Item getThis()
     {
         return this;
     }
     
+    /**
+     *
+     * @return
+     */
     public int getGain()
     {
         return gain;

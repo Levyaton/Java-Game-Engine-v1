@@ -9,16 +9,35 @@ package cz.com.LevyatonRPGEngine.LevyBuild.Objects.Character;
  *
  * @author czech
  */
-import cz.com.LevyatonRPGEngine.LevyBuild.Objects.GameObject;
-public class Character extends GameObject{
+import cz.com.LevyatonRPGEngine.LevyBuild.Objects.basicGameObject;
+
+/**
+ *
+ * @author czech
+ */
+public class Character extends basicGameObject{
     
+    /**
+     *
+     */
     protected Specie species;
     
+    /**
+     *
+     * @param givenName
+     * @param givenStatus
+     * @param givenSpriteLocation
+     * @param giveSpecies
+     */
     public Character(String givenName, String givenStatus, String givenSpriteLocation, Specie giveSpecies) {
         super(givenName, givenStatus, givenSpriteLocation);
         species = giveSpecies;
     }
     
+    /**
+     *
+     * @return
+     */
     public String getSpecies()
     {
         return species.getName();

@@ -29,6 +29,11 @@ public class WelcomePanel extends JPanel{
     Dimension buttonDim;
     MainFrame mf;
     
+    /**
+     *
+     * @param mod
+     * @param m
+     */
     public WelcomePanel(int mod, MainFrame m){
 
         this.mod = mod;

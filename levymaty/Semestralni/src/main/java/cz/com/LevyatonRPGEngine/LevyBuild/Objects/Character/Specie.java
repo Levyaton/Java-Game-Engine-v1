@@ -10,34 +10,116 @@ package cz.com.LevyatonRPGEngine.LevyBuild.Objects.Character;
  * @author czech
  */
 import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Item;
-import cz.com.LevyatonRPGEngine.LevyBuild.Objects.GameObject;
+import cz.com.LevyatonRPGEngine.LevyBuild.Objects.basicGameObject;
 import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Attack;
 
-public class Specie extends GameObject{
+/**
+ *
+ * @author czech
+ */
+public class Specie extends basicGameObject{
     
+    /**
+     *
+     */
     protected int str;//Strength
+
+    /**
+     *
+     */
     protected int speed;
+
+    /**
+     *
+     */
     protected Double luck;
+
+    /**
+     *
+     */
     protected int def;//Defense
+
+    /**
+     *
+     */
     protected int hp;//Health Points
+
+    /**
+     *
+     */
     protected Item[] loot; //What loot will be possible
+
+    /**
+     *
+     */
     protected Attack[] attacks;
+
+    /**
+     *
+     */
     protected int givenExp;
+
+    /**
+     *
+     */
     protected int levelAttacks = 1;
+
+    /**
+     *
+     */
     protected String focus;
     
+    /**
+     *
+     * @param givenName
+     * @param status
+     * @param spriteLocation
+     * @param giveStr
+     * @param giveSpeed
+     * @param giveLuck
+     * @param giveDef
+     * @param giveHP
+     * @param giveLoot
+     * @param giveAttacks
+     * @param giveFocus
+     */
     public Specie(String givenName,String status,String  spriteLocation,int giveStr, int giveSpeed, Double giveLuck, int giveDef, int giveHP, Item[] giveLoot, Attack[] giveAttacks, String giveFocus) {
         super(givenName,status, spriteLocation);
         properties(giveStr,giveSpeed,giveLuck,giveDef,giveHP,giveLoot,giveAttacks, giveFocus);
     
     }
     
-    
+    /**
+     *
+     * @param givenName
+     * @param status
+     * @param spriteLocation
+     * @param giveStr
+     * @param giveSpeed
+     * @param giveLuck
+     * @param giveDef
+     * @param giveHP
+     * @param giveLoot
+     * @param giveAttacks
+     * @param giveAttackLevel
+     * @param giveFocus
+     */
     public Specie(String givenName, String status,String  spriteLocation,int giveStr, int giveSpeed, Double giveLuck, int giveDef, int giveHP, Item[] giveLoot, Attack[] giveAttacks, int giveAttackLevel, String giveFocus) {
         super(givenName,status, spriteLocation);
         properties(giveStr,giveSpeed,giveLuck,giveDef,giveHP,giveLoot,giveAttacks,giveAttackLevel, giveFocus);
     }
     
+    /**
+     *
+     * @param giveStr
+     * @param giveSpeed
+     * @param giveLuck
+     * @param giveDef
+     * @param giveHP
+     * @param giveLoot
+     * @param giveAttacks
+     * @param giveFocus
+     */
     protected void properties(int giveStr, int giveSpeed, Double giveLuck, int giveDef, int giveHP, Item[] giveLoot, Attack[] giveAttacks, String giveFocus)
     {
         str = giveStr;
@@ -51,6 +133,18 @@ public class Specie extends GameObject{
         focus = giveFocus;
     }
     
+    /**
+     *
+     * @param giveStr
+     * @param giveSpeed
+     * @param giveLuck
+     * @param giveDef
+     * @param giveHP
+     * @param giveLoot
+     * @param giveAttacks
+     * @param giveAttackLevel
+     * @param giveFocus
+     */
     protected void properties(int giveStr, int giveSpeed, Double giveLuck, int giveDef, int giveHP, Item[] giveLoot, Attack[] giveAttacks,  int giveAttackLevel,String giveFocus)
     {
         str = giveStr;
@@ -66,6 +160,10 @@ public class Specie extends GameObject{
         focus = giveFocus;
     }
     
+    /**
+     *
+     * @return
+     */
     public String getFocus()
     {
         return focus;
@@ -79,42 +177,74 @@ public class Specie extends GameObject{
         }
     }
     
+    /**
+     *
+     * @return
+     */
     public int getStr()
     {
         return str;
     }
     
+    /**
+     *
+     * @return
+     */
     public int getSpeed()
     {
         return speed;
     }
     
+    /**
+     *
+     * @return
+     */
     public Double getLuck()
     {
         return luck;
     }
     
+    /**
+     *
+     * @return
+     */
     public int getDef()
     {
         
         return def;
     }
     
+    /**
+     *
+     * @return
+     */
     public int getHP()
     {
         return hp;
     }
     
+    /**
+     *
+     * @return
+     */
     public int getExp()
     {
         return givenExp;
     }
     
+    /**
+     *
+     * @return
+     */
     public Item[] getLoot()
     {
         return loot;
     }
     
+    /**
+     *
+     * @return
+     */
     public String getStringLoot()
     {
         String lootStats = null;
@@ -127,11 +257,20 @@ public class Specie extends GameObject{
         return lootStats;
     }
     
+    /**
+     *
+     * @return
+     */
     public Attack[] getAttacks()
     {
         return attacks;
     }
     
+    /**
+     *
+     * @param chosenAttack
+     * @param giveLevel
+     */
     public void setLevelOfAttack(Attack chosenAttack, int giveLevel)
     {
         int x = 0;

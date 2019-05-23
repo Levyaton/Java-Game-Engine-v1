@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package cz.com.Testing;
+package cz.com.LevyatonRPGEngine.LevyBuild.Window;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -13,10 +13,19 @@ import java.io.PrintStream;
 import javax.swing.JTextArea;
 import javax.swing.SwingUtilities;
 
+/**
+ *
+ * @author czech
+ */
 public class JTextAreaOutputStream extends OutputStream
 {
     private final JTextArea destination;
     private JTextArea ta;
+
+    /**
+     *
+     * @param destination
+     */
     public JTextAreaOutputStream (JTextArea destination)
     {
         if (destination == null)
@@ -45,6 +54,12 @@ public class JTextAreaOutputStream extends OutputStream
         write (new byte [] {(byte)b}, 0, 1);
     }
 
+    /**
+     *
+     * @param mod
+     * @return
+     * @throws Exception
+     */
     public JTextArea main(int mod) throws Exception
     {
         setTextArea(mod);
@@ -53,6 +68,10 @@ public class JTextAreaOutputStream extends OutputStream
         return ta;
     }
     
+    /**
+     *
+     * @param mod
+     */
     public void setTextArea(int mod)
     {
         

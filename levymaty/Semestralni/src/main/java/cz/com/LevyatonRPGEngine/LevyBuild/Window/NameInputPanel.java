@@ -26,6 +26,11 @@ public class NameInputPanel extends JPanel{
     private TextFields tf;
     private JTextField t;
     
+    /**
+     *
+     * @param mod
+     * @param m
+     */
     public NameInputPanel(int mod,MainFrame m) {
         this.mod = mod;
         setLayout(new BorderLayout());     
@@ -45,6 +50,10 @@ public class NameInputPanel extends JPanel{
         setVisible(true);
     }
     
+    /**
+     *
+     * @return
+     */
     public String getText()
     {
         String pn = t.getText().substring(26);

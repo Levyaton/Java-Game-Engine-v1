@@ -15,7 +15,10 @@ import cz.com.GameFiles.LevyBuild.customClasses.Attacks;
 import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Items.Bodypart;
 import java.util.ArrayList;
 
-
+/**
+ *
+ * @author czech
+ */
 public class Bodyparts {
     
     Bodypart handBear;
@@ -36,6 +39,11 @@ public class Bodyparts {
     
     Attacks attacks;
     
+    /**
+     *  A class containing all of the body parts (or costumes)
+     * @param health
+     * @param def
+     */
     public Bodyparts(int health,int def)
     {
         attacks = new Attacks(health, def);
@@ -48,6 +56,11 @@ public class Bodyparts {
         this.torsoBear();
     }
     
+    /**
+     *  returns the index of a specific Item within the ArrayList called allBodyParts
+     * @param item
+     * @return
+     */
     public int getAllBodyPartsIndex(Item item)
     {
         int index = 0;
@@ -62,6 +75,11 @@ public class Bodyparts {
         return index;
     }
     
+    /**
+     *     returns the index of a specific Item within the ArrayList called heads
+     * @param item
+     * @return
+     */
     public int getHeadsIndex(Item item)
     {
         int index = 0;
@@ -76,6 +94,11 @@ public class Bodyparts {
         return index;
     }
     
+    /**
+     *  returns the index of a specific Item within the ArrayList called hands
+     * @param item
+     * @return
+     */
     public int getHandsIndex(Item item)
     {
         int index = 0;
@@ -90,6 +113,11 @@ public class Bodyparts {
         return index;
     }
     
+    /**
+     *  returns the index of a specific Item within the ArrayList called torsos
+     * @param item
+     * @return
+     */
     public int getTorsosIndex(Item item)
     {
         int index = 0;
@@ -104,6 +132,11 @@ public class Bodyparts {
         return index;
     }
      
+    /**
+     *   returns the index of a specific Item within the ArrayList called legs
+     * @param item
+     * @return
+     */
     public int getLegsIndex(Item item)
     {
         int index = 0;
@@ -118,6 +151,11 @@ public class Bodyparts {
         return index;
     }
     
+    /**
+     *   returns the index of a specific Item within the ArrayList called tails
+     * @param item
+     * @return
+     */
     public int getTailsIndex(Item item)
     {
         int index = 0;
@@ -132,6 +170,11 @@ public class Bodyparts {
         return index;
     }
     
+    /**
+     *   returns the index of a specific Item within the ArrayList called empty
+     * @param item
+     * @return
+     */
     public int getEmptyIndex(Item item)
     {
         int index = 0;
@@ -146,6 +189,9 @@ public class Bodyparts {
         return index;
     }
     
+    /**
+     *   sets the handBear body part
+     */
     public void handBear()
     {
         int baseStrMod = 8; //This number is doubled while equipped with both hands of the same class and then doubled yet aggain while wearing the full bear costume
@@ -161,6 +207,10 @@ public class Bodyparts {
         hands.add(handBear);
         
     }
+
+    /**
+     *   sets the headBear body part
+     */
     public void headBear()
     {
         int baseHpMod = 30; //This number is doubled while equipped with the full bear costume
@@ -175,6 +225,10 @@ public class Bodyparts {
         allBodyparts.add(headBear);
         heads.add(headBear);
     }
+
+    /**
+     *   sets the legBear body part
+     */
     public void legBear()
     {
         int baseSpeedMod = 4; //This number is doubled while equipped with both hands of the same class and then doubled yet aggain while wearing the full bear costume
@@ -189,6 +243,10 @@ public class Bodyparts {
         allBodyparts.add(legBear);
         legs.add(legBear);
     }
+
+    /**
+     *   sets the emptySlot body part
+     */
     public void emptySlot()
     {
         int noMod = 0; 
@@ -203,6 +261,10 @@ public class Bodyparts {
         allBodyparts.add(emptySlot);
         empty.add(emptySlot);
     }
+
+    /**
+     *   sets the emptyTail body part
+     */
     public void emptyTail()
     {
         Double noMod = 0.0; 
@@ -217,6 +279,10 @@ public class Bodyparts {
         allBodyparts.add(emptyTail);
         empty.add(emptyTail);
     }
+
+    /**
+     *  tailBear
+     */
     public void tailBear()
     {
         Double baseLuckMod = 0.1; //This number is doubled while wearing the full bear costume
@@ -231,6 +297,10 @@ public class Bodyparts {
         allBodyparts.add(tailBear);
         tails.add(tailBear);
     }
+
+    /**
+     *   sets the torsoBear body part
+     */
     public void torsoBear()
     {
         int baseDefMod = 4; //This number is doubled while wearing the full bear costume
@@ -248,72 +318,129 @@ public class Bodyparts {
 
 
     //Getters
+
+    /**
+     * returns an ArrayList containing all of the body parts
+     * @return
+     */
     
     public ArrayList<Bodypart> getAllBodyparts()
     {
         return allBodyparts;
     }
     
+    /**
+     * returns an ArrayList containing every in-game Head
+     * @return
+     */
     public ArrayList<Bodypart> getHeads()
     {
         return heads;
     }
 
+    /**
+     *  returns an ArrayList containing every in-game hand
+     * @return
+     */
     public ArrayList<Bodypart> getHands()
     {
         return hands;
     }
 
+    /**
+     * returns an ArrayList containing every in-game torso
+     * @return
+     */
     public ArrayList<Bodypart> getTorsos()
     {
         return torsos;
     }
 
+    /**
+     *   returns an ArrayList containing every in-game leg
+     * @return
+     */
     public ArrayList<Bodypart> getLegs()
     {
         return legs;
     }
 
+    /**
+     *   returns an ArrayList containing every in-game tail
+     * @return
+     */
     public ArrayList<Bodypart> getTails()
     {
         return tails;
     }
 
+    /**  returns an ArrayList containing every empty body part
+     *
+     * @return
+     */
     public ArrayList<Bodypart> getEmtpy()
     {
         return empty;
     }
     
+    /**
+     *   returns the handBear body part
+     * @return
+     */
     public Bodypart getHandBear()
     {
         return handBear;
     }
     
+    /**
+     *  returns the headBear body part
+     * @return
+     */
     public Bodypart getHeadBear()
     {
         return headBear;
     }
     
+    /**
+     *  returns the legBear body part
+     * @return
+     */
     public Bodypart getLegBear()
     {
         return legBear;
     }
     
+    /**
+     *  returns the emptySlot body part
+     * @return
+     */
     public Bodypart getEmptySlot()
     {
         return emptySlot;
     }
     
+    /**
+     *  returns the emptyTail body part
+     * @return
+     */
     public Bodypart getEmptyTail()
     {
         return emptyTail;
     }
     
+    /**
+     *  returns the tailBear body part
+     * @return
+     */
     public Bodypart getTailBear()
     {
         return tailBear;
     }
     
+    /**
+     *  returns the torsoBear body part
+     * @return
+     */
     public Bodypart getTorsoBear()
     {
         return torsoBear;

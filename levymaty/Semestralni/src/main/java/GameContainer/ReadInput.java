@@ -3,6 +3,10 @@ package GameContainer;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+/**
+ *
+ * @author czech
+ */
 public class ReadInput implements KeyListener {  //communicates with GC and Player
 
     private GameContainer gc;
@@ -10,8 +14,10 @@ public class ReadInput implements KeyListener {  //communicates with GC and Play
     private boolean keys[] = new boolean [KEYS_COUNT];
     private boolean keysLast[] = new boolean[KEYS_COUNT];
     
-    
-    
+    /**
+     *
+     * @param gc
+     */
     public ReadInput(GameContainer gc) {
        
         this.gc = gc;
@@ -19,6 +25,9 @@ public class ReadInput implements KeyListener {  //communicates with GC and Play
         gc.getDoubleCanvas().addKeyListener(this);
     }
      
+    /**
+     *
+     */
     public void update() {
         gc.getDoubleCanvas().grabFocus();
         for (int i = 0; i < KEYS_COUNT; i++) {
@@ -26,14 +35,29 @@ public class ReadInput implements KeyListener {  //communicates with GC and Play
         }
     }
     
+    /**
+     *
+     * @param keyId
+     * @return
+     */
     public boolean isKeyDown(int keyId) {
         return keys[keyId];
     }
     
+    /**
+     *
+     * @param keyId
+     * @return
+     */
     public boolean isKeyPressed(int keyId) {
         return keys[keyId] && !keysLast[keyId];
     }
     
+    /**
+     *
+     * @param keyId
+     * @return
+     */
     public boolean isKeyReleased(int keyId) {
         return keysLast[keyId] && !keys[keyId];
     }

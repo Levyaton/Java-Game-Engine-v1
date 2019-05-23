@@ -79,7 +79,13 @@ public class Load {
     Bodyparts bodyparts = new Bodyparts(0,0);
     Inventory inv = new Inventory();
     
-    
+    /**
+     *
+     * @return
+     * @throws IOException
+     * @throws FileNotFoundException
+     * @throws InterruptedException
+     */
     public World loadWorld() throws IOException, FileNotFoundException, InterruptedException
     {
         
@@ -91,6 +97,13 @@ public class Load {
         //return null;
     }
     
+    /**
+     *
+     * @return
+     * @throws IOException
+     * @throws FileNotFoundException
+     * @throws InterruptedException
+     */
     public Player loadPlayer() throws IOException, FileNotFoundException, InterruptedException
     {
         
@@ -188,6 +201,12 @@ public class Load {
      return player;
     }
       
+    /**
+     *
+     * @return
+     * @throws FileNotFoundException
+     * @throws IOException
+     */
     public ArrayList<Clerk> loadClerks() throws FileNotFoundException, IOException
     {
         String location = (System.getProperty("user.dir") + "\\src\\main\\java\\cz\\com\\GameFiles\\Save\\Clerks.txt");
@@ -214,6 +233,12 @@ public class Load {
         return oldClerks;
     }
     
+    /**
+     *
+     * @return
+     * @throws FileNotFoundException
+     * @throws IOException
+     */
     public int loadWealth() throws FileNotFoundException, IOException
     {
         String location = (System.getProperty("user.dir") + "\\src\\main\\java\\cz\\com\\GameFiles\\Save\\Wealth.txt");
@@ -226,6 +251,12 @@ public class Load {
         return wealth;
     }
     
+    /**
+     *
+     * @return
+     * @throws FileNotFoundException
+     * @throws IOException
+     */
     public String loadName() throws FileNotFoundException, IOException
     {
         String location = (System.getProperty("user.dir") + "\\src\\main\\java\\cz\\com\\GameFiles\\Save\\Name.txt");
@@ -238,6 +269,12 @@ public class Load {
         return name;
     }
     
+    /**
+     *
+     * @return
+     * @throws FileNotFoundException
+     * @throws IOException
+     */
     public int loadCurrentHealth()throws FileNotFoundException, IOException
     {
         String location = (System.getProperty("user.dir") + "\\src\\main\\java\\cz\\com\\GameFiles\\Save\\CurrentHealth.txt");
@@ -251,6 +288,13 @@ public class Load {
         return currentHealth;
     }
     
+    /**
+     *
+     * @return
+     * @throws FileNotFoundException
+     * @throws IOException
+     * @throws InterruptedException
+     */
     public ArrayList<Attack> loadAttacks() throws FileNotFoundException, IOException, InterruptedException
     {
         String location = (System.getProperty("user.dir") + "\\src\\main\\java\\cz\\com\\GameFiles\\Save\\AllAttacks.txt");
@@ -282,6 +326,12 @@ public class Load {
         return oldAttacks;
     }   
     
+    /**
+     *
+     * @return
+     * @throws FileNotFoundException
+     * @throws IOException
+     */
     public ArrayList<Item> loadInventory() throws FileNotFoundException, IOException
     {
         String location = (System.getProperty("user.dir") + "\\src\\main\\java\\cz\\com\\GameFiles\\Save\\Inventory.txt");
@@ -313,6 +363,12 @@ public class Load {
         return oldInv;
     }
         
+    /**
+     *
+     * @return
+     * @throws FileNotFoundException
+     * @throws IOException
+     */
     public ArrayList<Bodypart>  loadEquipment() throws FileNotFoundException, IOException
     {
         String location = (System.getProperty("user.dir") + "\\src\\main\\java\\cz\\com\\GameFiles\\Save\\Equipped.txt");
@@ -344,7 +400,13 @@ public class Load {
         return oldEquipment;
     }
     
-     public ArrayList<Bodypart> loadCostumes() throws FileNotFoundException, IOException
+    /**
+     *
+     * @return
+     * @throws FileNotFoundException
+     * @throws IOException
+     */
+    public ArrayList<Bodypart> loadCostumes() throws FileNotFoundException, IOException
     {
         
         String location = (System.getProperty("user.dir") + "\\src\\main\\java\\cz\\com\\GameFiles\\Save\\Costumes.txt");

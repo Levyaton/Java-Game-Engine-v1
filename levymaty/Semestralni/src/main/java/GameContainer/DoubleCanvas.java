@@ -15,6 +15,10 @@ import java.awt.Shape;
 import java.text.AttributedCharacterIterator;
 import javax.swing.*;
 
+/**
+ *
+ * @author czech
+ */
 public class DoubleCanvas extends JPanel {
     private final int WINDOW_WIDTH;
     private final int WINDOW_HEIGHT;
@@ -32,9 +36,13 @@ public class DoubleCanvas extends JPanel {
     private BufferStrategy bs;
     private Graphics graphics;
    
-        
-    
-    
+    /**
+     *
+     * @param gc
+     * @param windowWidth
+     * @param windowHeight
+     * @param canvasHeight
+     */
     public DoubleCanvas(GameContainer gc, int windowWidth, int windowHeight, int canvasHeight) {
         //this.pixels = new int [WINDOW_HEIGHT * WINDOW_WIDTH];
         this.gc = gc;
@@ -61,34 +69,65 @@ public class DoubleCanvas extends JPanel {
         frontBuffer = new BufferedImage(WINDOW_WIDTH, CANVAS_HEIGHT, BufferedImage.TYPE_INT_RGB);
     }
     
+    /**
+     *
+     * @return
+     */
     public BufferedImage getFrontBuffer() {
         return frontBuffer;
     }
 
+    /**
+     *
+     * @return
+     */
     public static int[] getPixels() {
         return pixels;
     }
 
+    /**
+     *
+     * @return
+     */
     public static int[] getVisiblePixels() {
         return visiblePixels;
     }
     
+    /**
+     *
+     * @param pixels
+     */
     public void setPixels(int[] pixels) {
         this.pixels = pixels;
     }
 
+    /**
+     *
+     * @param visiblePixels
+     */
     public void setVisiblePixels(int[] visiblePixels) {
         this.visiblePixels = visiblePixels;
     }
     
+    /**
+     *
+     * @return
+     */
     public ModCanvas getFrontEndCanvas() {
         return frontEndCanvas;
     }
 
-    
+    //int x = 0;
+
+    /**
+     *
+     */
     public void update() {
         
-        
+        //if(x%50 == 0)
+        {
+           // System.out.println(x);
+        }
         this.add(new PanelGraphics(gc));
         this.setFocusable(true);
         this.setRequestFocusEnabled(true);
@@ -120,7 +159,7 @@ public class DoubleCanvas extends JPanel {
         
         /*graphics.drawImage(frontBuffer, 0, 0, WINDOW_WIDTH, CANVAS_HEIGHT, null);
         bs.show();*/
-       
+       //x++;
     }
 }
 

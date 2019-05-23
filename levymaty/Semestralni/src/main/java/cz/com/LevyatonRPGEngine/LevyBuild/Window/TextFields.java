@@ -22,6 +22,11 @@ public class TextFields
     
     JTextField battleText;
     
+    /**
+     *
+     * @param mod
+     * @return
+     */
     public JTextField getWelcomeTextField(int mod){
         
         welcomeText = new JTextField(50);
@@ -37,6 +42,11 @@ public class TextFields
         return welcomeText;
     }
     
+    /**
+     *
+     * @param mod
+     * @return
+     */
     public JTextField getNameInputField(int mod){
         
         nameInputField = new JTextField(50);
@@ -52,6 +62,11 @@ public class TextFields
         return  nameInputField;
     }
     
+    /**
+     *
+     * @param mod
+     * @return
+     */
     public JTextField getBattleText(int mod){
         
         battleText = new JTextField(50);

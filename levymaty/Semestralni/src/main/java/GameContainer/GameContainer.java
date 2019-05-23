@@ -13,7 +13,10 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.SwingUtilities;
 
-
+/**
+ *
+ * @author czech
+ */
 public class GameContainer implements Runnable {
         
         private World world;
@@ -23,8 +26,15 @@ public class GameContainer implements Runnable {
         private ReadInput readInput;
         private PlayerSprite ps;
         
-        public final int ENEMY_COLOR = 0xff3333;
-        public final int OBSTACLE_COLOR = 0xcc6666;
+    /**
+     *
+     */
+    public final int ENEMY_COLOR = 0xff3333;
+
+    /**
+     *
+     */
+    public final int OBSTACLE_COLOR = 0xcc6666;
         private final int CANVAS_HEIGHT = 900;
         private final int WINDOW_HEIGHT = 900;
         private final int WINDOW_WIDTH = 1600;
@@ -43,11 +53,21 @@ public class GameContainer implements Runnable {
         private double frameTime;
         private int fps;
         
-	public GameContainer() {
+    /**
+     *
+     */
+    public GameContainer() {
             
 	}
 
-	public void start() throws IOException, MalformedURLException, LineUnavailableException, UnsupportedAudioFileException {
+    /**
+     *
+     * @throws IOException
+     * @throws MalformedURLException
+     * @throws LineUnavailableException
+     * @throws UnsupportedAudioFileException
+     */
+    public void start() throws IOException, MalformedURLException, LineUnavailableException, UnsupportedAudioFileException {
             
             thread = new Thread(this);
             /*
@@ -65,7 +85,7 @@ public class GameContainer implements Runnable {
            
             mainFrame = new MainFrame(this, WINDOW_WIDTH, WINDOW_HEIGHT, CANVAS_HEIGHT);
             readInput = new ReadInput(this);
-            System.out.println("Hellod");
+            //System.out.println("Hellod");
             ps = new PlayerSprite("Player", 150, 150, this, readInput, CANVAS_HEIGHT, WINDOW_WIDTH, ENEMY_COLOR, OBSTACLE_COLOR);
             
             try {
@@ -80,7 +100,10 @@ public class GameContainer implements Runnable {
             return;
 	}
 
-	public void stop() {
+    /**
+     *
+     */
+    public void stop() {
             
 	}
 
@@ -145,49 +168,98 @@ public class GameContainer implements Runnable {
             return;
 	}
 
-        
+    /**
+     *
+     * @param player
+     */
     public void setPlayer(Player player)
     {
         this.world.setPlayer(player);
     }    
+
+    /**
+     *
+     * @param running
+     */
     public void setRunning(boolean running) {
         this.running = running;
     }
 
-   public World getWorld()
+    /**
+     *
+     * @return
+     */
+    public World getWorld()
    {
        return world;
    }
 
+    /**
+     *
+     * @return
+     */
     public MainFrame getMainFrame() {
         return mainFrame;
     }
-   public void setWorld(World w)
+
+    /**
+     *
+     * @param w
+     */
+    public void setWorld(World w)
    {
        world = w;
    }
 
+    /**
+     *
+     * @return
+     */
     public int getCANVAS_HEIGHT() {
         return CANVAS_HEIGHT;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getWINDOW_HEIGHT() {
         return WINDOW_HEIGHT;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getWINDOW_WIDTH() {
         return WINDOW_WIDTH;
     }
 
+    /**
+     *
+     * @return
+     */
     public ObjectLoader getObjManager() {
         return objManager;
     }
     
+    /**
+     *
+     * @return
+     */
     public DoubleCanvas getDoubleCanvas()
     {
         return mainFrame.getOverworld();
     }
     
+    /**
+     *
+     * @param args
+     * @throws IOException
+     * @throws MalformedURLException
+     * @throws LineUnavailableException
+     * @throws UnsupportedAudioFileException
+     */
     public static void main(String[] args) throws IOException, MalformedURLException, LineUnavailableException, UnsupportedAudioFileException {
         
         

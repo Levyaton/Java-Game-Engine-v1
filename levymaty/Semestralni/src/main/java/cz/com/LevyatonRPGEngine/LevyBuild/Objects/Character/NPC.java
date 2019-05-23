@@ -14,13 +14,35 @@ import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Item;
  */
 public class NPC extends Specie{
     
+    /**
+     *
+     */
     protected String[] dialogue;
     
+    /**
+     *
+     * @param givenName
+     * @param status
+     * @param spriteLocation
+     * @param giveStr
+     * @param giveSpeed
+     * @param giveLuck
+     * @param giveDef
+     * @param giveHP
+     * @param giveLoot
+     * @param giveAttacks
+     * @param giveFocus
+     * @param giveDialogue
+     */
     public NPC(String givenName, String status, String spriteLocation,int giveStr, int giveSpeed, Double giveLuck, int giveDef, int giveHP, Item[] giveLoot, Attack[] giveAttacks, String giveFocus, String[] giveDialogue) {
         super(givenName, status,spriteLocation,giveStr, giveSpeed, giveLuck, giveDef, giveHP, giveLoot, giveAttacks, giveFocus);
         dialogue = giveDialogue;
     }
     
+    /**
+     *
+     * @return
+     */
     public String[] getDialogue()
     {
         return dialogue;

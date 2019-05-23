@@ -13,33 +13,132 @@ import java.util.Arrays;
 import cz.com.LevyatonRPGEngine.LevyBuild.Methods.Randomness;
 import cz.com.LevyatonRPGEngine.LevyBuild.Window.BattlePanel;
 import cz.com.LevyatonRPGEngine.LevyBuild.Window.MainFrame;
-public class Attack extends GameObject {
+
+/**
+ *
+ * @author czech
+ */
+public class Attack extends basicGameObject {
     
     //Manditory information
+
+    /**
+     *
+     */
     protected int eBlockLength;//how many turns is the enemy immobilized
+
+    /**
+     *
+     */
     protected boolean enemyCanMove;
+
+    /**
+     *
+     */
     protected int turnLength;
+
+    /**
+     *
+     */
     protected int damage;
     //Stat modefiers
+
+    /**
+     *
+     */
     protected int strMod;
+
+    /**
+     *
+     */
     protected int defMod;
+
+    /**
+     *
+     */
     protected int speedMod;
+
+    /**
+     *
+     */
     protected Double luckMod;
+
+    /**
+     *
+     */
     protected int hPMod;
+
+    /**
+     *
+     */
     protected int level = 0;
+
+    /**
+     *
+     */
     protected int experience = 0;
+
+    /**
+     *
+     */
     protected int experienceNeeded;
+
+    /**
+     *
+     */
     protected boolean hasEffect;
+
+    /**
+     *
+     */
     protected String statName;
+
+    /**
+     *
+     */
     protected boolean characterCanMove;
+
+    /**
+     *
+     */
     protected Randomness rand = new Randomness();
+
+    /**
+     *
+     */
     protected String[] blockedText = new String[4]; //0 - succesfull attack, 1 - when opponent is blocked, 2 - when attack fails, 3 - when attack ends   
+
+    /**
+     *
+     */
     protected boolean randomStat = false;
+
+    /**
+     *
+     */
     protected String type;
+
+    /**
+     *
+     */
     protected Item[][] items;
+
+    /**
+     *
+     */
     protected boolean available = false;
     
-    
+    /**
+     *
+     * @param giveName
+     * @param giveDamage
+     * @param giveTurnLength
+     * @param giveEnemyStatus
+     * @param giveCharacterStatus
+     * @param enemyBlockedForTurns
+     * @param giveHasEffect
+     * @param giveType
+     */
     public Attack(String giveName, int giveDamage, int giveTurnLength, boolean giveEnemyStatus, boolean giveCharacterStatus, int enemyBlockedForTurns, boolean giveHasEffect, String giveType) {
         super(giveName);
         firstStatLoad();
@@ -53,6 +152,18 @@ public class Attack extends GameObject {
         setExp();
     }
     
+    /**
+     *
+     * @param giveName
+     * @param giveDamage
+     * @param giveTurnLength
+     * @param giveEnemyStatus
+     * @param giveCharacterStatus
+     * @param enemyBlockedForTurns
+     * @param giveHasEffect
+     * @param giveLevel
+     * @param giveType
+     */
     public Attack(String giveName, int giveDamage, int giveTurnLength, boolean giveEnemyStatus, boolean giveCharacterStatus, int enemyBlockedForTurns, boolean giveHasEffect, int giveLevel, String giveType) {
         super(giveName);
         firstStatLoad();
@@ -67,7 +178,25 @@ public class Attack extends GameObject {
         setExp();
     }
     
-     public Attack(String giveName, int giveDamage, int giveTurnLength, boolean giveEnemyStatus, boolean giveCharacterStatus, int enemyBlockedForTurns, boolean giveHasEffect, Item[][] giveItems, String giveType, String[] giveBlockedText, int giveStrMod, int giveDefMod, int giveSpeedMod, Double giveLuckMod, int giveHpMod) {
+    /**
+     *
+     * @param giveName
+     * @param giveDamage
+     * @param giveTurnLength
+     * @param giveEnemyStatus
+     * @param giveCharacterStatus
+     * @param enemyBlockedForTurns
+     * @param giveHasEffect
+     * @param giveItems
+     * @param giveType
+     * @param giveBlockedText
+     * @param giveStrMod
+     * @param giveDefMod
+     * @param giveSpeedMod
+     * @param giveLuckMod
+     * @param giveHpMod
+     */
+    public Attack(String giveName, int giveDamage, int giveTurnLength, boolean giveEnemyStatus, boolean giveCharacterStatus, int enemyBlockedForTurns, boolean giveHasEffect, Item[][] giveItems, String giveType, String[] giveBlockedText, int giveStrMod, int giveDefMod, int giveSpeedMod, Double giveLuckMod, int giveHpMod) {
         super(giveName);
         firstStatLoad();
         enemyCanMove = giveEnemyStatus;
@@ -88,6 +217,18 @@ public class Attack extends GameObject {
         setExp();
     }
     
+    /**
+     *
+     * @param giveName
+     * @param giveDamage
+     * @param giveTurnLength
+     * @param giveEnemyStatus
+     * @param giveCharacterStatus
+     * @param enemyBlockedForTurns
+     * @param giveHasEffect
+     * @param giveBlockedText
+     * @param giveType
+     */
     public Attack(String giveName, int giveDamage, int giveTurnLength, boolean giveEnemyStatus, boolean giveCharacterStatus, int enemyBlockedForTurns, boolean giveHasEffect, String[] giveBlockedText, String giveType) {
         super(giveName);
         firstStatLoad();
@@ -102,6 +243,22 @@ public class Attack extends GameObject {
         setExp();
     }
     
+    /**
+     *
+     * @param giveName
+     * @param giveDamage
+     * @param giveTurnLength
+     * @param giveEnemyStatus
+     * @param giveCharacterStatus
+     * @param enemyBlockedForTurns
+     * @param giveHasEffect
+     * @param giveStrMod
+     * @param giveDefMod
+     * @param giveSpeedMod
+     * @param giveLuckMod
+     * @param giveHpMod
+     * @param giveType
+     */
     public Attack(String giveName, int giveDamage, int giveTurnLength, boolean giveEnemyStatus, boolean giveCharacterStatus,int enemyBlockedForTurns, boolean giveHasEffect, int giveStrMod, int giveDefMod, int giveSpeedMod, Double giveLuckMod, int giveHpMod, String giveType) {
         super(giveName);
         firstStatLoad();
@@ -135,11 +292,20 @@ public class Attack extends GameObject {
         hasEffect = false;
     }
     
+    /**
+     *
+     * @param givenAvailability
+     */
     public void setAvailability(boolean givenAvailability)
     {    
         available = givenAvailability;
     }
     
+    /**
+     *
+     * @param stat
+     * @return
+     */
     public int setRandomStatFromItems(int stat)
     {
         
@@ -169,6 +335,11 @@ public class Attack extends GameObject {
         return stat;
     }
     
+    /**
+     *
+     * @param stat
+     * @return
+     */
     public Double setRandomStatFromItems(Double stat)
     {
             
@@ -195,29 +366,46 @@ public class Attack extends GameObject {
         return stat;
     }
     
-   
-    
+    /**
+     *
+     * @param giveLevel
+     */
     public void setLevel(int giveLevel)
     {
         level = giveLevel;
         setExp();
     }
     
+    /**
+     *
+     */
     public void setExp()
     {
         experienceNeeded = (level*1000)/turnLength + 500*strMod/4 + 500*damage/4 + 500*defMod/4 + 500*speedMod/4 + 500*hPMod/4 + 500;
     }
     
+    /**
+     *
+     * @return
+     */
     public boolean characterCanMove()
     {
         return characterCanMove;
     }
     
+    /**
+     *
+     * @return
+     */
     public boolean hasEffect()
     {
         return hasEffect;
     }
     
+    /**
+     *
+     * @return
+     */
     public boolean enemyCanMove()
     {
         return enemyCanMove;
@@ -241,36 +429,63 @@ public class Attack extends GameObject {
             return stat;
     }
     
+    /**
+     *
+     * @return
+     */
     public boolean getAvailability()
     {
         return available;
     }
     
+    /**
+     *
+     * @return
+     */
     public int getEBlockLength()
     {
         return getRandomOrNormLength(eBlockLength);
     }
     
+    /**
+     *
+     * @return
+     */
     public int getTurnLength()
     {
         return getRandomOrNormLength(turnLength);
     }
     
+    /**
+     *
+     * @return
+     */
     public int getDamage()
     {
         return damage;
     }
     
+    /**
+     *
+     * @return
+     */
     public int getLevel()
     {
         return level;
     }
     
+    /**
+     *
+     * @return
+     */
     public int getExp()
     {
         return experience;
     }
     
+    /**
+     *
+     */
     public void levelUp()
     {
         level ++;
@@ -285,6 +500,11 @@ public class Attack extends GameObject {
         
     }
     
+    /**
+     *
+     * @param stat
+     * @return
+     */
     public int levelUpStat(int stat)
     {
         if(stat>0)
@@ -294,7 +514,9 @@ public class Attack extends GameObject {
         return 0;
     }
     
-    
+    /**
+     *
+     */
     public void levelUpLuck()
     {
         
@@ -305,8 +527,11 @@ public class Attack extends GameObject {
        
     }
     
-   
-    
+    /**
+     *
+     * @param expGained
+     * @throws InterruptedException
+     */
     public void gainExp(int expGained) throws InterruptedException
     {
         experience += expGained;
@@ -334,6 +559,10 @@ public class Attack extends GameObject {
       }
     }
     
+    /**
+     *
+     * @return
+     */
     public int getStrMod()
     {
         if(this.randomStat)
@@ -343,6 +572,10 @@ public class Attack extends GameObject {
         return strMod;
     }
     
+    /**
+     *
+     * @return
+     */
     public int getDefMod()
     {
         if(this.randomStat)
@@ -352,6 +585,10 @@ public class Attack extends GameObject {
         return defMod;
     }
     
+    /**
+     *
+     * @return
+     */
     public int getSpeedMod()
     {
         if(this.randomStat)
@@ -361,6 +598,10 @@ public class Attack extends GameObject {
         return speedMod;
     }
     
+    /**
+     *
+     * @return
+     */
     public Double getLuckMod()
     {
         if(this.randomStat)
@@ -370,6 +611,10 @@ public class Attack extends GameObject {
         return luckMod;
     }
     
+    /**
+     *
+     * @return
+     */
     public int getHpMod()
     {
         if(this.randomStat)
@@ -379,21 +624,37 @@ public class Attack extends GameObject {
         return hPMod;
     }
     
+    /**
+     *
+     * @return
+     */
     public String getType()
     {
         return type;
     }
     
+    /**
+     *
+     * @return
+     */
     public String[] getBlockedText()
     {
         return blockedText;
     }
     
+    /**
+     *
+     * @return
+     */
     public int getExperienceNeeded()
     {
         return experienceNeeded;
     }
     
+    /**
+     *
+     * @return
+     */
     public int getExpTotal()
     {
         int expTotal = 0;

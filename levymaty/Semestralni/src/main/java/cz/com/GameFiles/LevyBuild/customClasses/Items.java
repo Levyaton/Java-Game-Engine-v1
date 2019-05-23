@@ -15,8 +15,10 @@ import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Item;
 import cz.com.GameFiles.LevyBuild.customClasses.Bodyparts;
 import java.util.ArrayList;
 
-
-
+/**
+ *
+ * @author czech
+ */
 public class Items {
     
     ArrayList<Item> allItems = new  ArrayList<Item>();
@@ -50,6 +52,9 @@ public class Items {
     Item needle;
     Item thread;
     
+    /**
+     *
+     */
     public Items()
     {
         this.apple();
@@ -71,6 +76,11 @@ public class Items {
         this.thread();
     }
     
+    /**
+     *
+     * @param giveHealth
+     * @param giveDef
+     */
     public Items(int giveHealth, int giveDef)
     {
         this.apple();
@@ -94,7 +104,11 @@ public class Items {
         this.thread();
     }
     
-    
+    /**
+     *
+     * @param item
+     * @return
+     */
     public int getMiscItemIndex(Item item)
     {
         int index = 0;
@@ -109,6 +123,11 @@ public class Items {
         return index;
     }
     
+    /**
+     *
+     * @param item
+     * @return
+     */
     public int getAllItemIndex(Item item)
     {
         int index = 0;
@@ -123,6 +142,11 @@ public class Items {
         return index;
     }
     
+    /**
+     *
+     * @param checkedItem
+     * @return
+     */
     public boolean heals(Item checkedItem)
     {
         for(Item item : healingItems)
@@ -135,6 +159,11 @@ public class Items {
        return false;
     }
     
+    /**
+     *
+     * @param item
+     * @return
+     */
     public int halingItemIndex(Item item)
     {
         int index = 0;
@@ -161,6 +190,9 @@ public class Items {
         return -((int) Math.round(getPlayerMaxHealth*0.75));
     }
     
+    /**
+     *
+     */
     public void apple()
     {
         int healthGain = 5;//How much health will the Apple restore
@@ -173,6 +205,10 @@ public class Items {
         this.allItems.add(apple);
         this.healingItems.add(apple);
     }
+
+    /**
+     *
+     */
     public void basketOfFood()
     {
         String name = "Basket of Food";
@@ -187,6 +223,10 @@ public class Items {
         this.allItems.add(basketOfFood);
         this.healingItems.add(basketOfFood);
     }
+
+    /**
+     *
+     */
     public void bearMeat()
     {
         int healthGain = 10;//How much health will the Apple restore
@@ -202,6 +242,10 @@ public class Items {
         this.allItems.add(bearMeat);
         this.healingItems.add(bearMeat);
     }
+
+    /**
+     *
+     */
     public void bloodDrink()
     {
         String name = "Blood Drink";
@@ -216,6 +260,10 @@ public class Items {
         this.allItems.add(bloodDrink);
         this.healingItems.add(bloodDrink);
     }
+
+    /**
+     *
+     */
     public void fish()
     {
         int healthGain = 10;//How much health will the Fish restore
@@ -228,6 +276,11 @@ public class Items {
         this.allItems.add(fish);
         this.healingItems.add(fish);
     }
+
+    /**
+     *
+     * @param playerHealth
+     */
     public void healingPotion(int playerHealth)
     {
         Randomness rand = new Randomness();
@@ -246,6 +299,10 @@ public class Items {
         this.allItems.add(healingPotion);
         this.healingItems.add(healingPotion);
     }
+
+    /**
+     *
+     */
     public void honey()
     {
         String name = "Honey";
@@ -261,6 +318,10 @@ public class Items {
         this.allItems.add(honey);
         this.healingItems.add(honey);
     }
+
+    /**
+     *
+     */
     public void jerky()
     {
         String name = "Jerky";
@@ -275,6 +336,12 @@ public class Items {
         this.allItems.add(jerky);
         this.healingItems.add(jerky);
     }
+
+    /**
+     *
+     * @param getDef
+     * @param getMaxHealth
+     */
     public void sandWitch(int getDef, int getMaxHealth)
     {
         String name = "SandWitch";
@@ -291,6 +358,10 @@ public class Items {
     
     
     //Misc.
+
+    /**
+     *
+     */
     public void bearBlood()
     {
     int value = 1;//The value of a single gold coin
@@ -304,6 +375,10 @@ public class Items {
     allItems.add(bearBlood);
     misc.add(bearBlood);
     }
+
+    /**
+     *
+     */
     public void bearBone()
     {
     int value = 7;//The value of a single gold coin
@@ -316,6 +391,10 @@ public class Items {
     allItems.add(bearBone);
     misc.add(bearBone);
     }
+
+    /**
+     *
+     */
     public void bearClaw()
     {
     int value = 5;//The value of a single gold coin
@@ -328,6 +407,10 @@ public class Items {
     allItems.add(bearClaw);
     misc.add(bearClaw);
     }
+
+    /**
+     *
+     */
     public void bearEye()
     {
     int value = 15;//The value of a single gold coin
@@ -340,6 +423,10 @@ public class Items {
     allItems.add(bearEye);
     misc.add(bearEye);
     }
+
+    /**
+     *
+     */
     public void bearSkin()
     {
     int value = 10;//The value of a single gold coin
@@ -352,6 +439,10 @@ public class Items {
     allItems.add(bearSkin);
     misc.add(bearSkin);
     }
+
+    /**
+     *
+     */
     public void bearTooth()
     {
     int value = 5;//The value of a single gold coin
@@ -364,6 +455,10 @@ public class Items {
     allItems.add(bearTooth);
     misc.add(bearTooth);
     }
+
+    /**
+     *
+     */
     public void gold()
     {
     int value = 1;//The value of a single gold coin
@@ -376,6 +471,10 @@ public class Items {
     allItems.add(gold);
     misc.add(gold);
     }
+
+    /**
+     *
+     */
     public void needle()
     {
     int value = 1;//The value of a single gold coin
@@ -388,6 +487,10 @@ public class Items {
     allItems.add(needle);
     misc.add(needle);
     }
+
+    /**
+     *
+     */
     public void thread()
     {
     int value = 1;//The value of a single gold coin
@@ -403,112 +506,201 @@ public class Items {
     }
     
     //Getters
+
+    /**
+     *
+     * @return
+     */
     
     public ArrayList<Item> getAllItems()
     {
         return allItems;
     }
     
+    /**
+     *
+     * @return
+     */
     public ArrayList<Item> getHealingItems()
     {
         return healingItems;
     }
     
+    /**
+     *
+     * @return
+     */
     public ArrayList<Item> getMisc()
     {
         return misc;
     }
     
+    /**
+     *
+     * @return
+     */
     public Item getApple()
     {
         return apple;
     }
     
+    /**
+     *
+     * @return
+     */
     public Item GetBasketOfFood()
     {
         return basketOfFood;
     }
     
+    /**
+     *
+     * @return
+     */
     public Item getBearBllod()
     {
         return bearBlood;
     }
     
+    /**
+     *
+     * @return
+     */
     public Item getBearMeat()
     {
         return bearMeat;
     }
     
+    /**
+     *
+     * @return
+     */
     public Item getBloodDrink()
     {
         return bloodDrink;
     }
     
+    /**
+     *
+     * @return
+     */
     public Item getFish()
     {
         return fish;
     }
     
+    /**
+     *
+     * @return
+     */
     public Item getHealingPotion()
     {
         return healingPotion;
     }
     
+    /**
+     *
+     * @return
+     */
     public Item getHoney()
     {
         return honey;
     }
     
+    /**
+     *
+     * @return
+     */
     public Item getJerky()
     {
         return jerky;
     }
     
+    /**
+     *
+     * @return
+     */
     public Item getSandWitch()
     {
         return sandWitch;
     }
  
+    /**
+     *
+     * @return
+     */
     public Item getBearBlood()
     {
         return bearBlood;
     }
     
+    /**
+     *
+     * @return
+     */
     public Item getBearBone()
     {
         return bearBone;
     }
     
+    /**
+     *
+     * @return
+     */
     public Item getBearClaw()
     {
         return bearClaw;
     }
     
+    /**
+     *
+     * @return
+     */
     public Item getBearEye()
     {
         return bearEye;
     }
     
+    /**
+     *
+     * @return
+     */
     public Item getBearSkin()
     {
         return bearSkin;
     }
     
+    /**
+     *
+     * @return
+     */
     public Item getBearTooth()
     {
         return bearTooth;
     }
     
+    /**
+     *
+     * @return
+     */
     public Item getGold()
     {
         return gold;
     }
     
+    /**
+     *
+     * @return
+     */
     public Item getNeedle()
     {
         return needle;
     }
     
+    /**
+     *
+     * @return
+     */
     public Item getThread()
     {
         return thread;

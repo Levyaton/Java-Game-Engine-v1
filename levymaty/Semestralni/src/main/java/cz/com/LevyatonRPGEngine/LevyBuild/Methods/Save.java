@@ -21,14 +21,28 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
+/**
+ *
+ * @author czech
+ */
 public class Save {
     
+    /**
+     *
+     * @param world
+     * @throws IOException
+     */
     public void saveGame(World world) throws IOException
     {
        this.savePlayer(world.getPlayer());
        this.saveClerks(world.getClerks());
     }
     
+    /**
+     *
+     * @param clerks
+     * @throws IOException
+     */
     public void saveClerks(Clerks clerks) throws IOException
     {
         BufferedWriter bw = null;
@@ -49,6 +63,11 @@ public class Save {
         bw.close();
     }
     
+    /**
+     *
+     * @param player
+     * @throws IOException
+     */
     public void savePlayer(Player player) throws IOException
     {
         this.saveAttack(player);
@@ -60,6 +79,11 @@ public class Save {
         this.saveCurrentHealth(player);
     }
     
+    /**
+     *
+     * @param player
+     * @throws IOException
+     */
     public void saveAttack(Player player) throws IOException
     {
         //System.out.println((System.getProperty("user.dir") + "\\src\\main\\java\\cz\\com\\GameFiles\\Save\\AllAttacks.txt"));
@@ -84,6 +108,11 @@ public class Save {
         
     }
     
+    /**
+     *
+     * @param player
+     * @throws IOException
+     */
     public void saveCurrentHealth(Player player) throws IOException
     {
         BufferedWriter bw = null;
@@ -101,6 +130,11 @@ public class Save {
         bw.close();
     }
     
+    /**
+     *
+     * @param player
+     * @throws IOException
+     */
     public void saveName(Player player) throws IOException
     {
         //System.out.println((System.getProperty("user.dir") + "\\src\\main\\java\\cz\\com\\GameFiles\\Save\\Name.txt"));
@@ -121,6 +155,11 @@ public class Save {
         bw.close();
     }
     
+    /**
+     *
+     * @param player
+     * @throws IOException
+     */
     public void saveWealth(Player player) throws IOException
     {
         //System.out.println((System.getProperty("user.dir") + "\\src\\main\\java\\cz\\com\\GameFiles\\Save\\Name.txt"));
@@ -141,6 +180,11 @@ public class Save {
         bw.close();
     }
     
+    /**
+     *
+     * @param player
+     * @throws IOException
+     */
     public void saveInventory(Player player) throws IOException
     {
         BufferedWriter bw = null;
@@ -160,6 +204,11 @@ public class Save {
         bw.close();
     }
     
+    /**
+     *
+     * @param player
+     * @throws IOException
+     */
     public void saveEquipped(Player player) throws IOException
     {
         
@@ -185,7 +234,12 @@ public class Save {
         bw.close();
     }
     
-     public void saveCostumes(Player player) throws IOException
+    /**
+     *
+     * @param player
+     * @throws IOException
+     */
+    public void saveCostumes(Player player) throws IOException
     {
        
         BufferedWriter bw = null;

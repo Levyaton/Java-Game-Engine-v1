@@ -29,12 +29,17 @@ public class MusicController {
    
     private static File f;
     
+    /**
+     *
+     */
     public static void stopMusic()
     {
         AudioPlayer.player.stop(BGM);
     }
     
-    
+    /**
+     *
+     */
     public static void battleMusic() 
     {       
         stopMusic();

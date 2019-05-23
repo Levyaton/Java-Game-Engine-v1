@@ -7,6 +7,10 @@ import java.io.IOException;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
+/**
+ *
+ * @author czech
+ */
 public class PlayerSprite {
     private final int PLAYER_SPEED;
     private GameContainer gc;
@@ -26,7 +30,18 @@ public class PlayerSprite {
     private boolean facingEnemy;
     private int numberOfEnemiesFaced = 0;
     
-    
+    /**
+     *
+     * @param filename
+     * @param coordX
+     * @param coordY
+     * @param gc
+     * @param readInput
+     * @param canvasHeight
+     * @param windowWidth
+     * @param enemyColor
+     * @param obstacleColor
+     */
     public PlayerSprite (String filename, int coordX, int coordY, GameContainer gc, ReadInput readInput, int canvasHeight, int windowWidth, int enemyColor, int obstacleColor) {
         ENEMY_COLOR = enemyColor;
         OBSTACLE_COLOR = obstacleColor;
@@ -42,6 +57,13 @@ public class PlayerSprite {
         PLAYER_SPEED = 2;  //must divide 50 because im lazy
     }
     
+    /**
+     *
+     * @throws InterruptedException
+     * @throws LineUnavailableException
+     * @throws UnsupportedAudioFileException
+     * @throws IOException
+     */
     public void update() throws InterruptedException, LineUnavailableException, UnsupportedAudioFileException, IOException{
         this.drawBlack();
         this.updatePosition();
@@ -74,6 +96,9 @@ public class PlayerSprite {
         }
     }
     
+    /**
+     *
+     */
     public void drawBlack() {
         int color = 0x000000;
         pixels = new int[WINDOW_WIDTH * CANVAS_HEIGHT];
@@ -99,6 +124,10 @@ public class PlayerSprite {
         gc.getDoubleCanvas().setPixels(pixels);
     }
     
+    /**
+     *
+     * @param filename
+     */
     public void draw(String filename) {
         int color = 0xffffff;
         pixels = new int[WINDOW_WIDTH * CANVAS_HEIGHT];
@@ -122,7 +151,9 @@ public class PlayerSprite {
         gc.getDoubleCanvas().setPixels(pixels);
     }
     
-    
+    /**
+     *
+     */
     public void updatePosition() {
         if (readInput.isKeyDown(KeyEvent.VK_W)) {
             this.goUp();
@@ -145,6 +176,9 @@ public class PlayerSprite {
         }*/
     }
     
+    /**
+     *
+     */
     public void checkFacedSquare() {
         if (facingDirection == 'W') {
             if (pixels[(coordY - 1) * WINDOW_WIDTH + coordX] == ENEMY_COLOR /*|| pixels[(coordY - 1) * WINDOW_WIDTH + coordX + 49] == ENEMY_COLOR*/) {
@@ -180,24 +214,36 @@ public class PlayerSprite {
         }
     }
     
+    /**
+     *
+     */
     public void goRight() {
         if (pixels[coordY * 1600 + coordX + 51/**/] == 0x000000 && pixels[(coordY + 49/**/) * 1600 + coordX + 51/**/] == 0x000000) {
             coordX += PLAYER_SPEED;
         }
     }
     
+    /**
+     *
+     */
     public void goLeft() {
         if (pixels[coordY * 1600 + coordX - 1] == 0x000000 && pixels[(coordY + 49/**/) * 1600 + coordX - 1] == 0x000000) {
             coordX -= PLAYER_SPEED;
         }
     }
     
+    /**
+     *
+     */
     public void goUp() {
         if (pixels[(coordY - 1) * 1600 + coordX] == 0x000000 && pixels[(coordY - 1) * 1600 + coordX + 49] == 0x000000) {
             coordY -= PLAYER_SPEED;
         }
     }
     
+    /**
+     *
+     */
     public void goDown() {
         if (pixels[(coordY + 50/**/) * 1600 + coordX] == 0x000000 && pixels[(coordY + 50/**/) * 1600 + coordX + 49] == 0x000000) {
             coordY += PLAYER_SPEED;

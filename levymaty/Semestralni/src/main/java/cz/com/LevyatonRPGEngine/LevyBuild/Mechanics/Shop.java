@@ -23,26 +23,34 @@ public class Shop {
 
     private MainFrame mf;
     
+    /**
+     *
+     * @param clerk
+     * @param m
+     */
     public Shop(Clerk clerk,MainFrame m)
     {
         mf= m;
         this.clerk = clerk;
     }
     
-    public void write(String text) throws InterruptedException
-    {
-        mf.writeShopText(text);
-    }
-    
+    /**
+     *
+     * @throws InterruptedException
+     */
     public void greeting() throws InterruptedException
     {
         
-        write(clerk.getName() + " looks at you with " + clerk.getTrait() + " eyes\n\n" + clerk.getName() + ":   What can I interest you in, traveller?\n");
+        System.out.println(clerk.getName() + " looks at you with " + clerk.getTrait() + " eyes\n\n" + clerk.getName() + ":   What can I interest you in, traveller?\n");
     }
     
+    /**
+     *
+     * @throws InterruptedException
+     */
     public void buy() throws InterruptedException
     {
-        write(clerk.getName() + ":   What would you like to buy?\n");
+        System.out.println(clerk.getName() + ":   What would you like to buy?\n");
     }
 
    

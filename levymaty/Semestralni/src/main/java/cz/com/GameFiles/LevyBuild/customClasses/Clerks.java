@@ -12,7 +12,7 @@ import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Item;
 import java.util.ArrayList;
 
 /**
- *
+ *  A class containing every in-game Clerk
  * @author czech
  */
 public class Clerks {
@@ -24,7 +24,11 @@ public class Clerks {
     ArrayList<Clerk> allClerks = new ArrayList<Clerk>();
     String[] traits = {"friendly", "stern", "jovial", "grumpy", "serious", "sad"};
          
-    
+    /**
+     *  returns the Clerk named Illyana
+     * @param mod
+     * @return
+     */
     public Clerk getIllyana(int mod)       
     {
         Clerk clerk;
@@ -55,6 +59,11 @@ public class Clerks {
         return clerk;
     }
     
+    /**
+     * returns the Clerk named Betsy
+     * @param mod
+     * @return
+     */
     public Clerk getBetsy(int mod)       
     {
         Clerk clerk;
@@ -85,6 +94,11 @@ public class Clerks {
         return clerk;
     }
     
+    /**
+     *   returns the Clerk named Ororo
+     * @param mod
+     * @return
+     */
     public Clerk getOroro(int mod)       
     {
         
@@ -116,6 +130,11 @@ public class Clerks {
         return clerk;
     }
     
+    /**
+     *   returns the Clerk named Jean
+     * @param mod
+     * @return
+     */
     public Clerk getJean(int mod)       
     {
         
@@ -147,6 +166,11 @@ public class Clerks {
         return clerk;
     }
     
+    /**
+     *   returns the Clerk named Steph
+     * @param mod
+     * @return
+     */
     public Clerk getSteph(int mod)       
     {
         
@@ -178,6 +202,11 @@ public class Clerks {
         return clerk;
     }
     
+    /**
+     *   returns the Clerk named Anna
+     * @param mod
+     * @return
+     */
     public Clerk getAnna(int mod)       
     {
         
@@ -209,7 +238,12 @@ public class Clerks {
         return clerk;
     }
     
-    public Clerk getLinda(int mod)       
+    /**
+     *   returns the Clerk named Jubilation
+     * @param mod
+     * @return
+     */
+    public Clerk getJubilation(int mod)       
     {
         
         Clerk clerk;
@@ -240,6 +274,11 @@ public class Clerks {
         return clerk;
     }
     
+    /**
+     *   returns the Clerk named Hope
+     * @param mod
+     * @return
+     */
     public Clerk getHope(int mod)       
     {
         
@@ -271,6 +310,11 @@ public class Clerks {
         return clerk;
     }
     
+    /**
+     * returns the Clerk named Matt
+     * @param mod
+     * @return
+     */
     public Clerk getMatt(int mod)       
     {
         
@@ -302,6 +346,11 @@ public class Clerks {
         return clerk;
     }
     
+    /**
+     *  returns the Clerk named James
+     * @param mod
+     * @return
+     */
     public Clerk getJames(int mod)       
     {
         
@@ -333,6 +382,11 @@ public class Clerks {
         return clerk;
     }
     
+    /**
+     *  returns the Clerk named Scott
+     * @param mod
+     * @return
+     */
     public Clerk getScott(int mod)       
     {
         
@@ -364,6 +418,11 @@ public class Clerks {
         return clerk;
     }
     
+    /**
+     *  returns the Clerk named Bobby
+     * @param mod
+     * @return
+     */
     public Clerk getBobby(int mod)       
     {
         
@@ -395,7 +454,11 @@ public class Clerks {
         return clerk;
     }
     
-    
+    /**
+     *  returns the Clerk named Warren
+     * @param mod
+     * @return
+     */
     public Clerk getWarren(int mod)       
     {
         Clerk clerk;
@@ -426,6 +489,11 @@ public class Clerks {
         return clerk;
     }
     
+    /**
+     *  returns the Clerk named Kurt
+     * @param mod
+     * @return
+     */
     public Clerk getKurt(int mod)       
     {
         
@@ -457,6 +525,11 @@ public class Clerks {
         return clerk;
     }
     
+    /**
+     *  returns the Clerk named Piotr
+     * @param mod
+     * @return
+     */
     public Clerk getPiotr(int mod)       
     {
         
@@ -488,18 +561,23 @@ public class Clerks {
         return clerk;
     }
     
-    
-            
-    public  void setFirstClerk()
+    /**
+     *  Chooses and sets the first clerk
+     */
+    public void setFirstClerk()
     {
         String gender;
         String name;
         String trait;
        
-        Clerk[] possibleClerks = {this.getAnna(10),this.getBobby(10),this.getHope(10),this.getIllyana(10),this.getJames(10),this.getJean(10),this.getKurt(10),this.getLinda(10),this.getMatt(10),this.getOroro(10),this.getPiotr(10),this.getScott(10),this.getSteph(10),this.getWarren(10),this.getBetsy(10)};
+        Clerk[] possibleClerks = {this.getAnna(10),this.getBobby(10),this.getHope(10),this.getIllyana(10),this.getJames(10),this.getJean(10),this.getKurt(10),this.getJubilation(10),this.getMatt(10),this.getOroro(10),this.getPiotr(10),this.getScott(10),this.getSteph(10),this.getWarren(10),this.getBetsy(10)};
         firstClerk = possibleClerks[rand.getRandomObjectFromSelection(possibleClerks)];
     }
 
+    /**
+     *
+     * @param name
+     */
     public void setFirstClerk(String name)
     {
         for(Clerk c : getAllClerks())
@@ -511,6 +589,11 @@ public class Clerks {
         }
     }
    
+    /**
+     *
+     * @param name
+     * @return
+     */
     public Clerk loadClerk(String name)
     {
         for(Clerk c : getAllClerks())
@@ -523,16 +606,27 @@ public class Clerks {
         return getFirstClerk();
     }
 
+    /**
+     *
+     */
     public Clerks()
     {
         setFirstClerk();
     }
     
+    /**
+     *
+     * @return
+     */
     public Clerk getFirstClerk()
     {
         return allClerks.get(allClerks.indexOf(firstClerk));
     }
    
+    /**
+     *
+     * @return
+     */
     public ArrayList<Clerk> getAllClerks()
     {
         return allClerks;

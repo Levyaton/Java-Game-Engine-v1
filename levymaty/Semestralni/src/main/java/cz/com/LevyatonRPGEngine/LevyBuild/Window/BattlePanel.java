@@ -6,6 +6,11 @@
 package cz.com.LevyatonRPGEngine.LevyBuild.Window;
 
 
+import GameContainer.GameContainer;
+import cz.com.LevyatonRPGEngine.LevyBuild.Mechanics.Battle;
+import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Attack;
+import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Character.Player.Player;
+import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Item;
 import java.awt.Component;
 import java.net.URL;
 import java.awt.Dimension;
@@ -45,24 +50,54 @@ import sun.audio.ContinuousAudioDataStream;
  */
 public class BattlePanel extends javax.swing.JPanel implements ActionListener{
 
-    MainFrame mf;
+    ArrayList<Attack> attacks;
+    ArrayList<Item> items;
+    Player player;
     Font mainFont;
+    Battle battle;
+    
     /**
      * Creates new form BattlePanel2
+     * @throws java.io.IOException
+     * @throws java.net.MalformedURLException
+     * @throws javax.sound.sampled.LineUnavailableException
+     * @throws javax.sound.sampled.UnsupportedAudioFileException
      */
-    public BattlePanel(MainFrame m) throws IOException, MalformedURLException, LineUnavailableException, UnsupportedAudioFileException {
-        mf = m;
+    public BattlePanel() throws IOException, MalformedURLException, LineUnavailableException, UnsupportedAudioFileException {
+       
+      
         initComponents();
         custom();
         //battleMusic();
         
     }
 
+    /**
+     *
+     * @param battle
+     * @param player
+     */
+    public void setBattle(Battle battle, Player player)
+    {
+        this.battle = battle;
+        this.player = player;
+    }
+    
+    /**
+     *
+     * @return
+     */
     public JTextArea getBattleText()
     {
         return this.battleText;
     }
     
+    /**
+     *
+     * @throws LineUnavailableException
+     * @throws UnsupportedAudioFileException
+     * @throws IOException
+     */
     public void custom() throws LineUnavailableException, UnsupportedAudioFileException, IOException
     {
         JPanel panel = new JPanel();
@@ -83,16 +118,23 @@ public class BattlePanel extends javax.swing.JPanel implements ActionListener{
        
     }
     
-    public void setSelectedLabel(String name)
+    /**
+     *
+     * @param name
+     */
+    public void setSelectedName(String name)
     {
         this.selectedName.setText(name);
         this.selectedName.setFont(mainFont);
-        revalidate();
+       // revalidate();
         repaint();
     }
     
-    
-   public void updateSelectedPane(String buttonName)
+    /**
+     *
+     * @param buttonName
+     */
+    public void updateSelectedPane(String buttonName)
    {
        Component[] components = this.selectedPanel.getComponents();
        ArrayList<JButton> buttons = new ArrayList<JButton>();
@@ -117,11 +159,15 @@ public class BattlePanel extends javax.swing.JPanel implements ActionListener{
            this.selectedPanel.add(b);
 
 
-           revalidate();
+          // revalidate();
            repaint();
         }
    }
     
+    /**
+     *
+     * @param buttons
+     */
     public void setSelectedButtons(ArrayList<JButton> buttons)
     {
         
@@ -144,8 +190,10 @@ public class BattlePanel extends javax.swing.JPanel implements ActionListener{
         
     }
     
-    
- public   void battleMusic() 
+    /**
+     *
+     */
+    public   void battleMusic() 
     {       
 
 
@@ -176,11 +224,11 @@ public class BattlePanel extends javax.swing.JPanel implements ActionListener{
 
     }
         
-     
-    
-
-    
-    
+    /**
+     *
+     * @param text
+     * @throws InterruptedException
+     */
     public void writeText(String text) throws InterruptedException
     {
         char[] slowDown = text.toCharArray();
@@ -209,6 +257,7 @@ public class BattlePanel extends javax.swing.JPanel implements ActionListener{
     private void initComponents() {
 
         animationPanel = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         selectedPanel = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
@@ -223,19 +272,14 @@ public class BattlePanel extends javax.swing.JPanel implements ActionListener{
 
         animationPanel.setBackground(new java.awt.Color(102, 102, 102));
         animationPanel.setName("animationPanel"); // NOI18N
+        animationPanel.setLayout(null);
 
-        javax.swing.GroupLayout animationPanelLayout = new javax.swing.GroupLayout(animationPanel);
-        animationPanel.setLayout(animationPanelLayout);
-        animationPanelLayout.setHorizontalGroup(
-            animationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 820, Short.MAX_VALUE)
-        );
-        animationPanelLayout.setVerticalGroup(
-            animationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 540, Short.MAX_VALUE)
-        );
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/poo.jpg"))); // NOI18N
+        jLabel2.setText("jLabel2");
+        animationPanel.add(jLabel2);
+        jLabel2.setBounds(0, -10, 1310, 510);
 
-        add(animationPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 820, 540));
+        add(animationPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1310, 490));
         animationPanel.getAccessibleContext().setAccessibleName("animationPanel");
 
         selectedPanel.setBackground(new java.awt.Color(51, 51, 51));
@@ -247,7 +291,7 @@ public class BattlePanel extends javax.swing.JPanel implements ActionListener{
         jScrollPane2.setViewportView(selectedPanel);
         selectedPanel.getAccessibleContext().setAccessibleName("selectedPanel");
 
-        add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 50, 380, 910));
+        add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1310, 50, 270, 800));
 
         battleText.setEditable(false);
         battleText.setBackground(new java.awt.Color(0, 0, 0));
@@ -261,7 +305,7 @@ public class BattlePanel extends javax.swing.JPanel implements ActionListener{
         jScrollPane3.setViewportView(battleText);
         battleText.getAccessibleContext().setAccessibleName("battleText");
 
-        add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 540, 820, 330));
+        add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 490, 1310, 260));
 
         buttonPanel.setBackground(new java.awt.Color(102, 0, 0));
         buttonPanel.setName("buttonPanel"); // NOI18N
@@ -294,27 +338,27 @@ public class BattlePanel extends javax.swing.JPanel implements ActionListener{
         buttonPanel.setLayout(buttonPanelLayout);
         buttonPanelLayout.setHorizontalGroup(
             buttonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, buttonPanelLayout.createSequentialGroup()
-                .addContainerGap(167, Short.MAX_VALUE)
+            .addGroup(buttonPanelLayout.createSequentialGroup()
+                .addGap(289, 289, 289)
                 .addComponent(Attack, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(51, 51, 51)
+                .addGap(105, 105, 105)
                 .addComponent(Bag, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(58, 58, 58)
+                .addGap(104, 104, 104)
                 .addComponent(Run, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(124, 124, 124))
+                .addContainerGap(392, Short.MAX_VALUE))
         );
         buttonPanelLayout.setVerticalGroup(
             buttonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(buttonPanelLayout.createSequentialGroup()
-                .addContainerGap(23, Short.MAX_VALUE)
-                .addGroup(buttonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addContainerGap(43, Short.MAX_VALUE)
+                .addGroup(buttonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE, false)
+                    .addComponent(Bag, javax.swing.GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE)
                     .addComponent(Attack, javax.swing.GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE)
-                    .addComponent(Bag, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(Run, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(Run, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
-        add(buttonPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 870, 820, 90));
+        add(buttonPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 740, 1310, 110));
         buttonPanel.getAccessibleContext().setAccessibleName("buttonPanel");
 
         selectedName.setEditable(false);
@@ -328,7 +372,7 @@ public class BattlePanel extends javax.swing.JPanel implements ActionListener{
                 selectedNameActionPerformed(evt);
             }
         });
-        add(selectedName, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 0, 380, 50));
+        add(selectedName, new org.netbeans.lib.awtextra.AbsoluteConstraints(1310, 0, 270, 50));
         selectedName.getAccessibleContext().setAccessibleName("selectedName");
     }// </editor-fold>//GEN-END:initComponents
 
@@ -348,6 +392,7 @@ public class BattlePanel extends javax.swing.JPanel implements ActionListener{
     private javax.swing.JPanel animationPanel;
     private javax.swing.JTextArea battleText;
     private javax.swing.JPanel buttonPanel;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTextField selectedName;
@@ -356,15 +401,78 @@ public class BattlePanel extends javax.swing.JPanel implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        
+        
+       
+        JButton chosenButton = (JButton) e.getSource();
+        System.out.println(selectedName.getText());
+        
         try {
-            mf.buttonListener((JButton) e.getSource()); //To change body of generated methods, choose Tools | Templates.
-        } catch (IOException ex) {
-            Logger.getLogger(BattlePanel.class.getName()).log(Level.SEVERE, null, ex);
+           if(e.getSource().equals(Attack))
+           {
+               attacks = player.getAvailableAttacks();
+            ArrayList<JButton> buttons = new ArrayList<JButton>();
+            for(Attack a : attacks)
+            {
+                
+                JButton b = new JButton();
+                b.setName(a.getName());
+                buttons.add(b);
+                
+            }
+            setSelectedButtons(buttons);
+            setSelectedName("Attacks");
+           }
+           else  if(e.getSource().equals(Bag))
+           {
+               
+            items = player.getInventory();
+            ArrayList<JButton> buttons = new ArrayList<JButton>();
+            for(Item a : items)
+            {
+                
+                JButton b = new JButton();
+                //b.setName(a.getName());
+                b.setName(a.getName() + " x " + a.getItemCount());
+                buttons.add(b);
+                
+            }
+            setSelectedButtons(buttons);
+            setSelectedName("Bag");
+           }
+           
+           else  if(e.getSource().equals(Run))
+           {
+               battle.run();
+           }
+           
+           else  if(this.selectedName.getText().equals("Attacks"))
+           {
+               System.out.println("Attacks pressed");
+               for(Attack a : battle.getAvailableAttacks())
+               {
+                   if(a.getName().equals(chosenButton.getName()))
+                   {
+                       battle.pPreformAttack(a);
+                   }
+               }
+           }
+           
+           else  if(this.selectedName.getText().equals("Bag"))
+           {
+               for(Item i : battle.getHealing())
+               {
+                   if(i.getName().equals(chosenButton.getName()))
+                   {
+                       battle.useAnItem(i);
+                   }
+               }
+           }
+           
+           
+           
+//To change body of generated methods, choose Tools | Templates.
         } catch (InterruptedException ex) {
-            Logger.getLogger(BattlePanel.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (LineUnavailableException ex) {
-            Logger.getLogger(BattlePanel.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (UnsupportedAudioFileException ex) {
             Logger.getLogger(BattlePanel.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

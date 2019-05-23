@@ -19,7 +19,9 @@ public class World {
     Player player;
     Clerks clerks;
     
-    
+    /**
+     *
+     */
     public World()
     {
         player = new Player();
@@ -27,6 +29,10 @@ public class World {
        
     }
     
+    /**
+     *
+     * @param givePlayer
+     */
     public World(Player givePlayer)
     {
         player = givePlayer;
@@ -34,22 +40,37 @@ public class World {
       
     }
     
+    /**
+     *
+     * @return
+     */
     public Clerks getClerks()
     {
         return clerks;
     }
     
+    /**
+     *
+     * @return
+     */
     public Player getPlayer()
     {
         return player;
     }
+
+    /**
+     *
+     * @param givePlayer
+     */
     public void setPlayer(Player givePlayer)
     {
         player = givePlayer;
     }
     
-   
-    
+    /**
+     *
+     * @param getClerks
+     */
     public void setClerks(ArrayList<Clerk> getClerks)
     {
         clerks.setFirstClerk(getClerks.get(0).getName());

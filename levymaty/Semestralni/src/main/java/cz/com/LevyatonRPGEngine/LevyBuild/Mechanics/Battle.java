@@ -30,7 +30,10 @@ import java.io.PipedInputStream;
 import java.io.PipedOutputStream;
 import java.io.PrintStream;
 
-
+/**
+ *
+ * @author czech
+ */
 public class Battle{
     
     MainFrame mf;
@@ -76,7 +79,16 @@ public class Battle{
     
     private GameContainer gc;
    
-   public Battle(Specie getEnemy, Player getPlayer, MainFrame m, GameContainer gc) throws InterruptedException, IOException
+    /**
+     *
+     * @param getEnemy
+     * @param getPlayer
+     * @param m
+     * @param gc
+     * @throws InterruptedException
+     * @throws IOException
+     */
+    public Battle(Specie getEnemy, Player getPlayer, MainFrame m, GameContainer gc) throws InterruptedException, IOException
     {
         this.gc = gc;
         mf = m;
@@ -88,7 +100,11 @@ public class Battle{
        
     }
    
-     public void testString() throws InterruptedException
+    /**
+     *
+     * @throws InterruptedException
+     */
+    public void testString() throws InterruptedException
     {
        System.out.println("This is a test");
     }
@@ -117,9 +133,11 @@ public class Battle{
         playerItems = player.getInv().getHealingItems();
     }
     
-    
-    
-    
+    /**
+     *
+     * @return
+     * @throws InterruptedException
+     */
     public boolean battleEnded() throws InterruptedException
     {
         if(pHealth<1)
@@ -132,8 +150,10 @@ public class Battle{
             {
                 player.getInv().removeItem(player.getInv().getInventory().get(rand.getRandomFromRange(0, player.getInv().getInventory().size()-1)));
             }        
-            mf.showCard("overworld");
+           
             gc.setPlayer(player);
+             
+            mf.shop();
             return true;
             
         }
@@ -142,19 +162,27 @@ public class Battle{
             System.out.println("Yay, you have slain the " + enemy.getName()+ "!\n");
             getLoot();
             terminated = true;
-            mf.showCard("overworld");
+            
             gc.setPlayer(player);
+            mf.shop();
             return true;
         }
         
         return false;
     }
     
+    /**
+     *
+     * @throws InterruptedException
+     */
     public void doBattle() throws InterruptedException
     {
        turns();
     }
     
+    /**
+     *
+     */
     public void enemyStrat()
     {
         if(rand.success(0.01))
@@ -175,12 +203,20 @@ public class Battle{
         //System.out.println(eStrat);
     }
     
-    
+    /**
+     *
+     * @return
+     */
     public Player updatePlayer()
     {
         return this.player;
     }
     
+    /**
+     *
+     * @param enemyName
+     * @throws InterruptedException
+     */
     public void welcomeMessage(String enemyName) throws InterruptedException
     {
         
@@ -193,6 +229,11 @@ public class Battle{
         //String chosenAttack = sc.nextLine();
     }
     
+    /**
+     *
+     * @param getWord
+     * @return
+     */
     public String AorAn(String getWord)
     {
         String word = getWord.toLowerCase();
@@ -207,6 +248,10 @@ public class Battle{
         }
     }
     
+    /**
+     *
+     * @throws InterruptedException
+     */
     public void getLoot() throws InterruptedException
     {
         String reward = "You got";
@@ -317,6 +362,10 @@ public class Battle{
         System.out.println(reward + ", great job!\n");
     }
     
+    /**
+     *
+     * @throws InterruptedException
+     */
     public void turns() throws InterruptedException
     {
         if(pSpeed>eSpeed)
@@ -359,10 +408,10 @@ public class Battle{
           
     }
     
-    
-    
-    
-    
+    /**
+     *
+     * @return
+     */
     public ArrayList<Attack> getAvailableAttacks()
     {
         ArrayList<Attack> usableAttacks = player.getAvailableAttacks();
@@ -371,7 +420,11 @@ public class Battle{
         return usableAttacks;
     }
   
-    
+    /**
+     *
+     * @param attack
+     * @return
+     */
     public Double pDamageCalculator(Attack attack)
     {
         int baseDamage = attack.getDamage();
@@ -388,6 +441,11 @@ public class Battle{
     
     }
     
+    /**
+     *
+     * @param attack
+     * @throws InterruptedException
+     */
     public void pDealDamage(Attack attack) throws InterruptedException
     {
         if(attack.getDamage() > 0)
@@ -411,6 +469,12 @@ public class Battle{
         }
     }
     
+    /**
+     *
+     * @param modefier
+     * @param statName
+     * @throws InterruptedException
+     */
     public void printStatChange(int modefier, String statName) throws InterruptedException
     {
         if(modefier > 0)
@@ -423,6 +487,12 @@ public class Battle{
         }
     }
     
+    /**
+     *
+     * @param modefier
+     * @param statName
+     * @throws InterruptedException
+     */
     public void printStatChange(Double modefier, String statName) throws InterruptedException
     {
         if(modefier > 0)
@@ -437,6 +507,11 @@ public class Battle{
        
     }
     
+    /**
+     *
+     * @param attack
+     * @throws InterruptedException
+     */
     public void pApplyAttackEffects(Attack attack) throws InterruptedException
     {     
         if(attack.hasEffect())
@@ -500,6 +575,12 @@ public class Battle{
         }
         
     }
+
+    /**
+     *
+     * @param attack
+     * @throws InterruptedException
+     */
     public void pPreformAttack(Attack attack) throws InterruptedException
     {
         if(terminated==false)
@@ -530,7 +611,7 @@ public class Battle{
     
     
     
-    public int playerDecision() throws InterruptedException
+   /* public int playerDecision() throws InterruptedException
     {
         
         int option;
@@ -551,41 +632,57 @@ public class Battle{
             }
         }
     }
-    
+    */
+
+    /**
+     *
+     * @throws InterruptedException
+     */
+
     public void run() throws InterruptedException
     {
         if(terminated == false)
         {
             Double chance;
-        if(pSpeed>(3/2)*eSpeed)
-        {
-            chance = 0.9;
-        }
-        else
-        {
-            chance = (2*pSpeed/(eSpeed*1.0));
-        }
-        if(rand.success(chance))
-        {
-            System.out.println("You successfully escabed the " + enemy.getName() + "!\n");
-            terminated = true;
-        }
-        else
-        {
-            System.out.println("In a valiant effort to escape the " + enemy.getName()+ ", you have been caught off guard by you persuer! You couldn't escape.\n");
-            this.turnNumber++;
-            enemyTurn();
-        }
+            if(pSpeed>(3/2)*eSpeed)
+            {
+                chance = 0.9;
+            }
+            else
+            {
+                chance = (2*pSpeed/(eSpeed*1.0));
+            }
+            if(rand.success(chance))
+            {
+                System.out.println("You successfully escabed the " + enemy.getName() + "!\n");
+                terminated = true;
+                mf.shop();
+            }
+            else
+            {
+                System.out.println("In a valiant effort to escape the " + enemy.getName()+ ", you have been caught off guard by you persuer! You couldn't escape.\n");
+                this.turnNumber++;
+                enemyTurn();
+            }
         }
         
     }
     
+    /**
+     *
+     * @return
+     */
     public ArrayList<Item> getHealing()
     {
         
         return player.getInv().getHealingItems();
     }
     
+    /**
+     *
+     * @param chosenItem
+     * @throws InterruptedException
+     */
     public void useAnItem(Item chosenItem) throws InterruptedException//Does not work
     {
         
@@ -611,11 +708,19 @@ public class Battle{
         }
     }
     
+    /**
+     *
+     * @throws InterruptedException
+     */
     public void attackRunHeal() throws InterruptedException
     {
         System.out.println("What would you like to do?\n");
     }
     
+    /**
+     *
+     * @throws InterruptedException
+     */
     public void playerTurn() throws InterruptedException
     {
         if(terminated = false)
@@ -670,6 +775,12 @@ public class Battle{
     }
     
     //ENEMY TURN
+
+    /**
+     *
+     * @param attack
+     * @return
+     */
     
      public Double eDamageCalculator(Attack attack)
     {
@@ -682,6 +793,11 @@ public class Battle{
     
     }
     
+    /**
+     *
+     * @param attack
+     * @throws InterruptedException
+     */
     public void eDealDamage(Attack attack) throws InterruptedException
     {
         if(attack.getDamage() > 0)
@@ -705,6 +821,12 @@ public class Battle{
         }
     }
     
+    /**
+     *
+     * @param modefier
+     * @param statName
+     * @throws InterruptedException
+     */
     public void eprintStatChange(int modefier, String statName) throws InterruptedException
     {
         if(modefier > 0)
@@ -717,6 +839,12 @@ public class Battle{
         }
     }
     
+    /**
+     *
+     * @param modefier
+     * @param statName
+     * @throws InterruptedException
+     */
     public void eprintStatChange(Double modefier, String statName) throws InterruptedException
     {
         if(modefier > 0)
@@ -729,7 +857,11 @@ public class Battle{
         }
     }
     
-    
+    /**
+     *
+     * @param attack
+     * @throws InterruptedException
+     */
     public void eApplyAttackEffects(Attack attack) throws InterruptedException
     {     
         if(attack.hasEffect())
@@ -786,6 +918,11 @@ public class Battle{
         }
     }
     
+    /**
+     *
+     * @param attack
+     * @throws InterruptedException
+     */
     public void ePreformAttack(Attack attack) throws InterruptedException
     {
         if(attack.getTurnLength()<2)
@@ -809,6 +946,11 @@ public class Battle{
          }
     }
    
+    /**
+     *
+     * @param attack
+     * @return
+     */
     public boolean maxed(Attack attack)
     {
         if(attack.hasEffect()==false)
@@ -854,6 +996,10 @@ public class Battle{
         
     }
     
+    /**
+     *
+     * @return
+     */
     public Attack enemyChoosenAttack()
     {
             ArrayList<Attack> mostUsed = new ArrayList<Attack>();
@@ -948,8 +1094,10 @@ public class Battle{
             return chosen;
     }
     
-    
-    
+    /**
+     *
+     * @throws InterruptedException
+     */
     public void enemyTurn() throws InterruptedException
     {
         if(terminated==false)

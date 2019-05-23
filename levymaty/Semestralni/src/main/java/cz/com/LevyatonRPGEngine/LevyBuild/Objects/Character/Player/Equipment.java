@@ -17,7 +17,10 @@ import cz.com.GameFiles.LevyBuild.customClasses.Bodyparts;
 import cz.com.GameFiles.LevyBuild.customClasses.Attacks;
 import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Character.Specie;
 
-
+/**
+ *
+ * @author czech
+ */
 public class Equipment {
     
     private Species species = new Species();
@@ -62,7 +65,12 @@ public class Equipment {
     [4] = RIGHT LEG
     [5] = LEFT LEG
     [6] = TAIL
-    /*/    
+    /*/
+
+    /**
+     *
+     */
+    
     public Equipment()
     {
         attacks = new Attacks(human.getHP() + 100, human.getDef() + 500);
@@ -101,6 +109,9 @@ public class Equipment {
         
     }
     
+    /**
+     *
+     */
     public void setBonus()
     {
         if(rightHand.getCategory().equals(leftHand.getCategory()))
@@ -117,6 +128,11 @@ public class Equipment {
         }
     }
     
+    /**
+     *
+     * @param bodypart
+     * @return
+     */
     public Double bonusMod(String bodypart)
     {
         switch(bodypart)
@@ -166,6 +182,10 @@ public class Equipment {
         return 1.0;
     
     }
+
+    /**
+     *
+     */
     public void updateEquipment()
     {
         this.equipment[0] = this.head;
@@ -181,19 +201,35 @@ public class Equipment {
     
     
     //Attacks
+
+    /**
+     *
+     * @param attack
+     * @param exp
+     * @throws InterruptedException
+     */
     
     public void levelAttack(Attack attack, int exp) throws InterruptedException
     {
         allAttacks.get(attacks.getAttackIndex(attack)).gainExp(exp);
     }
     
+    /**
+     *
+     * @param attack
+     * @param newLevel
+     */
     public void setLevelAttack(Attack attack, int newLevel)
     {
        allAttacks.get(attacks.getAttackIndex(attack)).setLevel(newLevel);
        this.makeAttackAvailable(attack, true);
     }
     
-    
+    /**
+     *
+     * @param bodypart
+     * @param trueOrFalse
+     */
     public void makeAttackAvailable(Bodypart bodypart, boolean trueOrFalse)
     {
         Attack checkedAttack = bodypart.getAttack();
@@ -204,6 +240,11 @@ public class Equipment {
         }
     }
     
+    /**
+     *
+     * @param giveAttack
+     * @param trueOrFalse
+     */
     public void makeAttackAvailable(Attack giveAttack, boolean trueOrFalse)
     {
         Attack checkedAttack = giveAttack;
@@ -216,6 +257,11 @@ public class Equipment {
     
    
     //Setters
+
+    /**
+     *
+     * @param giveHead
+     */
     
     public void setHead(Bodypart giveHead)
     {
@@ -226,6 +272,10 @@ public class Equipment {
         makeAttackAvailable(head,true);
     }
     
+    /**
+     *
+     * @param giveHand
+     */
     public void setRightHand(Bodypart giveHand)
     {
         makeAttackAvailable(rightHand,false);
@@ -235,6 +285,10 @@ public class Equipment {
         makeAttackAvailable(rightHand,true);
     }
     
+    /**
+     *
+     * @param giveHand
+     */
     public void setLeftHand(Bodypart giveHand)
     {
         makeAttackAvailable(leftHand,true);
@@ -245,6 +299,10 @@ public class Equipment {
         
     }
     
+    /**
+     *
+     * @param giveTorso
+     */
     public void setTorso(Bodypart giveTorso)
     {
         makeAttackAvailable(torso,false);
@@ -254,6 +312,10 @@ public class Equipment {
         makeAttackAvailable(torso,true);
     }
     
+    /**
+     *
+     * @param giveLeg
+     */
     public void setRightLeg(Bodypart giveLeg)
     {
         makeAttackAvailable(rightLeg,false);
@@ -263,6 +325,10 @@ public class Equipment {
         makeAttackAvailable(rightLeg,true);
     }
     
+    /**
+     *
+     * @param giveLeg
+     */
     public void setLeftLeg(Bodypart giveLeg)
     {
         makeAttackAvailable(leftLeg,false);
@@ -272,6 +338,10 @@ public class Equipment {
         makeAttackAvailable(leftLeg,true);
     }
     
+    /**
+     *
+     * @param giveTail
+     */
     public void setTail(Bodypart giveTail)
     {
         makeAttackAvailable(tail,false);
@@ -282,6 +352,10 @@ public class Equipment {
     }
     
     //Unequippers
+
+    /**
+     *
+     */
     
     public void unequipHead()
     {
@@ -292,6 +366,9 @@ public class Equipment {
         makeAttackAvailable(head,true);
     }
     
+    /**
+     *
+     */
     public void unequipTorso()
     {
         makeAttackAvailable(torso,false);
@@ -301,6 +378,9 @@ public class Equipment {
         makeAttackAvailable(torso,true);
     }
     
+    /**
+     *
+     */
     public void unequipRightHand()
     {
         makeAttackAvailable(rightHand,false);
@@ -310,6 +390,9 @@ public class Equipment {
         makeAttackAvailable(rightHand,true);
     }
     
+    /**
+     *
+     */
     public void unequipLeftHand()
     {
         makeAttackAvailable(leftHand,false);
@@ -319,6 +402,9 @@ public class Equipment {
         makeAttackAvailable(leftHand,true);
     }
     
+    /**
+     *
+     */
     public void unequipRightLeg()
     {
         makeAttackAvailable(rightLeg,false);
@@ -328,6 +414,9 @@ public class Equipment {
         makeAttackAvailable(rightLeg,true);
     }
     
+    /**
+     *
+     */
     public void unequipLeftLeg()
     {
         makeAttackAvailable(leftLeg,false);
@@ -337,6 +426,9 @@ public class Equipment {
         makeAttackAvailable(leftLeg,true);
     }
     
+    /**
+     *
+     */
     public void unequipTail()
     {
         makeAttackAvailable(tail,false);
@@ -348,42 +440,75 @@ public class Equipment {
     
 
 //Getters
+
+    /**
+     *
+     * @return
+     */
     
     public Bodypart getHead()
     {
         return head;
     }
     
+    /**
+     *
+     * @return
+     */
     public Bodypart getRightHand()
     {
         return rightHand;
     }  
         
+    /**
+     *
+     * @return
+     */
     public Bodypart getLeftHand()
     {
         return leftHand;
     }
     
+    /**
+     *
+     * @return
+     */
     public Bodypart getTorso()
     {
         return torso;
     }
     
+    /**
+     *
+     * @return
+     */
     public Bodypart getRightLeg()
     {
         return rightLeg;
     }
     
+    /**
+     *
+     * @return
+     */
     public Bodypart getLeftLeg()
     {
         return leftLeg;
     }
     
+    /**
+     *
+     * @return
+     */
     public Bodypart getTail()
     {
         return tail;
     }
          
+    /**
+     *
+     * @return
+     */
     public ArrayList<Attack> getAvailableAttacks()
     {
         ArrayList<Attack> availableAttacks = new ArrayList<Attack>();
@@ -404,11 +529,19 @@ public class Equipment {
         return availableAttacks;
     }
     
+    /**
+     *
+     * @return
+     */
     public ArrayList<Attack> getAllAttacks()
     {
         return allAttacks;
     }
     
+    /**
+     *
+     * @return
+     */
     public Bodypart[] getEquipment()
     {
         return equipment;

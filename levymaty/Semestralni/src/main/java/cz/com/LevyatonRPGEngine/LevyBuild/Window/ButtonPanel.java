@@ -39,6 +39,13 @@ public class ButtonPanel extends JPanel implements ActionListener{
     
     String layoutName;
     
+    /**
+     *
+     * @param buttonNames
+     * @param panelSize
+     * @param layoutName
+     * @param m
+     */
     public ButtonPanel(ArrayList<String> buttonNames, Dimension panelSize, String layoutName,MainFrame m)
     {
         mf = m;

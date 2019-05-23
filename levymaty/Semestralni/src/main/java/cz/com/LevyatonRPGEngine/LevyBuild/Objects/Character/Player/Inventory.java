@@ -17,16 +17,19 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import cz.com.GameFiles.LevyBuild.customClasses.Items;
 
-
-
-
-
-
+/**
+ *
+ * @author czech
+ */
 public class Inventory {
     ArrayList<Item> inventory;
     ArrayList<Bodypart> costumes;
     Items items = new Items(0,0);
     ArrayList<Item> healingItems;
+
+    /**
+     *
+     */
     public Inventory()
     {
         inventory = new ArrayList<Item>();
@@ -34,17 +37,28 @@ public class Inventory {
         healingItems = new ArrayList<Item>();
     }
     
+    /**
+     *
+     * @return
+     */
     public  ArrayList<Bodypart> getCostumes()
     {
         return costumes;
     }
             
-            
+    /**
+     *
+     * @return
+     */
     public ArrayList<Item> getHealingItems()
     {
         return healingItems;
     }
     
+    /**
+     *
+     * @return
+     */
     public String seeInventory()
      {
          String inv = "";
@@ -56,6 +70,9 @@ public class Inventory {
          return inv;
      }
     
+    /**
+     *
+     */
     public void updateHealingItems()
     {
         for(Item item : inventory)
@@ -70,6 +87,10 @@ public class Inventory {
         }
     }
     
+    /**
+     *
+     * @param item
+     */
     public void decrementItem(Item item)
     {
         
@@ -95,6 +116,10 @@ public class Inventory {
          }
     }
     
+    /**
+     *
+     * @param item
+     */
     public void decrementItem(Bodypart item)
     {
         int counter = -1;
@@ -112,6 +137,11 @@ public class Inventory {
          }
     }
     
+    /**
+     *
+     * @param item
+     * @param amount
+     */
     public void decrementItem(Item item, int amount)
     {
         int counter = -1;
@@ -134,6 +164,11 @@ public class Inventory {
          }
     }
     
+    /**
+     *
+     * @param item
+     * @param amount
+     */
     public void decrementItem(Bodypart item, int amount)
     {
         int counter = -1;
@@ -151,6 +186,10 @@ public class Inventory {
          }
     }
     
+    /**
+     *
+     * @param item
+     */
     public void incrementItem(Item item)
     {
         boolean exists = false;
@@ -175,6 +214,10 @@ public class Inventory {
          }
     }
     
+    /**
+     *
+     * @param item
+     */
     public void incrementItem(Bodypart item)
     {
         boolean exists = false;
@@ -194,6 +237,11 @@ public class Inventory {
          }
     }
     
+    /**
+     *
+     * @param item
+     * @param amount
+     */
     public void incrementItem(Item item, int amount)
     {
         boolean exists = false;
@@ -216,6 +264,11 @@ public class Inventory {
          
     }
 
+    /**
+     *
+     * @param item
+     * @param amount
+     */
     public void incrementItem(Bodypart item, int amount)
     {
         boolean exists = false;
@@ -234,21 +287,38 @@ public class Inventory {
             costumes.add(item);
          }
     }
+
+    /**
+     *
+     * @param item
+     */
     public void removeItem(Item item)
     {
         inventory.remove(item);
     }
     
+    /**
+     *
+     * @param item
+     */
     public void removeItem(Bodypart item)
     {
         costumes.remove(item);
     }
     
-
+    /**
+     *
+     * @return
+     */
     public ArrayList<Item> getHealing()
     {
         return this.healingItems;
     }
+
+    /**
+     *
+     * @return
+     */
     public String getHealingString()
     {
         String healingItem = "";
@@ -260,12 +330,20 @@ public class Inventory {
         return healingItem;
     }
 
+    /**
+     *
+     * @return
+     */
     public ArrayList<Item> getInventory()
     {
         return inventory;
     }
    
-
+    /**
+     *
+     * @param name
+     * @return
+     */
     public Item getItem(String name)
     {
         for (Item inventorySlot : inventory)
@@ -278,6 +356,11 @@ public class Inventory {
         return null;
     }
     
+    /**
+     *
+     * @param name
+     * @return
+     */
     public Bodypart getCostume(String name)
     {
         for (Bodypart inventorySlot : costumes)
@@ -290,6 +373,10 @@ public class Inventory {
         return null;
     }
 
+    /**
+     *
+     * @param item
+     */
     public void addItem(Item item)
     {
         boolean heals = false;
@@ -309,27 +396,47 @@ public class Inventory {
         }
     }
     
+    /**
+     *
+     * @param giveInv
+     */
     public void setInv(ArrayList<Item> giveInv)
     {
         inventory = giveInv;
     }
     
+    /**
+     *
+     * @param giveInv
+     */
     public void setHealing(ArrayList<Item> giveInv)
     {
         healingItems = giveInv;
     }
     
+    /**
+     *
+     * @param giveInv
+     */
     public void setCostumes(ArrayList<Bodypart> giveInv)
     {
         costumes = giveInv;
     }
     
+    /**
+     *
+     * @param item
+     */
     public void addCostume(Bodypart item)
     {
         costumes.add(item);
         costumes.get(costumes.indexOf(item)).addItem();
     }
     
+    /**
+     *
+     * @param givenItem
+     */
     public void upgradeCostume(Bodypart givenItem)
     {
         for(Bodypart item : costumes)
@@ -341,6 +448,11 @@ public class Inventory {
         }
     }
     
+    /**
+     *
+     * @param givenItem
+     * @param level
+     */
     public void upgradeCostume(Bodypart givenItem, int level)
     {
         for(Bodypart item : costumes)

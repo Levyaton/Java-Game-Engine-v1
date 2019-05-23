@@ -11,8 +11,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 
-
-
+/**
+ *
+ * @author czech
+ */
 public class GameObject {
     
     private int coordX, coordY;
@@ -29,6 +31,19 @@ public class GameObject {
     private int objectIdx;
     private Specie objSpecie;
     
+    /**
+     *
+     * @param filename
+     * @param coordX
+     * @param coordY
+     * @param objectIdx
+     * @param gc
+     * @param enemyColor
+     * @param obstacleColor
+     * @param canvasHeight
+     * @param canvasWidth
+     * @param blockSize
+     */
     public GameObject(String filename, int coordX, int coordY, int objectIdx, GameContainer gc, int enemyColor, int obstacleColor, int canvasHeight, int canvasWidth, int blockSize) {
         ENEMY_COLOR = enemyColor;
         OBSTACLE_COLOR = obstacleColor;
@@ -55,6 +70,9 @@ public class GameObject {
         //System.out.println(System.getProperty("user.dir"));  GETS PROJECT DIRECTORY
     }
     
+    /**
+     *
+     */
     public void remove() {
         System.out.println("removed");
         pixels = DoubleCanvas.getPixels();
@@ -69,6 +87,10 @@ public class GameObject {
         gc.getDoubleCanvas().setPixels(pixels);
     }
     
+    /**
+     *
+     * @param filename
+     */
     public void draw(String filename) {
         int color = 0x000000;
         if (filename == "jednorozec.png") {
@@ -116,14 +138,26 @@ public class GameObject {
         gc.getDoubleCanvas().setVisiblePixels(visiblePixels);
     }
 
+    /**
+     *
+     * @return
+     */
     public int getCoordX() {
         return coordX;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getCoordY() {
         return coordY;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getObjectIdx() {
         return objectIdx;
     }

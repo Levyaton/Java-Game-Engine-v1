@@ -13,6 +13,12 @@ import java.util.Scanner;
  */
 public class InputCheckers {
     
+    /**
+     *
+     * @param valid
+     * @param input
+     * @return
+     */
     public boolean validInput(String[] valid, String input)
     {
         for(String option : valid)

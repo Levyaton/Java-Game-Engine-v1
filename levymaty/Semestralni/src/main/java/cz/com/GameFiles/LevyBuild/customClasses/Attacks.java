@@ -14,6 +14,10 @@ import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Attack;
 import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Item;
 import java.util.ArrayList;
 
+/**
+ *  A class containing all the Attacks
+ * @author czech
+ */
 public class Attacks {
     
     //properties
@@ -38,7 +42,9 @@ public class Attacks {
     
     ArrayList<Attack> allAttacks = new ArrayList<Attack>();
     
-    
+    /**
+     *  creates the emptyAttack attack
+     */
     public void emptyAttack()
     {
         boolean effect = false;//Do nothing
@@ -51,6 +57,9 @@ public class Attacks {
         allAttacks.add(emptyAttack);
     }
     
+    /**
+     *  creates the doNothing ATtack
+     */
     public void doNothing()
     {
         boolean effect = false;//Do nothing
@@ -65,6 +74,10 @@ public class Attacks {
         allAttacks.add(doNothing);
     }
     
+    /**
+     *  creates the eatUp attack
+     * @param giveHealth
+     */
     public void eatUp(int giveHealth)
     //There seems to be a strange glitch here, which causes the the player to use tailPeacocking automaticly. I still dont know what causes this, but since it doesnt break the game, I will come back to it later
     //Found another glitch. The number of health points given by the attack seems to differ from the real gain in some cases. My theory is that his happens when the given hp surpasses the max, though it seems to always happen when gaining 70 hp
@@ -94,6 +107,9 @@ public class Attacks {
         
     }
     
+    /**
+     *  creates the onePunch attack
+     */
     public void onePunch()
     {
         boolean effect = false;//Do nothing
@@ -106,6 +122,9 @@ public class Attacks {
         allAttacks.add(onePunch);
     }
     
+    /**
+     *  creates the Slash attack
+     */
     public void slash()
     {
         boolean enemyCanMove = true;
@@ -120,6 +139,9 @@ public class Attacks {
         allAttacks.add(slash);
     }
     
+    /**
+     *  creates the tailPeacocking attack
+     */
     public void tailPeacocking()
     {
         boolean enemyCanMove = false;
@@ -136,6 +158,9 @@ public class Attacks {
         allAttacks.add(tailPeacocking);
     }
     
+    /**
+     *  creates the thickSkin attack
+     */
     public void thickSkin()
     {
         boolean enemyCanMove = true;
@@ -155,6 +180,9 @@ public class Attacks {
         allAttacks.add(thickSkin);
     }
     
+    /**
+     *  creates the charge attack
+     */
     public void charge()
     {
         int eBlockLength = 0;//how many turns is the enemy immobilized
@@ -173,6 +201,12 @@ public class Attacks {
     
     
     //Initializator
+
+    /**
+     *  Initializes Attacks
+     * @param giveHealth
+     * @param giveDef
+     */
     
     public Attacks(int giveHealth, int giveDef)
     {
@@ -187,6 +221,9 @@ public class Attacks {
         charge();
     }
     
+    /**
+     *  Initializes Attacks
+     */
     public Attacks()
     {
         emptyAttack();
@@ -200,52 +237,94 @@ public class Attacks {
     
     
     //Getters
+
+    /**
+     *  returns an ArrayList containing all of the attacks
+     * @return
+     */
     
     public ArrayList<Attack> getAllAttacks()
     {
         return allAttacks;
     }
     
+    /**
+     *  returns the emptyAttack attack 
+     * @return
+     */
     public Attack getEmptyAttack()
     {
         return emptyAttack;
     }
     
+    /**
+     *  returns the doNothing attack 
+     * @return
+     */
     public Attack getDoNothing()
     {
         return doNothing;
     }
     
+    /**
+     *  returns the eatUp attack 
+     * @return
+     */
     public Attack getEatUp()
     {
         return eatUp;
     }
     
+    /**
+     *  returns the onePunch attack 
+     * @return
+     */
     public Attack getOnePunch()
     {
         return onePunch;
     }
     
+    /**
+     *  returns the Slash attack 
+     * @return
+     */
     public Attack getSlash()
     {
         return slash;
     }
     
+    /**
+     *  returns the tailPeacocking attack 
+     * @return
+     */
     public Attack getTailPeacocking()
     {
         return tailPeacocking;
     }
     
+    /**
+     *  returns the thickSkin attack 
+     * @return
+     */
     public Attack getThickSkin()
     {
         return thickSkin;
     }
     
+    /**
+     *  returns the charge attack 
+     * @return
+     */
     public Attack getCharge()
     {
         return charge;
     }
     
+    /**
+     *  returns the index of a specific Attack within Attacks
+     * @param attack
+     * @return
+     */
     public int getAttackIndex(Attack attack)
     {
         int attackIndex = 0;

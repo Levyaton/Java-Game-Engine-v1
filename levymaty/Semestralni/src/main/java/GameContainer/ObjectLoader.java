@@ -4,6 +4,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
+/**
+ *
+ * @author czech
+ */
 public class ObjectLoader {
     private final int BLOCK_SIZE = 50;
     private final int ENEMY_COLOR;
@@ -19,6 +23,15 @@ public class ObjectLoader {
     //private GameObject[] tmpClassA;
     //private GameObject[] tmpClassB;
     
+    /**
+     *
+     * @param gc
+     * @param enemyColor
+     * @param obstacleColor
+     * @param canvasHeight
+     * @param canvasWidth
+     * @throws FileNotFoundException
+     */
     public ObjectLoader (GameContainer gc, int enemyColor, int obstacleColor, int canvasHeight, int canvasWidth) throws FileNotFoundException {
         ENEMY_COLOR = enemyColor;
         OBSTACLE_COLOR = obstacleColor;
@@ -81,26 +94,53 @@ public class ObjectLoader {
         }
     }*/
 
+    /**
+     *
+     * @return
+     */
+
+
     public int getBLOCK_SIZE() {
         return BLOCK_SIZE;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getAcount() {
         return Acount;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getBcount() {
         return Bcount;
     }
 
+    /**
+     *
+     * @return
+     */
     public GameObject[] getClassA() {
         return classA;
     }
 
+    /**
+     *
+     * @return
+     */
     public GameObject[] getClassB() {
         return classB;
     }
     
+    /**
+     *
+     * @param go
+     * @param type
+     */
     public void addObject(GameObject go, char type) {
         
         // TODO: adding objects to list and to canvas 
