@@ -11,28 +11,28 @@ import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Item;
 import java.util.ArrayList;
 
 /**
- *
+ *  A class containing the information about a clerk
  * @author czech
  */
 public class Clerk extends NPC{
     
     /**
-     *
+     *  every clerk must have a trait, those being Aggressive, defensive or random
      */
     protected String trait;
 
     /**
-     *
+     *  every clerk must have a gender
      */
     protected String gender;
 
     /**
-     *
+     *  every clerk must have an inventory
      */
     protected ArrayList<Item> inventory = new ArrayList<Item>();
     
     /**
-     *
+     *  Sets up the Clerk
      * @param givenName
      * @param giveStr
      * @param giveSpeed
@@ -54,7 +54,7 @@ public class Clerk extends NPC{
     }
     
     /**
-     *
+     *  sets the clerks inventory
      */
     public void setInventory()
     {
@@ -65,7 +65,7 @@ public class Clerk extends NPC{
     }
     
     /**
-     *
+     *  sets the price of an Item in the Clerk's inventory
      * @param price
      * @param item
      */
@@ -88,7 +88,7 @@ public class Clerk extends NPC{
     }
     
     /**
-     *
+     *  returns the clerks trait
      * @return
      */
     public String getTrait()
@@ -97,7 +97,7 @@ public class Clerk extends NPC{
     }
     
     /**
-     *
+     *  returns the Clerk's gender
      * @return
      */
     public String getGender()
@@ -106,7 +106,7 @@ public class Clerk extends NPC{
     }
     
     /**
-     *
+     *  returns an ArrayList containing the clerks inventory
      * @return
      */
     public ArrayList<Item> getInventory()
@@ -114,22 +114,7 @@ public class Clerk extends NPC{
         return inventory;
     }
     
-    /**
-     *
-     * @param player
-     * @return
-     */
-    public String seeInventory(Player player)
-    {
-        String inv = "";
-        int counter = 1;
-        for(Item item : inventory)
-        {
-        inv += ("Item " + counter + ":   " + item.getName() + "\nCost:   " + item.getValue()+ " Gold Coins\nOwned by " + player.getName()+":  " + this.numberOfItemInPInventory(player, item) + "\n\n");
-        counter++;
-        }
-        return inv;
-    }
+   
     
     private int numberOfItemInPInventory(Player player, Item item)
     {
@@ -145,7 +130,7 @@ public class Clerk extends NPC{
     }
     
     /**
-     *
+     *  sets the up the Clerk with a given name and gender
      * @param giveName
      * @param giveGender
      */
@@ -156,7 +141,7 @@ public class Clerk extends NPC{
     }
     
     /**
-     *
+     *  sets the clerk to the given Clerk
      * @param clerk
      */
     public void setClerk(Clerk clerk)

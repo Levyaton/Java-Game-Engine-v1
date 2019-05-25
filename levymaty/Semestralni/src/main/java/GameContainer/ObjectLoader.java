@@ -45,8 +45,6 @@ public class ObjectLoader {
         Scanner sc = new Scanner(file);
         int idx = 0;
         int idy = 0;
-        int classAcount = 0;
-        int classBcount = 0;
         while (sc.hasNext()) {
             String line = sc.nextLine();
             for (int i = 0; i < line.length(); i++) {
@@ -56,14 +54,19 @@ public class ObjectLoader {
                 }
                 if (line.charAt(i) == 'A') {
                     System.out.println(i);
-                    classA[i] = new GameObject("Obstacle.png", idx, idy, classAcount, gc, ENEMY_COLOR, OBSTACLE_COLOR, CANVAS_HEIGHT, CANVAS_WIDTH, BLOCK_SIZE);
-                    classA[i].draw("Obstacle.png");
-                    classAcount += 1;
+                    classA[Acount] = new GameObject("Obstacle.png", idx, idy, Acount, gc, ENEMY_COLOR, OBSTACLE_COLOR, CANVAS_HEIGHT, CANVAS_WIDTH, BLOCK_SIZE);
+                    classA[Acount].draw("Obstacle.png");
+                    Acount += 1;
                 }
                 if (line.charAt(i) == 'B') {
-                    classB[i] = new GameObject("jednorozec.png", idx, idy, classBcount, gc, ENEMY_COLOR, OBSTACLE_COLOR, CANVAS_HEIGHT, CANVAS_WIDTH, BLOCK_SIZE);
-                    classB[i].draw("jednorozec.png");
-                    classBcount += 1;
+                    classB[Bcount] = new GameObject("Enemy.png", idx, idy, Bcount, gc, ENEMY_COLOR, OBSTACLE_COLOR, CANVAS_HEIGHT, CANVAS_WIDTH, BLOCK_SIZE);
+                    classB[Bcount].draw("Enemy.png");
+                    Bcount += 1;
+                }
+                if (line.charAt(i) == 'C') {
+                    classB[Bcount] = new GameObject("jednorozec.png", idx, idy, Bcount, gc, ENEMY_COLOR, OBSTACLE_COLOR, CANVAS_HEIGHT, CANVAS_WIDTH, BLOCK_SIZE);
+                    classB[Bcount].draw("jednorozec.png");
+                    Bcount += 1;
                 }
                 idx += BLOCK_SIZE;
             }
@@ -71,7 +74,23 @@ public class ObjectLoader {
             idy += BLOCK_SIZE;
         }
     }
-    
+
+    /**
+     *
+     * @param enemy
+     */
+    public void removeEnemy(GameObject enemy) {
+        int idx = enemy.getObjectIdx();
+        for (int i = idx; i < Bcount; i++) {
+            classB[i].setObjectIdx(classB[i].getObjectIdx() - 1);
+        }
+        for (int i = idx; i < Bcount - 1; i++) {
+            classB[i] = classB[i + 1];
+        }
+        enemy.remove();
+        classB[Bcount - 1] = null;
+        Bcount -= 1;
+    }
     /*public boolean removeObject(int idx, char type) {
         if (type == 'A' || type == 'a') {
             classA[idx] = null;

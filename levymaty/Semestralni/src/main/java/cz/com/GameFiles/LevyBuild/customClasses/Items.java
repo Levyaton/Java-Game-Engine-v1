@@ -5,10 +5,7 @@
  */
 package cz.com.GameFiles.LevyBuild.customClasses;
 
-/**
- *
- * @author czech
- */
+
 
 import cz.com.LevyatonRPGEngine.LevyBuild.Methods.Randomness;
 import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Item;
@@ -16,7 +13,7 @@ import cz.com.GameFiles.LevyBuild.customClasses.Bodyparts;
 import java.util.ArrayList;
 
 /**
- *
+ *  a class containing all in-game items
  * @author czech
  */
 public class Items {
@@ -53,7 +50,7 @@ public class Items {
     Item thread;
     
     /**
-     *
+     *  initializes the class and sets the variables
      */
     public Items()
     {
@@ -77,7 +74,7 @@ public class Items {
     }
     
     /**
-     *
+     * initializes the class and sets the variables
      * @param giveHealth
      * @param giveDef
      */
@@ -105,7 +102,7 @@ public class Items {
     }
     
     /**
-     *
+     *  returns the index of a given Item from the ArrayList called misc
      * @param item
      * @return
      */
@@ -124,7 +121,7 @@ public class Items {
     }
     
     /**
-     *
+     * returns the index of a given Item from the ArrayList called allItems
      * @param item
      * @return
      */
@@ -143,7 +140,7 @@ public class Items {
     }
     
     /**
-     *
+     *  returns true if the item heals
      * @param checkedItem
      * @return
      */
@@ -160,7 +157,7 @@ public class Items {
     }
     
     /**
-     *
+     *  returns the index of a given Item from the ArrayList called healingItems
      * @param item
      * @return
      */
@@ -190,10 +187,8 @@ public class Items {
         return -((int) Math.round(getPlayerMaxHealth*0.75));
     }
     
-    /**
-     *
-     */
-    public void apple()
+   
+    private void apple()
     {
         int healthGain = 5;//How much health will the Apple restore
         String spriteLocation = "C:\\Users\\czech\\Documents\\NetBeansProjects\\levymaty\\Semestralni\\src\\main\\java\\cz\\com\\GameFiles\\LevyBuild\\Sprites\\Objects\\Apple.png";//Currently doesn't exist
@@ -206,10 +201,8 @@ public class Items {
         this.healingItems.add(apple);
     }
 
-    /**
-     *
-     */
-    public void basketOfFood()
+  
+    private void basketOfFood()
     {
         String name = "Basket of Food";
         String state = "Movable";
@@ -224,10 +217,8 @@ public class Items {
         this.healingItems.add(basketOfFood);
     }
 
-    /**
-     *
-     */
-    public void bearMeat()
+  
+    private void bearMeat()
     {
         int healthGain = 10;//How much health will the Apple restore
         String spriteLocation = "C:\\Users\\czech\\Documents\\NetBeansProjects\\levymaty\\Semestralni\\src\\main\\java\\cz\\com\\GameFiles\\LevyBuild\\Sprites\\Objects\\Items\\HealingItems\\BearMeat.png";//Currently doesn't exist
@@ -243,10 +234,8 @@ public class Items {
         this.healingItems.add(bearMeat);
     }
 
-    /**
-     *
-     */
-    public void bloodDrink()
+   
+   private void bloodDrink()
     {
         String name = "Blood Drink";
         String state = "Movable";
@@ -261,10 +250,8 @@ public class Items {
         this.healingItems.add(bloodDrink);
     }
 
-    /**
-     *
-     */
-    public void fish()
+   
+    private void fish()
     {
         int healthGain = 10;//How much health will the Fish restore
         String spriteLocation = "C:\\Users\\czech\\Documents\\NetBeansProjects\\levymaty\\Semestralni\\src\\main\\java\\cz\\com\\GameFiles\\LevyBuild\\Sprites\\Objects\\Fish.png";//Currently doesn't exist
@@ -277,11 +264,8 @@ public class Items {
         this.healingItems.add(fish);
     }
 
-    /**
-     *
-     * @param playerHealth
-     */
-    public void healingPotion(int playerHealth)
+   
+    private void healingPotion(int playerHealth)
     {
         Randomness rand = new Randomness();
         String name = "Health Potion";
@@ -300,10 +284,7 @@ public class Items {
         this.healingItems.add(healingPotion);
     }
 
-    /**
-     *
-     */
-    public void honey()
+    private void honey()
     {
         String name = "Honey";
         String state = "Movable";
@@ -319,10 +300,8 @@ public class Items {
         this.healingItems.add(honey);
     }
 
-    /**
-     *
-     */
-    public void jerky()
+  
+    private void jerky()
     {
         String name = "Jerky";
         String state = "Movable";
@@ -337,12 +316,8 @@ public class Items {
         this.healingItems.add(jerky);
     }
 
-    /**
-     *
-     * @param getDef
-     * @param getMaxHealth
-     */
-    public void sandWitch(int getDef, int getMaxHealth)
+   
+   private void sandWitch(int getDef, int getMaxHealth)
     {
         String name = "SandWitch";
         String state = "Movable";
@@ -359,27 +334,22 @@ public class Items {
     
     //Misc.
 
-    /**
-     *
-     */
-    public void bearBlood()
+    private void bearBlood()
     {
-    int value = 1;//The value of a single gold coin
-    String description = "The blood of a bear";
-    String location = System.getProperty("user.dir" + "src\\main\\java\\cz\\com\\GameFiles\\LevyBuild\\Sprites\\Objects\\Items\\Misc\\BearClaw.png");//Currently doesn't exist
-    String name = "Bear Blood";
-    String status = "Interactable";
-    Double dropRate = 0.6;
-    bearBlood = new Item(name, status, location, dropRate, description, value);
-    bearBlood.countable(false);
-    allItems.add(bearBlood);
-    misc.add(bearBlood);
+        int value = 1;//The value of a single gold coin
+        String description = "The blood of a bear";
+        String location = System.getProperty("user.dir" + "src\\main\\java\\cz\\com\\GameFiles\\LevyBuild\\Sprites\\Objects\\Items\\Misc\\BearClaw.png");//Currently doesn't exist
+        String name = "Bear Blood";
+        String status = "Interactable";
+        Double dropRate = 0.6;
+        bearBlood = new Item(name, status, location, dropRate, description, value);
+        bearBlood.countable(false);
+        allItems.add(bearBlood);
+        misc.add(bearBlood);
     }
 
-    /**
-     *
-     */
-    public void bearBone()
+   
+    private void bearBone()
     {
     int value = 7;//The value of a single gold coin
     String description = "The bone of a bear";
@@ -392,10 +362,8 @@ public class Items {
     misc.add(bearBone);
     }
 
-    /**
-     *
-     */
-    public void bearClaw()
+  
+    private void bearClaw()
     {
     int value = 5;//The value of a single gold coin
     String description = "Claws of a bear";
@@ -408,107 +376,95 @@ public class Items {
     misc.add(bearClaw);
     }
 
-    /**
-     *
-     */
-    public void bearEye()
+   
+    private void bearEye()
     {
-    int value = 15;//The value of a single gold coin
-    String description = "The eye of a bear";
-    String location = "C:\\Users\\czech\\Documents\\NetBeansProjects\\levymaty\\Semestralni\\src\\main\\java\\cz\\com\\GameFiles\\LevyBuild\\Sprites\\Objects\\Items\\Misc\\BearEye.png";//Currently doesn't exist
-    String name = "Bear Eye";
-    String status = "Interactable";
-    Double dropRate = 0.1;
-    bearEye = new Item(name, status, location, dropRate, description, value);
-    allItems.add(bearEye);
-    misc.add(bearEye);
+        int value = 15;//The value of a single gold coin
+        String description = "The eye of a bear";
+        String location = "C:\\Users\\czech\\Documents\\NetBeansProjects\\levymaty\\Semestralni\\src\\main\\java\\cz\\com\\GameFiles\\LevyBuild\\Sprites\\Objects\\Items\\Misc\\BearEye.png";//Currently doesn't exist
+        String name = "Bear Eye";
+        String status = "Interactable";
+        Double dropRate = 0.1;
+        bearEye = new Item(name, status, location, dropRate, description, value);
+        allItems.add(bearEye);
+        misc.add(bearEye);
     }
 
-    /**
-     *
-     */
-    public void bearSkin()
+   
+    private void bearSkin()
     {
-    int value = 10;//The value of a single gold coin
-    String description = "The skin of a bear - Fur included! Will suit all you furry needs :-b";
-    String location = "C:\\Users\\czech\\Documents\\NetBeansProjects\\levymaty\\Semestralni\\src\\main\\java\\cz\\com\\GameFiles\\LevyBuild\\Sprites\\Objects\\Items\\Misc\\BearSkin.png";//Currently doesn't exist
-    String name = "Bear Skin";
-    String status = "Interactable";
-    Double dropRate = 0.15;
-    bearSkin = new Item(name, status, location, dropRate, description, value);
-    allItems.add(bearSkin);
-    misc.add(bearSkin);
+        int value = 10;//The value of a single gold coin
+        String description = "The skin of a bear - Fur included! Will suit all you furry needs :-b";
+        String location = "C:\\Users\\czech\\Documents\\NetBeansProjects\\levymaty\\Semestralni\\src\\main\\java\\cz\\com\\GameFiles\\LevyBuild\\Sprites\\Objects\\Items\\Misc\\BearSkin.png";//Currently doesn't exist
+        String name = "Bear Skin";
+        String status = "Interactable";
+        Double dropRate = 0.15;
+        bearSkin = new Item(name, status, location, dropRate, description, value);
+        allItems.add(bearSkin);
+        misc.add(bearSkin);
     }
 
-    /**
-     *
-     */
-    public void bearTooth()
+  
+    private void bearTooth()
     {
-    int value = 5;//The value of a single gold coin
-    String description = "A single tooth of a bear";
-    String location = "C:\\Users\\czech\\Documents\\NetBeansProjects\\levymaty\\Semestralni\\src\\main\\java\\cz\\com\\GameFiles\\LevyBuild\\Sprites\\Objects\\Items\\Misc\\BearTooth.png";//Currently doesn't exist
-    String name = "Bear tooth";
-    String status = "Interactable";
-    Double dropRate = 0.3;
-    bearTooth = new Item(name, status, location, dropRate, description, value);
-    allItems.add(bearTooth);
-    misc.add(bearTooth);
+        int value = 5;//The value of a single gold coin
+        String description = "A single tooth of a bear";
+        String location = "C:\\Users\\czech\\Documents\\NetBeansProjects\\levymaty\\Semestralni\\src\\main\\java\\cz\\com\\GameFiles\\LevyBuild\\Sprites\\Objects\\Items\\Misc\\BearTooth.png";//Currently doesn't exist
+        String name = "Bear tooth";
+        String status = "Interactable";
+        Double dropRate = 0.3;
+        bearTooth = new Item(name, status, location, dropRate, description, value);
+        allItems.add(bearTooth);
+        misc.add(bearTooth);
     }
 
-    /**
-     *
-     */
-    public void gold()
+   
+    private void gold()
     {
-    int value = 1;//The value of a single gold coin
-    String description = "A single gold coin";
-    String location = "C:\\Users\\czech\\Documents\\NetBeansProjects\\levymaty\\Semestralni\\src\\main\\java\\cz\\com\\GameFiles\\LevyBuild\\Sprites\\Objects\\Items\\Misc\\Gold_Coin.png";//Currently doesn't exist
-    String name = "Gold Coin";
-    String status = "Interactable";
-    Double dropRate = 1.0;
-    gold = new Item(name, status, location, dropRate, description, value);
-    allItems.add(gold);
-    misc.add(gold);
+        int value = 1;//The value of a single gold coin
+        String description = "A single gold coin";
+        String location = "C:\\Users\\czech\\Documents\\NetBeansProjects\\levymaty\\Semestralni\\src\\main\\java\\cz\\com\\GameFiles\\LevyBuild\\Sprites\\Objects\\Items\\Misc\\Gold_Coin.png";//Currently doesn't exist
+        String name = "Gold Coin";
+        String status = "Interactable";
+        Double dropRate = 1.0;
+        gold = new Item(name, status, location, dropRate, description, value);
+        allItems.add(gold);
+        misc.add(gold);
     }
 
-    /**
-     *
-     */
-    public void needle()
+  
+    private void needle()
     {
-    int value = 1;//The value of a single gold coin
-    String description = "A silver needle - Be sure to purchise a thread as well!";
-    String location = "C:\\Users\\czech\\Documents\\NetBeansProjects\\levymaty\\Semestralni\\src\\main\\java\\cz\\com\\GameFiles\\LevyBuild\\Sprites\\Objects\\Items\\Misc\\Needle.png";//Currently doesn't exist
-    String name = "Silver Needle";
-    String status = "Interactable";
-    Double dropRate = 0.000000001;
-    needle = new Item(name, status, location, dropRate, description, value);
-    allItems.add(needle);
-    misc.add(needle);
+        int value = 1;//The value of a single gold coin
+        String description = "A silver needle - Be sure to purchise a thread as well!";
+        String location = "C:\\Users\\czech\\Documents\\NetBeansProjects\\levymaty\\Semestralni\\src\\main\\java\\cz\\com\\GameFiles\\LevyBuild\\Sprites\\Objects\\Items\\Misc\\Needle.png";//Currently doesn't exist
+        String name = "Silver Needle";
+        String status = "Interactable";
+        Double dropRate = 0.000000001;
+        needle = new Item(name, status, location, dropRate, description, value);
+        allItems.add(needle);
+        misc.add(needle);
     }
 
-    /**
-     *
-     */
-    public void thread()
+  
+    private void thread()
     {
-    int value = 1;//The value of a single gold coin
-    String description = "Some thread - good for stiching, but don't forget to get a needle!";
-    String location = "C:\\Users\\czech\\Documents\\NetBeansProjects\\levymaty\\Semestralni\\src\\main\\java\\cz\\com\\GameFiles\\LevyBuild\\Sprites\\Objects\\Items\\Misc\\Thread.png";//Currently doesn't exist
-    String name = "Thread";
-    String status = "Interactable";
-    Double dropRate = 0.000000001;;
-    thread = new Item(name, status, location, dropRate, description, value);
-    thread.countable(false);
-    allItems.add(thread);
-    misc.add(thread);
+        int value = 1;//The value of a single gold coin
+        String description = "Some thread - good for stiching, but don't forget to get a needle!";
+        String location = "C:\\Users\\czech\\Documents\\NetBeansProjects\\levymaty\\Semestralni\\src\\main\\java\\cz\\com\\GameFiles\\LevyBuild\\Sprites\\Objects\\Items\\Misc\\Thread.png";//Currently doesn't exist
+        String name = "Thread";
+        String status = "Interactable";
+        Double dropRate = 0.000000001;;
+        thread = new Item(name, status, location, dropRate, description, value);
+        thread.countable(false);
+        allItems.add(thread);
+        misc.add(thread);
     }
     
     //Getters
 
     /**
-     *
+     *  returns the ArrayList called allItems
      * @return
      */
     
@@ -518,7 +474,7 @@ public class Items {
     }
     
     /**
-     *
+     * returns the ArrayList called  healingItems
      * @return
      */
     public ArrayList<Item> getHealingItems()
@@ -527,7 +483,7 @@ public class Items {
     }
     
     /**
-     *
+     * returns the ArrayList called misc
      * @return
      */
     public ArrayList<Item> getMisc()
@@ -536,7 +492,7 @@ public class Items {
     }
     
     /**
-     *
+     * returns the item called apple
      * @return
      */
     public Item getApple()
@@ -545,7 +501,7 @@ public class Items {
     }
     
     /**
-     *
+     * returns the item called basketOfFood
      * @return
      */
     public Item GetBasketOfFood()
@@ -554,7 +510,7 @@ public class Items {
     }
     
     /**
-     *
+     *  returns the item called bearBlood
      * @return
      */
     public Item getBearBllod()
@@ -563,7 +519,7 @@ public class Items {
     }
     
     /**
-     *
+     *  returns the item called bearMeat
      * @return
      */
     public Item getBearMeat()
@@ -571,8 +527,8 @@ public class Items {
         return bearMeat;
     }
     
-    /**
-     *
+    /** 
+     *  returns the item called bloodDrink
      * @return
      */
     public Item getBloodDrink()
@@ -581,7 +537,7 @@ public class Items {
     }
     
     /**
-     *
+     *  returns the item called fish
      * @return
      */
     public Item getFish()
@@ -590,7 +546,7 @@ public class Items {
     }
     
     /**
-     *
+     *  returns the item called  healingPotion
      * @return
      */
     public Item getHealingPotion()
@@ -599,7 +555,7 @@ public class Items {
     }
     
     /**
-     *
+     *  returns the item called honey
      * @return
      */
     public Item getHoney()
@@ -608,7 +564,7 @@ public class Items {
     }
     
     /**
-     *
+     *  returns the item called jerky
      * @return
      */
     public Item getJerky()
@@ -617,7 +573,7 @@ public class Items {
     }
     
     /**
-     *
+     *  returns the item called sandWitch
      * @return
      */
     public Item getSandWitch()
@@ -626,7 +582,7 @@ public class Items {
     }
  
     /**
-     *
+     *  returns the item called bearBlood
      * @return
      */
     public Item getBearBlood()
@@ -635,7 +591,7 @@ public class Items {
     }
     
     /**
-     *
+     *  returns the item called bearBone
      * @return
      */
     public Item getBearBone()
@@ -644,7 +600,7 @@ public class Items {
     }
     
     /**
-     *
+     *  returns the item called bearClaw
      * @return
      */
     public Item getBearClaw()
@@ -653,7 +609,7 @@ public class Items {
     }
     
     /**
-     *
+     *  returns the item called bearEye
      * @return
      */
     public Item getBearEye()
@@ -662,7 +618,7 @@ public class Items {
     }
     
     /**
-     *
+     *  returns the item called bearSkin
      * @return
      */
     public Item getBearSkin()
@@ -671,7 +627,7 @@ public class Items {
     }
     
     /**
-     *
+     *  returns the item called bearTooth
      * @return
      */
     public Item getBearTooth()
@@ -680,7 +636,7 @@ public class Items {
     }
     
     /**
-     *
+     *  returns the item called gold
      * @return
      */
     public Item getGold()
@@ -689,7 +645,7 @@ public class Items {
     }
     
     /**
-     *
+     *  returns the item called needle
      * @return
      */
     public Item getNeedle()
@@ -698,7 +654,7 @@ public class Items {
     }
     
     /**
-     *
+     *  returns the item called thread
      * @return
      */
     public Item getThread()

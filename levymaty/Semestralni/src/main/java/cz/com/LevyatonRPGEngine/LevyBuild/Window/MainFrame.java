@@ -10,8 +10,6 @@ import GameContainer.GameContainer;
 import cz.com.GameFiles.LevyBuild.customClasses.Bodyparts;
 import cz.com.GameFiles.LevyBuild.customClasses.Items;
 import cz.com.LevyatonRPGEngine.LevyBuild.Mechanics.Battle;
-import cz.com.LevyatonRPGEngine.LevyBuild.Mechanics.Shop;
-import cz.com.LevyatonRPGEngine.LevyBuild.Methods.CustomOutputStream;
 import cz.com.LevyatonRPGEngine.LevyBuild.Methods.*;
 import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Attack;
 import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Character.Clerk;
@@ -37,28 +35,28 @@ import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
 /**
- *
+ *  Class containing the game frame
  * @author czech
  */
 public class MainFrame extends JFrame{
     
     private   ArrayList<Attack> attacks;
     private int mod = 50;
-    private   JPanel cards;
-    private   CardLayout cl;
-    private   ArrayList<Item> items;
-    private   NameInputPanel nip;
-    private   BattlePanel bp;
-    private   ShopGUi shop;
-    private   World w;
-    private   DoubleCanvas overworld;
-    private GameContainer gc;
-    private Battle b;
-    private Save s;
+    private  JPanel cards;
+    private  CardLayout cl;
+    private  ArrayList<Item> items;
+    private  NameInputPanel nip;
+    private  BattlePanel bp;
+    private  ShopGUi shop;
+    private  World w;
+    private  DoubleCanvas overworld;
+    private  GameContainer gc;
+    private  Battle b;
+    private  Save s;
+    private OverworldMenu om;
     
     /**
-     *
-     * @param gc
+     *  initializes and sets the class
      * @param windowWidth
      * @param windowHeight
      * @param canvasHeight
@@ -67,10 +65,13 @@ public class MainFrame extends JFrame{
      * @throws LineUnavailableException
      * @throws UnsupportedAudioFileException
      */
-    public MainFrame(GameContainer gc, int windowWidth, int windowHeight, int canvasHeight) throws IOException, MalformedURLException, LineUnavailableException, UnsupportedAudioFileException
+    public MainFrame(int windowWidth, int windowHeight, int canvasHeight) throws IOException, MalformedURLException, LineUnavailableException, UnsupportedAudioFileException
     {
         s = new Save();
-        this.gc = gc;
+        this.gc = new GameContainer();
+        om = new OverworldMenu(gc);
+        overworld = new DoubleCanvas();
+        overworld.add(om);
         cards = new JPanel(new CardLayout());
         String[] panelNames = {"welcome","enter name"};
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -93,7 +94,7 @@ public class MainFrame extends JFrame{
     }
     
     /**
-     *
+     *  shows the card corresponding to the given String
      * @param card
      */
     public void showCard(String card)
@@ -105,7 +106,7 @@ public class MainFrame extends JFrame{
     }
     
     /**
-     *
+     *  returns the ShopGUi
      * @return
      */
     public ShopGUi getShop()
@@ -114,7 +115,7 @@ public class MainFrame extends JFrame{
     }
     
     /**
-     *
+     *  listener for many buttons from other classes
      * @param button
      * @throws IOException
      * @throws InterruptedException
@@ -232,7 +233,16 @@ public class MainFrame extends JFrame{
     }
     
     /**
-     *
+     *  returns the overworld menu
+     * @return
+     */
+    public OverworldMenu getOverworldMenu()
+    {
+        return om;
+    }
+    
+    /**
+     *  activates the shop mechanic
      * @throws InterruptedException
      */
     public void shop() throws InterruptedException
@@ -251,15 +261,17 @@ public class MainFrame extends JFrame{
     }
     
     /**
-     *
+     *  activates the battle mechanic
      * @param enemy
+     * @return 
      * @throws InterruptedException
      * @throws LineUnavailableException
      * @throws UnsupportedAudioFileException
      * @throws IOException
      */
-    public  void startBattle(Specie enemy ) throws InterruptedException, LineUnavailableException, UnsupportedAudioFileException, IOException
+    public  boolean startBattle(Specie enemy ) throws InterruptedException, LineUnavailableException, UnsupportedAudioFileException, IOException
     {
+        bp.setText("");
         PrintStream printStream = new PrintStream(new CustomOutputStream(bp.getBattleText())); 
         System.setOut(printStream);
         System.setErr(printStream);
@@ -272,11 +284,13 @@ public class MainFrame extends JFrame{
         MusicController.battleMusic();
         //shop();
        //
-        //cl.show(cards, "shop");
+        
+      
+        return b.result();
     }
     
     /**
-     *
+     *  loads an old world from save files
      * @return
      * @throws IOException
      * @throws FileNotFoundException
@@ -292,7 +306,7 @@ public class MainFrame extends JFrame{
     }
     
     /**
-     *
+     *  returns the overworld
      * @return
      */
     public   DoubleCanvas getOverworld()
@@ -301,7 +315,7 @@ public class MainFrame extends JFrame{
     }
     
     /**
-     *
+     *  writes text to the battleText JTextArea in the BattlePanel class
      * @param text
      * @throws InterruptedException
      */
@@ -311,11 +325,10 @@ public class MainFrame extends JFrame{
     }
     
     /**
-     *
-     * @param text
+     *  writes text to the shopText JTextArea in the ShopGUi class
      * @throws InterruptedException
      */
-    public   void writeShopText(String text) throws InterruptedException
+    public void writeShopText(String text) throws InterruptedException
     {
        
         shop.setText(text);

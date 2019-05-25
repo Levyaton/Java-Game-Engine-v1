@@ -14,7 +14,7 @@ import javax.swing.JTextArea;
 import javax.swing.SwingUtilities;
 
 /**
- *
+ *  changes the System output destination
  * @author czech
  */
 public class JTextAreaOutputStream extends OutputStream
@@ -23,7 +23,7 @@ public class JTextAreaOutputStream extends OutputStream
     private JTextArea ta;
 
     /**
-     *
+     *  initializes and sets the class
      * @param destination
      */
     public JTextAreaOutputStream (JTextArea destination)
@@ -55,7 +55,7 @@ public class JTextAreaOutputStream extends OutputStream
     }
 
     /**
-     *
+     *  sets the system output
      * @param mod
      * @return
      * @throws Exception
@@ -69,7 +69,7 @@ public class JTextAreaOutputStream extends OutputStream
     }
     
     /**
-     *
+     *  sets the system output
      * @param mod
      */
     public void setTextArea(int mod)

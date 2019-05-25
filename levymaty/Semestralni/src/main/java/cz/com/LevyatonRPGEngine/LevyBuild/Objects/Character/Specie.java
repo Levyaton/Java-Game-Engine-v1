@@ -14,63 +14,63 @@ import cz.com.LevyatonRPGEngine.LevyBuild.Objects.basicGameObject;
 import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Attack;
 
 /**
- *
+ *  A class containing the properties of a Specie
  * @author czech
  */
 public class Specie extends basicGameObject{
     
     /**
-     *
+     *  every specie must have a strength stat
      */
     protected int str;//Strength
 
     /**
-     *
+     *  every specie must have a speed stat
      */
     protected int speed;
 
     /**
-     *
+     *  every specie must have a luck stat
      */
     protected Double luck;
 
     /**
-     *
+     *  every specie must have a defense stat
      */
     protected int def;//Defense
 
     /**
-     *
+     *  every specie must have a hit points stat
      */
     protected int hp;//Health Points
 
     /**
-     *
+     *  every specie must contain an Item array of their possible loot
      */
     protected Item[] loot; //What loot will be possible
 
     /**
-     *
+     *  every specie must contain an Attack array containing their attacks
      */
     protected Attack[] attacks;
 
     /**
-     *
+     *  every specie must contain the amount of experience they give to the player when defeated
      */
     protected int givenExp;
 
     /**
-     *
+     *  every specie must have their attacks at a level greater then 0
      */
     protected int levelAttacks = 1;
 
     /**
-     *
+     *  every specie must have a focus stat
      */
     protected String focus;
     
     /**
-     *
+     *  initializes and set's up the specie
      * @param givenName
      * @param status
      * @param spriteLocation
@@ -90,7 +90,7 @@ public class Specie extends basicGameObject{
     }
     
     /**
-     *
+     *   initializes and set's up the specie
      * @param givenName
      * @param status
      * @param spriteLocation
@@ -110,7 +110,7 @@ public class Specie extends basicGameObject{
     }
     
     /**
-     *
+     * set's up the specie
      * @param giveStr
      * @param giveSpeed
      * @param giveLuck
@@ -134,7 +134,7 @@ public class Specie extends basicGameObject{
     }
     
     /**
-     *
+     * set's up the specie
      * @param giveStr
      * @param giveSpeed
      * @param giveLuck
@@ -161,7 +161,7 @@ public class Specie extends basicGameObject{
     }
     
     /**
-     *
+     *  returns the focus of the specie
      * @return
      */
     public String getFocus()
@@ -178,7 +178,7 @@ public class Specie extends basicGameObject{
     }
     
     /**
-     *
+     *  returns the species strength stat
      * @return
      */
     public int getStr()
@@ -187,7 +187,7 @@ public class Specie extends basicGameObject{
     }
     
     /**
-     *
+     *  returns the species speed stat
      * @return
      */
     public int getSpeed()
@@ -196,7 +196,7 @@ public class Specie extends basicGameObject{
     }
     
     /**
-     *
+     *  returns the species luck stat
      * @return
      */
     public Double getLuck()
@@ -205,7 +205,7 @@ public class Specie extends basicGameObject{
     }
     
     /**
-     *
+     *  returns the species defense stat
      * @return
      */
     public int getDef()
@@ -215,7 +215,7 @@ public class Specie extends basicGameObject{
     }
     
     /**
-     *
+     *  returns the species hit points stat
      * @return
      */
     public int getHP()
@@ -224,7 +224,7 @@ public class Specie extends basicGameObject{
     }
     
     /**
-     *
+     *  returns the amount of experience points given to the player by defeating the species
      * @return
      */
     public int getExp()
@@ -233,7 +233,7 @@ public class Specie extends basicGameObject{
     }
     
     /**
-     *
+     *  returns an Item array containing the possible species loot
      * @return
      */
     public Item[] getLoot()
@@ -241,24 +241,10 @@ public class Specie extends basicGameObject{
         return loot;
     }
     
-    /**
-     *
-     * @return
-     */
-    public String getStringLoot()
-    {
-        String lootStats = null;
-        
-        
-        for (Item loot1 : loot) {
-            lootStats = lootStats +  "Loot name: " + loot1.getName() + " Loot Drop Rate: " + loot1.getDropRate() + " ";
-        }
-        
-        return lootStats;
-    }
+   
     
     /**
-     *
+     *  returns an Array containing the Species attacks
      * @return
      */
     public Attack[] getAttacks()
@@ -267,7 +253,7 @@ public class Specie extends basicGameObject{
     }
     
     /**
-     *
+     *  Sets the level of a given Attack to the given number
      * @param chosenAttack
      * @param giveLevel
      */

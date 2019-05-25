@@ -58,7 +58,7 @@ public class Attacks {
     }
     
     /**
-     *  creates the doNothing ATtack
+     *  creates the doNothing Attack
      */
     public void doNothing()
     {

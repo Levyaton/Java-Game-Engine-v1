@@ -30,6 +30,10 @@ public class GameObject {
     private final int CANVAS_WIDTH;
     private int objectIdx;
     private Specie objSpecie;
+    private int northBound;
+    private int southBound;
+    private int westBound;
+    private int eastBound;
     
     /**
      *
@@ -51,6 +55,15 @@ public class GameObject {
         CANVAS_WIDTH = canvasWidth;
         BLOCK_SIZE = blockSize;
         
+        this.northBound = coordY;
+        this.southBound = coordY + 50;
+        this.eastBound = coordX + 50;
+        this.westBound = coordX;
+        if (filename == "Enemy.png") {
+            
+            this.objSpecie = new Species().getWolf();
+            this.filePath =  this.objSpecie.getSpriteLocation();
+        }
         if (filename == "jednorozec.png") {
             
             this.objSpecie = new Species().getBasicBear();
@@ -69,6 +82,46 @@ public class GameObject {
         this.coordY = coordY;
         //System.out.println(System.getProperty("user.dir"));  GETS PROJECT DIRECTORY
     }
+
+    /**
+     *
+     * @param objectIdx
+     */
+    public void setObjectIdx(int objectIdx) {
+        this.objectIdx = objectIdx;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public int getNorthBound() {
+        return northBound;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public int getSouthBound() {
+        return southBound;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public int getWestBound() {
+        return westBound;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public int getEastBound() {
+        return eastBound;
+    }
     
     /**
      *
@@ -77,14 +130,22 @@ public class GameObject {
         System.out.println("removed");
         pixels = DoubleCanvas.getPixels();
         visiblePixels = DoubleCanvas.getVisiblePixels();
-        for (int i = 0; i < coordY + BLOCK_SIZE; i++) {
-            for (int j = 0; j < coordX + BLOCK_SIZE; j++) {
+        for (int i = coordY; i < coordY + BLOCK_SIZE; i++) {
+            for (int j = coordX; j < coordX + BLOCK_SIZE; j++) {
                 pixels[i * CANVAS_WIDTH + j] = 0x000000;
                 visiblePixels[i * CANVAS_WIDTH + j] = 0x000000;
             }
         }
         gc.getDoubleCanvas().setVisiblePixels(visiblePixels);
         gc.getDoubleCanvas().setPixels(pixels);
+    }
+
+    /**
+     *
+     * @return
+     */
+    public String getFilename() {
+        return filename;
     }
     
     /**
@@ -93,7 +154,7 @@ public class GameObject {
      */
     public void draw(String filename) {
         int color = 0x000000;
-        if (filename == "jednorozec.png") {
+        if (filename == "jednorozec.png" || filename == "Enemy.png") {
             color = ENEMY_COLOR;
         }
         if (filename == "Obstacle.png") {

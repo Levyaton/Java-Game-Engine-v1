@@ -26,7 +26,7 @@ import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Character.Player.Inventory;
 import cz.com.LevyatonRPGEngine.LevyBuild.Objects.World;
 
 /**
- *
+ *  a class that allows game loading from text documents
  * @author czech
  */
 public class Load {
@@ -80,7 +80,7 @@ public class Load {
     Inventory inv = new Inventory();
     
     /**
-     *
+     *  returns the saved game world
      * @return
      * @throws IOException
      * @throws FileNotFoundException
@@ -98,7 +98,7 @@ public class Load {
     }
     
     /**
-     *
+     *returns the saved player
      * @return
      * @throws IOException
      * @throws FileNotFoundException
@@ -202,7 +202,7 @@ public class Load {
     }
       
     /**
-     *
+     *  loads the saved clerks
      * @return
      * @throws FileNotFoundException
      * @throws IOException
@@ -234,7 +234,7 @@ public class Load {
     }
     
     /**
-     *
+     *  returns the saved amount of player gold
      * @return
      * @throws FileNotFoundException
      * @throws IOException
@@ -252,7 +252,7 @@ public class Load {
     }
     
     /**
-     *
+     *  returns the saved player name
      * @return
      * @throws FileNotFoundException
      * @throws IOException
@@ -270,7 +270,7 @@ public class Load {
     }
     
     /**
-     *
+     *  returns the saved amount of health the player had when saving
      * @return
      * @throws FileNotFoundException
      * @throws IOException
@@ -289,7 +289,7 @@ public class Load {
     }
     
     /**
-     *
+     *  returns an ArrayList containing all of the players attacks
      * @return
      * @throws FileNotFoundException
      * @throws IOException
@@ -326,7 +326,7 @@ public class Load {
         return oldAttacks;
     }   
     
-    /**
+    /**returns the an ArrayList containing the items the player had when saving
      *
      * @return
      * @throws FileNotFoundException
@@ -364,7 +364,7 @@ public class Load {
     }
         
     /**
-     *
+     *  returns an ArrayList of Bodyparts containing the items the player had equipped at the time of saving 
      * @return
      * @throws FileNotFoundException
      * @throws IOException
@@ -401,7 +401,7 @@ public class Load {
     }
     
     /**
-     *
+     *  returns an ArrayList of Bodyparts the player had when saving
      * @return
      * @throws FileNotFoundException
      * @throws IOException

@@ -43,6 +43,7 @@ public class PlayerSprite {
      * @param obstacleColor
      */
     public PlayerSprite (String filename, int coordX, int coordY, GameContainer gc, ReadInput readInput, int canvasHeight, int windowWidth, int enemyColor, int obstacleColor) {
+        
         ENEMY_COLOR = enemyColor;
         OBSTACLE_COLOR = obstacleColor;
         CANVAS_HEIGHT = canvasHeight;
@@ -59,42 +60,100 @@ public class PlayerSprite {
     
     /**
      *
+     * @return
+     */
+    
+    public GameObject getFacingEnemy() {
+        System.out.println(gc.getObjManager().getBcount());
+
+        if (facingDirection == 'A') {
+            for (int i = 0; i < gc.getObjManager().getBcount(); i++ ) {
+                //System.out.println(gc.getObjManager().getClassB()[i].getCoordX()   "   "   gc.getObjManager().getClassB()[i].getCoordY());
+                if (coordX - 50 >= gc.getObjManager().getClassB()[i].getWestBound()
+                        && coordX - 50 < gc.getObjManager().getClassB()[i].getEastBound()
+                        && coordY >= gc.getObjManager().getClassB()[i].getNorthBound()
+                        && coordY < gc.getObjManager().getClassB()[i].getSouthBound()) {
+                    System.out.println("asd");
+                return gc.getObjManager().getClassB()[i];
+                }
+                System.out.println("A");
+            }
+        }
+
+        else if (facingDirection == 'D') {
+            System.out.println("D");
+            for (int i = 0; i < gc.getObjManager().getBcount(); i++ ) {
+                if (coordX + 50 >= gc.getObjManager().getClassB()[i].getWestBound()
+                        && coordX + 50 < gc.getObjManager().getClassB()[i].getEastBound()
+                        && coordY >= gc.getObjManager().getClassB()[i].getNorthBound()
+                        && coordY < gc.getObjManager().getClassB()[i].getSouthBound()) {
+                    System.out.println("asd");
+                return gc.getObjManager().getClassB()[i];
+                }
+            }
+        }
+        else if (facingDirection == 'S') {
+            System.out.println("S");
+            for (int i = 0; i < gc.getObjManager().getBcount(); i++ ) {
+                if (coordX >= gc.getObjManager().getClassB()[i].getWestBound()
+                            && coordX < gc.getObjManager().getClassB()[i].getEastBound()
+                            && coordY + 50 >= gc.getObjManager().getClassB()[i].getNorthBound()
+                            && coordY + 50 < gc.getObjManager().getClassB()[i].getSouthBound()) {
+                        System.out.println("asd");
+                return gc.getObjManager().getClassB()[i];
+                    }
+            }
+        }
+        else if (facingDirection == 'W') {
+            System.out.println("W");
+            for (int i = 0; i < gc.getObjManager().getBcount(); i++ ) {
+                if (coordX >= gc.getObjManager().getClassB()[i].getWestBound()
+                            && coordX < gc.getObjManager().getClassB()[i].getEastBound()
+                            && coordY - 50 >= gc.getObjManager().getClassB()[i].getNorthBound()
+                            && coordY - 50 < gc.getObjManager().getClassB()[i].getSouthBound()) {
+                        System.out.println("asd");
+                return gc.getObjManager().getClassB()[i];
+                    }
+            }
+        }
+        else {
+            System.out.println("!@#!@#!@");
+            return null;
+        }
+        System.out.println("!@#!@#!@");
+        return null;
+    }
+    
+    /**
+     *
      * @throws InterruptedException
      * @throws LineUnavailableException
      * @throws UnsupportedAudioFileException
      * @throws IOException
      */
     public void update() throws InterruptedException, LineUnavailableException, UnsupportedAudioFileException, IOException{
+        boolean battleWon = false;
+        if (readInput.isKeyReleased(KeyEvent.VK_ESCAPE)) {
+           gc.getMainFrame().getOverworldMenu().setVisable(true);
+        }
         this.drawBlack();
         this.updatePosition();
         this.checkFacedSquare();
         this.draw(filePath);
         //System.out.println("x:" + coordX + "y:" + coordY);
         if (facingEnemy && readInput.isKeyReleased(KeyEvent.VK_SPACE)) {
-            gc.getMainFrame().startBattle(new Species().getBasicBear());
-            System.out.println("FIGHT");
-            for (int i = 0; i < gc.getObjManager().getBcount(); i++) {
-                if (facingDirection == 'A') {
-                    
-                }
-                if (facingDirection == 'D') {
-                    
-                }
-                if (facingDirection == 'W') {
-                    
-                }
-                if (facingDirection == 'S') {
-                    
-                }
-                
-                
-                if (gc.getObjManager().getClassB()[i].getCoordX() == coordX - (coordX%50) + 50 || gc.getObjManager().getClassB()[i].getCoordY() == coordY - (coordY%50) + 50) {
-                    gc.getObjManager().getClassB()[i].remove();
-                }
+            //System.out.println("FIGHT");
+            GameObject enemy = this.getFacingEnemy();
+            if (enemy.getFilename() == "jednorozec.png") {
+                battleWon = gc.getMainFrame().startBattle(new Species().getBasicBear());
+            }
+            if (enemy.getFilename() == "Enemy.png") {
+                battleWon = gc.getMainFrame().startBattle(new Species().getWolf());
+            }
+            if (battleWon) gc.getObjManager().removeEnemy(enemy);
             }
             //starts fight 
         }
-    }
     
     /**
      *

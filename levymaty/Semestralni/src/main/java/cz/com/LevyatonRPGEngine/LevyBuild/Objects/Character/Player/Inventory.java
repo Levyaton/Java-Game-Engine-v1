@@ -18,7 +18,7 @@ import java.util.Arrays;
 import cz.com.GameFiles.LevyBuild.customClasses.Items;
 
 /**
- *
+ *  A class responsible for the players inventory
  * @author czech
  */
 public class Inventory {
@@ -28,7 +28,7 @@ public class Inventory {
     ArrayList<Item> healingItems;
 
     /**
-     *
+     *  initializes and sets the class
      */
     public Inventory()
     {
@@ -37,8 +37,8 @@ public class Inventory {
         healingItems = new ArrayList<Item>();
     }
     
-    /**
-     *
+    /** 
+     *  returns an ArrayList containing all of the players costumes
      * @return
      */
     public  ArrayList<Bodypart> getCostumes()
@@ -47,7 +47,7 @@ public class Inventory {
     }
             
     /**
-     *
+     *  returns an ArrayList containing all of the players healing items
      * @return
      */
     public ArrayList<Item> getHealingItems()
@@ -56,7 +56,7 @@ public class Inventory {
     }
     
     /**
-     *
+     *  returns a String containing the names of every inventory item
      * @return
      */
     public String seeInventory()
@@ -71,7 +71,7 @@ public class Inventory {
      }
     
     /**
-     *
+     *  updates the ArrayList called healingItems
      */
     public void updateHealingItems()
     {
@@ -88,7 +88,7 @@ public class Inventory {
     }
     
     /**
-     *
+     *  decrements the number of an item in the players inventory and removes it if it reaches 0
      * @param item
      */
     public void decrementItem(Item item)
@@ -117,7 +117,7 @@ public class Inventory {
     }
     
     /**
-     *
+     *decrements the number of a Bodypart in the players inventory and removes it if it reaches 0
      * @param item
      */
     public void decrementItem(Bodypart item)
@@ -138,7 +138,7 @@ public class Inventory {
     }
     
     /**
-     *
+     *  decrements the number of an item in the players inventory by a given amount and removes it if it reaches 0
      * @param item
      * @param amount
      */
@@ -164,8 +164,8 @@ public class Inventory {
          }
     }
     
-    /**
-     *
+    /** 
+     *  decrements the number of a Bodypart by a given amount in the players inventory and removes it if it reaches 0
      * @param item
      * @param amount
      */
@@ -187,7 +187,7 @@ public class Inventory {
     }
     
     /**
-     *
+     *  increments the number of an item in the players inventory
      * @param item
      */
     public void incrementItem(Item item)
@@ -215,7 +215,7 @@ public class Inventory {
     }
     
     /**
-     *
+     *  increments the number of a Bodypart in the players inventory
      * @param item
      */
     public void incrementItem(Bodypart item)
@@ -238,7 +238,7 @@ public class Inventory {
     }
     
     /**
-     *
+     *    increments the number of an item in the players inventory by a given amount 
      * @param item
      * @param amount
      */
@@ -265,7 +265,7 @@ public class Inventory {
     }
 
     /**
-     *
+     *    increments the number of a Bodypart in the players inventory by a given amount
      * @param item
      * @param amount
      */
@@ -289,7 +289,7 @@ public class Inventory {
     }
 
     /**
-     *
+     *  removes the given item from the players inventory
      * @param item
      */
     public void removeItem(Item item)
@@ -298,7 +298,7 @@ public class Inventory {
     }
     
     /**
-     *
+     * removes the given Bodypart from the players inventory
      * @param item
      */
     public void removeItem(Bodypart item)
@@ -307,7 +307,7 @@ public class Inventory {
     }
     
     /**
-     *
+     *  returns an ArrayList containing all of the healing Items in the players inventory
      * @return
      */
     public ArrayList<Item> getHealing()
@@ -315,7 +315,7 @@ public class Inventory {
         return this.healingItems;
     }
 
-    /**
+    /** returns a string containing all of the healing Items in the players inventory with their Item count
      *
      * @return
      */
@@ -331,7 +331,7 @@ public class Inventory {
     }
 
     /**
-     *
+     *  returns an ArayList containing the players inventory
      * @return
      */
     public ArrayList<Item> getInventory()
@@ -339,8 +339,8 @@ public class Inventory {
         return inventory;
     }
    
-    /**
-     *
+    /** 
+     *  returns an Item corresponding to the given name
      * @param name
      * @return
      */
@@ -357,7 +357,7 @@ public class Inventory {
     }
     
     /**
-     *
+     *  returns a Bodypart corresponding to the given name
      * @param name
      * @return
      */
@@ -374,7 +374,7 @@ public class Inventory {
     }
 
     /**
-     *
+     *  adds the given Item to tbe players inventory
      * @param item
      */
     public void addItem(Item item)
@@ -397,7 +397,7 @@ public class Inventory {
     }
     
     /**
-     *
+     *  sets the inventory to the given ArrayList of Items
      * @param giveInv
      */
     public void setInv(ArrayList<Item> giveInv)
@@ -406,7 +406,7 @@ public class Inventory {
     }
     
     /**
-     *
+     *  sets the ArrayList of healing Items to the given ArrayList
      * @param giveInv
      */
     public void setHealing(ArrayList<Item> giveInv)
@@ -415,7 +415,7 @@ public class Inventory {
     }
     
     /**
-     *
+     *  sets the ArrayList of costumes to the given ArrayList
      * @param giveInv
      */
     public void setCostumes(ArrayList<Bodypart> giveInv)
@@ -424,7 +424,7 @@ public class Inventory {
     }
     
     /**
-     *
+     *  adds the given Bodypart to costumes
      * @param item
      */
     public void addCostume(Bodypart item)
@@ -434,7 +434,7 @@ public class Inventory {
     }
     
     /**
-     *
+     *  increments the given Bodyparts level
      * @param givenItem
      */
     public void upgradeCostume(Bodypart givenItem)
@@ -449,7 +449,7 @@ public class Inventory {
     }
     
     /**
-     *
+     *  sets the given Bodyparts level to the given number
      * @param givenItem
      * @param level
      */

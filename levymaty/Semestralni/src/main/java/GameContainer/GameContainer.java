@@ -83,7 +83,7 @@ public class GameContainer implements Runnable {
             
             
            
-            mainFrame = new MainFrame(this, WINDOW_WIDTH, WINDOW_HEIGHT, CANVAS_HEIGHT);
+            mainFrame = new MainFrame(WINDOW_WIDTH, WINDOW_HEIGHT, CANVAS_HEIGHT);
             readInput = new ReadInput(this);
             //System.out.println("Hellod");
             ps = new PlayerSprite("Player", 150, 150, this, readInput, CANVAS_HEIGHT, WINDOW_WIDTH, ENEMY_COLOR, OBSTACLE_COLOR);

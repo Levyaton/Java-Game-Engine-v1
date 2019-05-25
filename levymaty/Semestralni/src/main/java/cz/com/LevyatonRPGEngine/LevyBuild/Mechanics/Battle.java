@@ -21,7 +21,7 @@ import cz.com.GameFiles.LevyBuild.customClasses.Bodyparts;
 import cz.com.GameFiles.LevyBuild.customClasses.Items;
 import java.util.ArrayList;
 import cz.com.GameFiles.LevyBuild.customClasses.Attacks;
-import cz.com.LevyatonRPGEngine.LevyBuild.Methods.CustomOutputStream;
+
 import cz.com.LevyatonRPGEngine.LevyBuild.Window.MainFrame;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -31,7 +31,8 @@ import java.io.PipedOutputStream;
 import java.io.PrintStream;
 
 /**
- *
+ *  a class containing the battle mechanic
+ * 
  * @author czech
  */
 public class Battle{
@@ -80,7 +81,7 @@ public class Battle{
     private GameContainer gc;
    
     /**
-     *
+     *  initializes and sets the battle parameters and values
      * @param getEnemy
      * @param getPlayer
      * @param m
@@ -100,14 +101,7 @@ public class Battle{
        
     }
    
-    /**
-     *
-     * @throws InterruptedException
-     */
-    public void testString() throws InterruptedException
-    {
-       System.out.println("This is a test");
-    }
+   
     private void enemyProperties()
     {
         eStr = enemy.getStr();
@@ -134,7 +128,7 @@ public class Battle{
     }
     
     /**
-     *
+     *  checks to see if the battle has ended by checking the player and enemy health. If ether is lower then 1, the battle ends and the the appropriate actions take place and it returns true. Otherwise, it returns false
      * @return
      * @throws InterruptedException
      */
@@ -152,8 +146,7 @@ public class Battle{
             }        
            
             gc.setPlayer(player);
-             
-            mf.shop();
+            mf.showCard("overworld");
             return true;
             
         }
@@ -164,7 +157,7 @@ public class Battle{
             terminated = true;
             
             gc.setPlayer(player);
-            mf.shop();
+            mf.showCard("overworld");
             return true;
         }
         
@@ -172,7 +165,23 @@ public class Battle{
     }
     
     /**
-     *
+     * returns true if the enemy has been defeated, otherwise it returns false
+     * @return
+     */
+    public boolean result()
+    {
+        if(eHealth<1)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    
+    /**
+     *  starts the battle
      * @throws InterruptedException
      */
     public void doBattle() throws InterruptedException
@@ -181,7 +190,7 @@ public class Battle{
     }
     
     /**
-     *
+     *  decides on what moves the enemy will use
      */
     public void enemyStrat()
     {
@@ -204,7 +213,7 @@ public class Battle{
     }
     
     /**
-     *
+     *  returns the version of the player that was modified during the battle, allowing for an update outside of the battle
      * @return
      */
     public Player updatePlayer()
@@ -213,7 +222,7 @@ public class Battle{
     }
     
     /**
-     *
+     *  writes a welcome message
      * @param enemyName
      * @throws InterruptedException
      */
@@ -230,7 +239,7 @@ public class Battle{
     }
     
     /**
-     *
+     *  decides on weather or not a word is a vowel or consonant, then returns 'a' or 'an' correspondingly
      * @param getWord
      * @return
      */
@@ -249,7 +258,7 @@ public class Battle{
     }
     
     /**
-     *
+     *  gives the player the loot they won in the battle
      * @throws InterruptedException
      */
     public void getLoot() throws InterruptedException
@@ -363,7 +372,7 @@ public class Battle{
     }
     
     /**
-     *
+     *  decides on the order of the turns
      * @throws InterruptedException
      */
     public void turns() throws InterruptedException
@@ -373,8 +382,13 @@ public class Battle{
             playerTurn();
             if(eHealth>0 && playerRan==false)
             {
-            enemyTurn();
+                enemyTurn();
             }
+            else
+            {
+                terminated = true;
+            }
+            
         }
         else if(pSpeed<eSpeed)
         {
@@ -383,6 +397,10 @@ public class Battle{
             {
             playerTurn();
             }
+            else
+            {
+                terminated = true;
+            }
         }
         else
         {
@@ -390,9 +408,14 @@ public class Battle{
             if(f == 0)
             {
                 playerTurn();
+                
                 if(eHealth>0 && playerRan==false)
                 {
                 enemyTurn();
+                }
+                else
+                {
+                    terminated = true;
                 }
             }
             else
@@ -400,16 +423,18 @@ public class Battle{
                 enemyTurn();
                 if(pHealth>0)
                 {
-                playerTurn();
+                    playerTurn();
+                }
+                else
+                {
+                    terminated = true;
                 }
             }
-        }
-            
-          
+        }   
     }
     
     /**
-     *
+     *  returns an ArrayList of the currently available attacks the player has
      * @return
      */
     public ArrayList<Attack> getAvailableAttacks()
@@ -420,12 +445,8 @@ public class Battle{
         return usableAttacks;
     }
   
-    /**
-     *
-     * @param attack
-     * @return
-     */
-    public Double pDamageCalculator(Attack attack)
+    
+    private Double pDamageCalculator(Attack attack)
     {
         int baseDamage = attack.getDamage();
         if(equipment[1] == equipment[2])
@@ -441,12 +462,8 @@ public class Battle{
     
     }
     
-    /**
-     *
-     * @param attack
-     * @throws InterruptedException
-     */
-    public void pDealDamage(Attack attack) throws InterruptedException
+  
+   private void pDealDamage(Attack attack) throws InterruptedException
     {
         if(attack.getDamage() > 0)
         {
@@ -469,13 +486,8 @@ public class Battle{
         }
     }
     
-    /**
-     *
-     * @param modefier
-     * @param statName
-     * @throws InterruptedException
-     */
-    public void printStatChange(int modefier, String statName) throws InterruptedException
+   
+    private void printStatChange(int modefier, String statName) throws InterruptedException
     {
         if(modefier > 0)
         {
@@ -486,14 +498,8 @@ public class Battle{
             System.out.println(player.getName() + "'s " + statName + " dropped by " + modefier + " points!\n");
         }
     }
-    
-    /**
-     *
-     * @param modefier
-     * @param statName
-     * @throws InterruptedException
-     */
-    public void printStatChange(Double modefier, String statName) throws InterruptedException
+
+    private void printStatChange(Double modefier, String statName) throws InterruptedException
     {
         if(modefier > 0)
         {
@@ -507,12 +513,8 @@ public class Battle{
        
     }
     
-    /**
-     *
-     * @param attack
-     * @throws InterruptedException
-     */
-    public void pApplyAttackEffects(Attack attack) throws InterruptedException
+   
+    private void pApplyAttackEffects(Attack attack) throws InterruptedException
     {     
         if(attack.hasEffect())
         {
@@ -577,7 +579,7 @@ public class Battle{
     }
 
     /**
-     *
+     *  makes the user use the their chosen attack
      * @param attack
      * @throws InterruptedException
      */
@@ -635,7 +637,7 @@ public class Battle{
     */
 
     /**
-     *
+     *  checks to see if the player successfully escaped the enemy
      * @throws InterruptedException
      */
 
@@ -656,7 +658,8 @@ public class Battle{
             {
                 System.out.println("You successfully escabed the " + enemy.getName() + "!\n");
                 terminated = true;
-                mf.shop();
+                mf.showCard("overworld");
+              
             }
             else
             {
@@ -669,7 +672,7 @@ public class Battle{
     }
     
     /**
-     *
+     *  returns an ArrayList of the players current healing items
      * @return
      */
     public ArrayList<Item> getHealing()
@@ -679,7 +682,7 @@ public class Battle{
     }
     
     /**
-     *
+     *  causes the player to use their chosen item
      * @param chosenItem
      * @throws InterruptedException
      */
@@ -709,7 +712,7 @@ public class Battle{
     }
     
     /**
-     *
+     *  writes "What would you like to do?\n"
      * @throws InterruptedException
      */
     public void attackRunHeal() throws InterruptedException
@@ -718,7 +721,7 @@ public class Battle{
     }
     
     /**
-     *
+     *  decides on weather or not the player gets to have any input on their turn
      * @throws InterruptedException
      */
     public void playerTurn() throws InterruptedException
@@ -776,13 +779,7 @@ public class Battle{
     
     //ENEMY TURN
 
-    /**
-     *
-     * @param attack
-     * @return
-     */
-    
-     public Double eDamageCalculator(Attack attack)
+    private Double eDamageCalculator(Attack attack)
     {
         int baseDamage = attack.getDamage();
         int modefiedDamage = baseDamage*2 + enemy.getStr();
@@ -793,12 +790,8 @@ public class Battle{
     
     }
     
-    /**
-     *
-     * @param attack
-     * @throws InterruptedException
-     */
-    public void eDealDamage(Attack attack) throws InterruptedException
+   
+    private void eDealDamage(Attack attack) throws InterruptedException
     {
         if(attack.getDamage() > 0)
         {
@@ -821,13 +814,8 @@ public class Battle{
         }
     }
     
-    /**
-     *
-     * @param modefier
-     * @param statName
-     * @throws InterruptedException
-     */
-    public void eprintStatChange(int modefier, String statName) throws InterruptedException
+    
+    private void eprintStatChange(int modefier, String statName) throws InterruptedException
     {
         if(modefier > 0)
         {
@@ -839,13 +827,8 @@ public class Battle{
         }
     }
     
-    /**
-     *
-     * @param modefier
-     * @param statName
-     * @throws InterruptedException
-     */
-    public void eprintStatChange(Double modefier, String statName) throws InterruptedException
+   
+    private void eprintStatChange(Double modefier, String statName) throws InterruptedException
     {
         if(modefier > 0)
         {
@@ -857,12 +840,8 @@ public class Battle{
         }
     }
     
-    /**
-     *
-     * @param attack
-     * @throws InterruptedException
-     */
-    public void eApplyAttackEffects(Attack attack) throws InterruptedException
+   
+    private void eApplyAttackEffects(Attack attack) throws InterruptedException
     {     
         if(attack.hasEffect())
         {
@@ -918,12 +897,8 @@ public class Battle{
         }
     }
     
-    /**
-     *
-     * @param attack
-     * @throws InterruptedException
-     */
-    public void ePreformAttack(Attack attack) throws InterruptedException
+  
+    private void ePreformAttack(Attack attack) throws InterruptedException
     {
         if(attack.getTurnLength()<2)
         {
@@ -946,12 +921,8 @@ public class Battle{
          }
     }
    
-    /**
-     *
-     * @param attack
-     * @return
-     */
-    public boolean maxed(Attack attack)
+   
+    private boolean maxed(Attack attack)
     {
         if(attack.hasEffect()==false)
         {
@@ -996,11 +967,8 @@ public class Battle{
         
     }
     
-    /**
-     *
-     * @return
-     */
-    public Attack enemyChoosenAttack()
+   
+    private Attack enemyChoosenAttack()
     {
             ArrayList<Attack> mostUsed = new ArrayList<Attack>();
             ArrayList<Attack> lessUsed = new ArrayList<Attack>();
@@ -1093,12 +1061,9 @@ public class Battle{
             Attack chosen = chosenTier.get(rand.getRandomFromRange(0, chosenTier.size()-1));
             return chosen;
     }
+   
     
-    /**
-     *
-     * @throws InterruptedException
-     */
-    public void enemyTurn() throws InterruptedException
+    private void enemyTurn() throws InterruptedException
     {
         if(terminated==false)
         {

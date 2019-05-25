@@ -9,18 +9,18 @@ import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Attack;
 import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Item;
 
 /**
- *
+ *  A class containing properties for NPC characters
  * @author czech
  */
 public class NPC extends Specie{
     
     /**
-     *
+     *  every NPC must have an array containing a dialogue
      */
     protected String[] dialogue;
     
     /**
-     *
+     *  initializes and sets the NPC
      * @param givenName
      * @param status
      * @param spriteLocation
@@ -40,7 +40,7 @@ public class NPC extends Specie{
     }
     
     /**
-     *
+     *  returns a String array containing the NPC dialogue
      * @return
      */
     public String[] getDialogue()

@@ -5,46 +5,43 @@
  */
 package cz.com.LevyatonRPGEngine.LevyBuild.Objects.Items;
 
-/**
- *
- * @author czech
- */
+
 import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Item;
 import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Attack;
 
 /**
- *
+ *  a class containing the properties of a Bodypart
  * @author czech
  */
 public class Bodypart extends Item{
     
     /**
-     *
+     *  every Bodypart must contain the category to which it belongs
      */
     protected String category;
 
     /**
-     *
+     *   every Bodypart must contain a stat modifier number 
      */
     protected int statModefier;
 
     /**
-     *
+     *   every Bodypart must contain a stat modifier number 
      */
     protected Double luckModefier;
 
     /**
-     *
+     *   every Bodypart must contain a corresponding attack
      */
     protected Attack correspondingAttack;
 
     /**
-     *
+     *  every Bodypart must have a level
      */
     protected int level = 1;
     
     /**
-     *
+     *  initializes and sets the Bodypart
      * @param giveName
      * @param giveCategory
      * @param giveStatus
@@ -63,7 +60,7 @@ public class Bodypart extends Item{
     }
     
     /**
-     *
+     *   initializes and sets the Bodypart
      * @param giveName
      * @param giveCategory
      * @param giveStatus
@@ -84,7 +81,7 @@ public class Bodypart extends Item{
     }
     
     /**
-     *
+     * initializes and sets the Bodypart
      * @param giveName
      * @param giveCategory
      * @param giveStatus
@@ -105,7 +102,7 @@ public class Bodypart extends Item{
     }
     
     /**
-     *
+     *   initializes and sets the Bodypart
      * @param giveName
      * @param giveCategory
      * @param giveStatus
@@ -124,7 +121,7 @@ public class Bodypart extends Item{
     }
     
     /**
-     *
+     *   sets the Bodypart level
      * @param getLevel
      */
     public void setLevel(int getLevel)
@@ -133,7 +130,7 @@ public class Bodypart extends Item{
     }
     
     /**
-     *
+     *  returns the category to which the Bodypart belongs to
      * @return
      */
     public String getCategory()
@@ -142,7 +139,7 @@ public class Bodypart extends Item{
     }
     
     /**
-     *
+     *  returns the Bodyparts level
      * @return
      */
     public int getLevel()
@@ -151,7 +148,7 @@ public class Bodypart extends Item{
     }
     
     /**
-     *
+     *  returns the Bodyparts stat modifier
      * @return
      */
     public int getStatModefier()
@@ -168,7 +165,7 @@ public class Bodypart extends Item{
     }
     
     /**
-     *
+     *  returns the luck modifier
      * @return
      */
     public Double getLuckModefier()
@@ -177,7 +174,7 @@ public class Bodypart extends Item{
     }
     
     /**
-     *
+     *  returns the attack corresponding to the Bodypart
      * @return
      */
     public Attack getAttack()

@@ -15,7 +15,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 /**
- *
+ *  class responsible for the first JPanel the player sees
  * @author czech
  */
 public class WelcomePanel extends JPanel{
@@ -30,7 +30,7 @@ public class WelcomePanel extends JPanel{
     MainFrame mf;
     
     /**
-     *
+     *  initializes and sets the class
      * @param mod
      * @param m
      */

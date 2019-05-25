@@ -575,7 +575,7 @@ public class Clerks {
     }
 
     /**
-     *
+     * Chooses and sets the first clerk based on the given name
      * @param name
      */
     public void setFirstClerk(String name)
@@ -590,7 +590,7 @@ public class Clerks {
     }
    
     /**
-     *
+     * returns the clerk of the given name
      * @param name
      * @return
      */
@@ -607,7 +607,7 @@ public class Clerks {
     }
 
     /**
-     *
+     *  initializes and sets the clerks
      */
     public Clerks()
     {
@@ -615,7 +615,7 @@ public class Clerks {
     }
     
     /**
-     *
+     *  returns the first clerk
      * @return
      */
     public Clerk getFirstClerk()
@@ -624,7 +624,7 @@ public class Clerks {
     }
    
     /**
-     *
+     *  returns an ArrayList of all the Clerks
      * @return
      */
     public ArrayList<Clerk> getAllClerks()

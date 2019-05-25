@@ -11,26 +11,16 @@ import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Character.Player.Player;
 import java.util.ArrayList;
 
 /**
- *
+ *  A class containing some in game world properties
  * @author czech
  */
 public class World {
     
     Player player;
     Clerks clerks;
-    
+  
     /**
-     *
-     */
-    public World()
-    {
-        player = new Player();
-        clerks = new Clerks();
-       
-    }
-    
-    /**
-     *
+     *  initializes the class
      * @param givePlayer
      */
     public World(Player givePlayer)
@@ -41,7 +31,7 @@ public class World {
     }
     
     /**
-     *
+     *  returns clerks
      * @return
      */
     public Clerks getClerks()
@@ -50,7 +40,7 @@ public class World {
     }
     
     /**
-     *
+     *  returns the player
      * @return
      */
     public Player getPlayer()
@@ -59,7 +49,7 @@ public class World {
     }
 
     /**
-     *
+     *  sets the player to the given player
      * @param givePlayer
      */
     public void setPlayer(Player givePlayer)
@@ -68,7 +58,7 @@ public class World {
     }
     
     /**
-     *
+     *  sets the clerks to the given Clerks
      * @param getClerks
      */
     public void setClerks(ArrayList<Clerk> getClerks)

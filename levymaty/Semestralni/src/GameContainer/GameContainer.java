@@ -2,8 +2,11 @@ package GameContainer;
 
 import java.awt.event.KeyEvent;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.SwingUtilities;
 
 
@@ -12,7 +15,7 @@ public class GameContainer implements Runnable {
 	private DoubleCanvas gameFrame;
         private ObjectLoader objManager;
         private ReadInput readInput;
-        private Player player;
+        private PlayerSprite player;
         
         public final int ENEMY_COLOR = 0xff3333;
         public final int OBSTACLE_COLOR = 0xcc6666;
@@ -51,7 +54,7 @@ public class GameContainer implements Runnable {
             */
             gameFrame = new DoubleCanvas(this, WINDOW_WIDTH, WINDOW_HEIGHT, CANVAS_HEIGHT);
             readInput = new ReadInput(this);
-            player = new Player("Player", 150, 150, this, readInput, CANVAS_HEIGHT, WINDOW_WIDTH, ENEMY_COLOR, OBSTACLE_COLOR);
+            player = new PlayerSprite("Player", 150, 150, this, readInput, CANVAS_HEIGHT, WINDOW_WIDTH, ENEMY_COLOR, OBSTACLE_COLOR);
             try {
                 objManager = new ObjectLoader(this, ENEMY_COLOR, OBSTACLE_COLOR, CANVAS_HEIGHT, WINDOW_WIDTH);
             } catch (FileNotFoundException ex) {
@@ -98,7 +101,17 @@ public class GameContainer implements Runnable {
                     }
                     renderNow = true;
                     
-                    player.update();
+                    try {
+                        player.update();
+                    } catch (InterruptedException ex) {
+                        Logger.getLogger(GameContainer.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (LineUnavailableException ex) {
+                        Logger.getLogger(GameContainer.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (UnsupportedAudioFileException ex) {
+                        Logger.getLogger(GameContainer.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (IOException ex) {
+                        Logger.getLogger(GameContainer.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                     readInput.update();
                 }
                 

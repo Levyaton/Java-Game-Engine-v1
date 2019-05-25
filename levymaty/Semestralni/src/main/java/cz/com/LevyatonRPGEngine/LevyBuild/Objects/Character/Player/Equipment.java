@@ -18,7 +18,7 @@ import cz.com.GameFiles.LevyBuild.customClasses.Attacks;
 import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Character.Specie;
 
 /**
- *
+ *  A class responsible for the players equipment
  * @author czech
  */
 public class Equipment {
@@ -68,9 +68,8 @@ public class Equipment {
     /*/
 
     /**
-     *
+     *  Initializes and sets the class
      */
-    
     public Equipment()
     {
         attacks = new Attacks(human.getHP() + 100, human.getDef() + 500);
@@ -110,7 +109,7 @@ public class Equipment {
     }
     
     /**
-     *
+     *  sets the bonus modifier for the equipment
      */
     public void setBonus()
     {
@@ -129,7 +128,7 @@ public class Equipment {
     }
     
     /**
-     *
+     *  calculates the bonus modifier for the equipment
      * @param bodypart
      * @return
      */
@@ -184,7 +183,7 @@ public class Equipment {
     }
 
     /**
-     *
+     *  updates the current equipment
      */
     public void updateEquipment()
     {
@@ -203,19 +202,18 @@ public class Equipment {
     //Attacks
 
     /**
-     *
+     *  Sets the level of a given attack by adding experience points
      * @param attack
      * @param exp
      * @throws InterruptedException
      */
-    
     public void levelAttack(Attack attack, int exp) throws InterruptedException
     {
         allAttacks.get(attacks.getAttackIndex(attack)).gainExp(exp);
     }
     
     /**
-     *
+     * sets the level of a given attack to the given number
      * @param attack
      * @param newLevel
      */
@@ -226,7 +224,7 @@ public class Equipment {
     }
     
     /**
-     *
+     *  makes an attack available or unavailable based on the given Bodypart and boolean
      * @param bodypart
      * @param trueOrFalse
      */
@@ -241,7 +239,7 @@ public class Equipment {
     }
     
     /**
-     *
+     * sets the availability of a given attack to the given boolean
      * @param giveAttack
      * @param trueOrFalse
      */
@@ -259,10 +257,9 @@ public class Equipment {
     //Setters
 
     /**
-     *
+     *  sets the given Bodypart to the head slot
      * @param giveHead
-     */
-    
+     */  
     public void setHead(Bodypart giveHead)
     {
         makeAttackAvailable(head,false);
@@ -273,7 +270,7 @@ public class Equipment {
     }
     
     /**
-     *
+     *   sets the given Bodypart to the right hand slot
      * @param giveHand
      */
     public void setRightHand(Bodypart giveHand)
@@ -286,7 +283,7 @@ public class Equipment {
     }
     
     /**
-     *
+     *   sets the given Bodypart to the left hand slot
      * @param giveHand
      */
     public void setLeftHand(Bodypart giveHand)
@@ -300,7 +297,7 @@ public class Equipment {
     }
     
     /**
-     *
+     *     sets the given Bodypart to the torso slot
      * @param giveTorso
      */
     public void setTorso(Bodypart giveTorso)
@@ -312,8 +309,8 @@ public class Equipment {
         makeAttackAvailable(torso,true);
     }
     
-    /**
-     *
+    /** 
+     *   sets the given Bodypart to the right leg slot
      * @param giveLeg
      */
     public void setRightLeg(Bodypart giveLeg)
@@ -326,7 +323,7 @@ public class Equipment {
     }
     
     /**
-     *
+     *  sets the given Bodypart to the left leg slot
      * @param giveLeg
      */
     public void setLeftLeg(Bodypart giveLeg)
@@ -339,7 +336,7 @@ public class Equipment {
     }
     
     /**
-     *
+     *   sets the given Bodypart to the tail slot
      * @param giveTail
      */
     public void setTail(Bodypart giveTail)
@@ -354,9 +351,8 @@ public class Equipment {
     //Unequippers
 
     /**
-     *
+     *  sets the head slot to nothing
      */
-    
     public void unequipHead()
     {
         makeAttackAvailable(head,false);
@@ -367,7 +363,7 @@ public class Equipment {
     }
     
     /**
-     *
+     *sets the torso slot to nothing
      */
     public void unequipTorso()
     {
@@ -379,7 +375,7 @@ public class Equipment {
     }
     
     /**
-     *
+     *sets the right hand slot to nothing
      */
     public void unequipRightHand()
     {
@@ -391,7 +387,7 @@ public class Equipment {
     }
     
     /**
-     *
+     *  sets the left hand slot to nothing
      */
     public void unequipLeftHand()
     {
@@ -403,7 +399,7 @@ public class Equipment {
     }
     
     /**
-     *
+     *  sets the right leg slot to nothing
      */
     public void unequipRightLeg()
     {
@@ -415,7 +411,7 @@ public class Equipment {
     }
     
     /**
-     *
+     * sets the left leg slot to nothing
      */
     public void unequipLeftLeg()
     {
@@ -427,7 +423,7 @@ public class Equipment {
     }
     
     /**
-     *
+     *  sets the tail slot to nothing
      */
     public void unequipTail()
     {
@@ -442,17 +438,16 @@ public class Equipment {
 //Getters
 
     /**
-     *
+     *  returns the Bodypart stored within the head slot
      * @return
-     */
-    
+     */ 
     public Bodypart getHead()
     {
         return head;
     }
     
     /**
-     *
+     *returns the Bodypart stored within the right hand slot
      * @return
      */
     public Bodypart getRightHand()
@@ -461,7 +456,7 @@ public class Equipment {
     }  
         
     /**
-     *
+     *  returns the Bodypart stored within the left hand slot
      * @return
      */
     public Bodypart getLeftHand()
@@ -470,7 +465,7 @@ public class Equipment {
     }
     
     /**
-     *
+     *  returns the Bodypart stored within the torso slot
      * @return
      */
     public Bodypart getTorso()
@@ -479,7 +474,7 @@ public class Equipment {
     }
     
     /**
-     *
+     *  returns the Bodypart stored within the right leg slot
      * @return
      */
     public Bodypart getRightLeg()
@@ -488,7 +483,7 @@ public class Equipment {
     }
     
     /**
-     *
+     *  returns the Bodypart stored within the left leg slot
      * @return
      */
     public Bodypart getLeftLeg()
@@ -497,7 +492,7 @@ public class Equipment {
     }
     
     /**
-     *
+     *  returns the Bodypart stored within the tail slot
      * @return
      */
     public Bodypart getTail()
@@ -506,7 +501,7 @@ public class Equipment {
     }
          
     /**
-     *
+     *  returns an ArrayList containing all of the currently available attacks
      * @return
      */
     public ArrayList<Attack> getAvailableAttacks()
@@ -530,7 +525,7 @@ public class Equipment {
     }
     
     /**
-     *
+     *  returns an ArrayList containing all of the attacks the player has
      * @return
      */
     public ArrayList<Attack> getAllAttacks()
@@ -539,7 +534,7 @@ public class Equipment {
     }
     
     /**
-     *
+     *  returns the array called equipment
      * @return
      */
     public Bodypart[] getEquipment()
