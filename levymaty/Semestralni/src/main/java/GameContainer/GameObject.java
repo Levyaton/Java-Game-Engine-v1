@@ -161,7 +161,7 @@ public class GameObject {
             color = OBSTACLE_COLOR;
         }
         pixels = new int[CANVAS_WIDTH * CANVAS_HEIGHT];
-        pixels = DoubleCanvas.getPixels();
+        pixels = gc.getDoubleCanvas().getPixels();
         //System.out.println(coordY);
         //System.out.println(coordX);
         //System.out.println(coordY);
@@ -172,7 +172,7 @@ public class GameObject {
         }
         
         visiblePixels = new int[CANVAS_WIDTH * CANVAS_HEIGHT];
-        visiblePixels = DoubleCanvas.getVisiblePixels();
+        visiblePixels = gc.getDoubleCanvas().getVisiblePixels();
         System.out.println("Prepare for filepath");
         System.out.println(filePath);
         File objFile = new File(filePath);

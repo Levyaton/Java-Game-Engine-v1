@@ -68,11 +68,11 @@ public class PlayerTest {
         
         instance.updatePlayerStats();
         
-        int expMaxHealth = 103;
+        int expMaxHealth = 171;
         int expSpeed =  61;
         int expStr = 93;
         Double expLuck = 0.62;
-        int expDef = 5;
+        int expDef = 13;
         
         int resultHp = instance.getMaxHealth();
         int resultSpeed = instance.getSpeed();
@@ -218,7 +218,7 @@ public class PlayerTest {
         System.out.println("getAvailableAttacks");
         
        
-        int expResult = 0;
+        int expResult = 5;
         int result = instance.getAvailableAttacks().size();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.

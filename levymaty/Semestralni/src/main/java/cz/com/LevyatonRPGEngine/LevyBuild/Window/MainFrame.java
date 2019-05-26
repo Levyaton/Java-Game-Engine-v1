@@ -48,43 +48,43 @@ public class MainFrame extends JFrame{
     private  NameInputPanel nip;
     private  BattlePanel bp;
     private  ShopGUi shop;
-    private  World w;
+    private  ShopOrBattle sob;
     private  DoubleCanvas overworld;
     private  GameContainer gc;
     private  Battle b;
     private  Save s;
-    private OverworldMenu om;
+    private Specie enemy;
+    
     
     /**
      *  initializes and sets the class
      * @param windowWidth
      * @param windowHeight
      * @param canvasHeight
+     * @param gc
      * @throws IOException
      * @throws MalformedURLException
      * @throws LineUnavailableException
      * @throws UnsupportedAudioFileException
      */
-    public MainFrame(int windowWidth, int windowHeight, int canvasHeight) throws IOException, MalformedURLException, LineUnavailableException, UnsupportedAudioFileException
+    public MainFrame(int windowWidth, int windowHeight, int canvasHeight, GameContainer gc) throws IOException, MalformedURLException, LineUnavailableException, UnsupportedAudioFileException
     {
         s = new Save();
-        this.gc = new GameContainer();
-        om = new OverworldMenu(gc);
-        overworld = new DoubleCanvas();
-        overworld.add(om);
+        this.gc = gc;
+        overworld = new DoubleCanvas(gc,windowWidth,windowHeight,canvasHeight);
         cards = new JPanel(new CardLayout());
         String[] panelNames = {"welcome","enter name"};
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(1600, 900);
         nip = new NameInputPanel(mod,this);
         bp = new BattlePanel();
-        shop = new ShopGUi(this);
-        overworld = new DoubleCanvas(gc,windowWidth,windowHeight,canvasHeight);
+        shop = new ShopGUi(this); 
         cards.add(new WelcomePanel(mod,this), "welcome");
         cards.add(overworld, "overworld");
         cards.add(nip,"enter name");
         cards.add(shop, "shop");
         cards.add(bp, "battle");
+        
         cl = (CardLayout)(cards.getLayout());
         this.setResizable(true);
         this.add(cards);
@@ -162,7 +162,7 @@ public class MainFrame extends JFrame{
                }
            }  
                    
-            w = new World(player);
+            World w = new World(player);
             s.saveGame(w);
             gc.setWorld(w);
             JButton b = new JButton();
@@ -236,10 +236,6 @@ public class MainFrame extends JFrame{
      *  returns the overworld menu
      * @return
      */
-    public OverworldMenu getOverworldMenu()
-    {
-        return om;
-    }
     
     /**
      *  activates the shop mechanic
@@ -248,8 +244,8 @@ public class MainFrame extends JFrame{
     public void shop() throws InterruptedException
     {
         PrintStream printStream = new PrintStream(new CustomOutputStream(shop.getShopTextArea())); 
-        System.setOut(printStream);
-        System.setErr(printStream);
+        //System.setOut(printStream);
+        //System.setErr(printStream);
        
         Clerk clerk = gc.getWorld().getClerks().getFirstClerk();
         shop.setShop(clerk,gc.getWorld().getPlayer());
@@ -269,21 +265,12 @@ public class MainFrame extends JFrame{
      * @throws UnsupportedAudioFileException
      * @throws IOException
      */
-    public  boolean startBattle(Specie enemy ) throws InterruptedException, LineUnavailableException, UnsupportedAudioFileException, IOException
+    public boolean startBattle(Specie enemy ) throws InterruptedException, LineUnavailableException, UnsupportedAudioFileException, IOException
     {
-        bp.setText("");
-        PrintStream printStream = new PrintStream(new CustomOutputStream(bp.getBattleText())); 
-        System.setOut(printStream);
-        System.setErr(printStream);
-        b = new Battle(enemy,gc.getWorld().getPlayer(),this,gc);
-       System.out.println("What would you like to do?\n");
-        bp.setBattle(b,gc.getWorld().getPlayer());
-        b.doBattle();
-        showCard("battle");//The card doesnt accually switch when starting a new game
-        //System.out.println("Here");
-        MusicController.battleMusic();
+        
         //shop();
        //
+        
         
       
         return b.result();
@@ -309,7 +296,7 @@ public class MainFrame extends JFrame{
      *  returns the overworld
      * @return
      */
-    public   DoubleCanvas getOverworld()
+    public DoubleCanvas getOverworld()
     {
         return overworld;
     }
@@ -333,6 +320,65 @@ public class MainFrame extends JFrame{
        
         shop.setText(text);
     }
+  
+    /**
+     *  sets initializes the ShopOrBattle JPanel
+     */
+    public void battleOrShop(Specie s)
+    {
+        sob = new ShopOrBattle(this,s);
+        cards.add(sob,"shopOrBattle");
+        showCard("shopOrBattle");
+    }
+     /**
+     * does the given activity
+     * @param battleShopBack
+     * @param s
+     * @throws InterruptedException
+     * @throws javax.sound.sampled.LineUnavailableException
+     * @throws javax.sound.sampled.UnsupportedAudioFileException
+     * @throws java.io.IOException
+     */
+    public void battleOrShop(String battleShopBack, Specie s) throws InterruptedException, LineUnavailableException, UnsupportedAudioFileException, IOException
+    {
+        
+        String activity = battleShopBack;
+        if(activity.equals("battle"))
+        {
+            System.out.println(s.getName());
+            System.out.println("battle");
+            bp.setText("");
+            PrintStream printStream = new PrintStream(new CustomOutputStream(bp.getBattleText())); 
+            //System.setOut(printStream);
+            //System.setErr(printStream);
+            b = new Battle(s,gc.getWorld().getPlayer(),this,gc,bp);
+            showCard("battle");
+            bp.writeText("What would you like to do?\n");
+            bp.setBattle(b,gc.getWorld().getPlayer());
+            b.doBattle();        
+            MusicController.battleMusic();
+            //while(b.getTerminated()==false){}
+            System.out.println("Here");
+        }
+        else if(activity.equals("shop"))
+        {
+            shop();
+        }
+        else
+        {
+            setResult(false);
+        }
+    }
+    
+     /**
+     *  sets the result of the activity to playerSprite
+     */
+    public void setResult(boolean result)
+    {
+        this.showCard("overworld");
+        gc.getPs().setResult(result);
+    }
+    
 }   
 
    

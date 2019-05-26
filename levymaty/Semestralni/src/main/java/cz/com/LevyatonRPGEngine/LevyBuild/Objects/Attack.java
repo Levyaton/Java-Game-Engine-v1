@@ -538,16 +538,16 @@ public class Attack extends basicGameObject {
         {
             if(level == 0)
             {
-                 System.out.println("Congratulations! You just learned how to use the move " + name + "! You can use it while wearing the right equipment\n");
+                System.out.println("Congratulations! You just learned how to use the move " + name + "! You can use it while wearing the right equipment\n");
             }
  
             else if (name.equals("Do nothing"))
             {
-                System.out.println("All of you observationand hard work has paid of! By using and watching your enemies do nothing, you have improved your own performance! " + name + " has leveled up\n");
+               System.out.println("All of you observationand hard work has paid of! By using and watching your enemies do nothing, you have improved your own performance! " + name + " has leveled up\n");
             }
             else
             {
-                System.out.println("All of you observation and hard work has paid of! By using and watching your enemies use the move " + name + ", you have improved your own performance! " + name + " has leveled up\n");
+               System.out.println("All of you observation and hard work has paid of! By using and watching your enemies use the move " + name + ", you have improved your own performance! " + name + " has leveled up\n");
             }
             experience = experience - experienceNeeded;
             levelUp();

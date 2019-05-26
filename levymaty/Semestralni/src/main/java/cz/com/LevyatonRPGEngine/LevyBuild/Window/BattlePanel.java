@@ -159,7 +159,7 @@ public class BattlePanel extends javax.swing.JPanel implements ActionListener{
            this.selectedPanel.add(b);
 
 
-          // revalidate();
+          //revalidate();
            repaint();
         }
    }
@@ -196,6 +196,8 @@ public class BattlePanel extends javax.swing.JPanel implements ActionListener{
      * @param text
      * @throws InterruptedException
      */
+    
+   
     public void writeText(String text) throws InterruptedException
     {
      
@@ -373,7 +375,7 @@ public class BattlePanel extends javax.swing.JPanel implements ActionListener{
         
        
         JButton chosenButton = (JButton) e.getSource();
-        System.out.println(selectedName.getText());
+        //System.out.println(selectedName.getText());
         
         try {
            if(e.getSource().equals(Attack))
@@ -393,7 +395,7 @@ public class BattlePanel extends javax.swing.JPanel implements ActionListener{
            }
            else  if(e.getSource().equals(Bag))
            {
-               
+            this.selectedPanel.removeAll();
             items = player.getInventory();
             ArrayList<JButton> buttons = new ArrayList<JButton>();
             for(Item a : items)
@@ -421,6 +423,7 @@ public class BattlePanel extends javax.swing.JPanel implements ActionListener{
                {
                    if(a.getName().equals(chosenButton.getName()))
                    {
+                       
                        battle.pPreformAttack(a);
                    }
                }
@@ -428,10 +431,12 @@ public class BattlePanel extends javax.swing.JPanel implements ActionListener{
            
            else  if(this.selectedName.getText().equals("Bag"))
            {
+               System.out.println(chosenButton.getText());
                for(Item i : battle.getHealing())
                {
-                   if(i.getName().equals(chosenButton.getName()))
+                   if(chosenButton.getName().contains(i.getName()))
                    {
+                      
                        battle.useAnItem(i);
                    }
                }

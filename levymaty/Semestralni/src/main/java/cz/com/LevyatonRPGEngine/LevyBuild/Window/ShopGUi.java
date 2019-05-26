@@ -35,10 +35,8 @@ import javax.swing.JTextArea;
  * @author czech
  */
 public class ShopGUi extends javax.swing.JPanel implements ActionListener{
-
-    /**
-     * Creates new form ShopGUi
-     */
+    
+    int patience = 5;
     Clerk clerk;
     MainFrame mf;
     Font mainFont;
@@ -46,6 +44,7 @@ public class ShopGUi extends javax.swing.JPanel implements ActionListener{
     
     /**
      *
+     * Creates new form ShopGUi
      * @param m
      * @throws IOException
      */
@@ -53,6 +52,15 @@ public class ShopGUi extends javax.swing.JPanel implements ActionListener{
         mf = m;
         initComponents();
         custom();
+    }
+    
+    
+     /**
+     *  returns the player
+     */
+    public Player getPlayer()
+    {
+        return player;
     }
     
     /**
@@ -352,10 +360,12 @@ public class ShopGUi extends javax.swing.JPanel implements ActionListener{
         
         JButton chosen = (JButton) e.getSource();
         
-        if(chosen.getName().equals("Buy"))
+        if(chosen.getName().equals("Leave"))
         {
-            
-            
+            mf.setResult(false);
+        }
+        else if(chosen.getName().equals("Buy"))
+        {
             ArrayList<Item> clerkInv = clerk.getInventory();
             ArrayList<JButton> buttons = new ArrayList<JButton>();
             for(Item a : clerkInv)
@@ -440,18 +450,36 @@ public class ShopGUi extends javax.swing.JPanel implements ActionListener{
                    
                 }
             }
-            player.setWealth(player.getWealth()+item.getValue());
-            player.getInv().decrementItem(item);
-                            
+            try
+            {
+                player.setWealth(player.getWealth()+item.getValue());
+                player.getInv().decrementItem(item);
+            }
+            catch(Exception outOfItem)
+            {
+                System.out.println("Out of the Item");
+                patience --;
+                if(patience==3)
+                {
+                    this.setText("Stop this foolishness, you have no more of this item!\n");
+                }
+                else if(patience==2)
+                {
+                    setText("I grow weary of your foolery, I shall kick you out of my shop if you continue\n");
+                }
+                else if(patience==1)
+                {
+                    setText("This is your last warning, persist and you shall be kicked out!\n");
+                }
+                else if(patience==0)
+                {
+                    mf.setResult(false);
+                }
+                
+                
+            }                 
         }
-        
-        
-        
-        
-        else
-        {
-            //System.out.println("You forgot to implement " + chosen.getName());
-        }
+       
 //To change body of generated methods, choose Tools | Templates.
     }
 }

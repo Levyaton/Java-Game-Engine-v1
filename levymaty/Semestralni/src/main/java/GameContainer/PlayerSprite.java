@@ -1,17 +1,20 @@
 package GameContainer;
 
 import cz.com.GameFiles.LevyBuild.customClasses.Species;
+import cz.com.LevyatonRPGEngine.LevyBuild.Methods.Save;
 import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Character.Specie;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
-
+import java.util.logging.*;
 /**
  *
  * @author czech
  */
 public class PlayerSprite {
+    private GameObject enemy;
+    private boolean result;
     private final int PLAYER_SPEED;
     private GameContainer gc;
     private int coordX, coordY;
@@ -29,6 +32,8 @@ public class PlayerSprite {
     private char facingDirection;
     private boolean facingEnemy;
     private int numberOfEnemiesFaced = 0;
+    //private static final Logger LOG;
+    
     
     /**
      *
@@ -44,6 +49,7 @@ public class PlayerSprite {
      */
     public PlayerSprite (String filename, int coordX, int coordY, GameContainer gc, ReadInput readInput, int canvasHeight, int windowWidth, int enemyColor, int obstacleColor) {
         
+        //LOG = Logger.getLogger(filename);
         ENEMY_COLOR = enemyColor;
         OBSTACLE_COLOR = obstacleColor;
         CANVAS_HEIGHT = canvasHeight;
@@ -132,9 +138,9 @@ public class PlayerSprite {
      * @throws IOException
      */
     public void update() throws InterruptedException, LineUnavailableException, UnsupportedAudioFileException, IOException{
-        boolean battleWon = false;
+        boolean removeObject = false;
         if (readInput.isKeyReleased(KeyEvent.VK_ESCAPE)) {
-           gc.getMainFrame().getOverworldMenu().setVisable(true);
+           new Save().saveGame(gc.getWorld());
         }
         this.drawBlack();
         this.updatePosition();
@@ -143,18 +149,26 @@ public class PlayerSprite {
         //System.out.println("x:" + coordX + "y:" + coordY);
         if (facingEnemy && readInput.isKeyReleased(KeyEvent.VK_SPACE)) {
             //System.out.println("FIGHT");
-            GameObject enemy = this.getFacingEnemy();
+            enemy = this.getFacingEnemy();
             if (enemy.getFilename() == "jednorozec.png") {
-                battleWon = gc.getMainFrame().startBattle(new Species().getBasicBear());
+                
+               gc.getMainFrame().battleOrShop(new Species().getBasicBear());
             }
             if (enemy.getFilename() == "Enemy.png") {
-                battleWon = gc.getMainFrame().startBattle(new Species().getWolf());
-            }
-            if (battleWon) gc.getObjManager().removeEnemy(enemy);
+               gc.getMainFrame().battleOrShop(new Species().getWolf());
             }
             //starts fight 
         }
+    }
     
+    public void setResult(boolean result)
+    {
+        this.result = result;
+        if(result)
+        {
+            gc.getObjManager().removeEnemy(enemy);
+        }
+    }
     /**
      *
      */
