@@ -6,13 +6,17 @@
 package cz.com.LevyatonRPGEngine.LevyBuild.Window;
 
 
+import java.awt.Component;
 import java.net.URL;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -29,6 +33,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.SwingUtilities;
+import sun.audio.AudioData;
+import sun.audio.AudioPlayer;
+import sun.audio.AudioStream;
+import sun.audio.ContinuousAudioDataStream;
 
 /**
  *
@@ -36,46 +44,76 @@ import javax.swing.SwingUtilities;
  */
 public class BattlePanel extends javax.swing.JPanel implements ActionListener{
 
+    Font mainFont;
     /**
      * Creates new form BattlePanel2
      */
     public BattlePanel() throws IOException, MalformedURLException, LineUnavailableException, UnsupportedAudioFileException {
         initComponents();
         custom();
-       // music();
+        //battleMusic();
+        
     }
 
-    Font mainFont;
-    public void custom()
+   
+    public void custom() throws LineUnavailableException, UnsupportedAudioFileException, IOException
     {
         JPanel panel = new JPanel();
 
-        JScrollPane scrollPane1 = new JScrollPane(panel);
-        
+      
+       
         //battleText.add(scrollPane1);
 
-        scrollPane1.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
-        scrollPane1.setBounds(50, 30, 300, 50);
         
-        JScrollPane scrollPane2 = scrollPane1;
         
         //selectedPanel.add(scrollPane2);
         
         Attack.addActionListener(this);
         Bag.addActionListener(this);
+        Run.addActionListener(this);
         mainFont = battleText.getFont();
         this.setVisible(true);
+       
     }
     
     public void setSelectedLabel(String name)
     {
         this.selectedName.setText(name);
         this.selectedName.setFont(mainFont);
-        
+        revalidate();
+        repaint();
     }
     
     
-   
+   public void updateSelectedPane(String buttonName)
+   {
+       Component[] components = this.selectedPanel.getComponents();
+       ArrayList<JButton> buttons = new ArrayList<JButton>();
+       for(Component c : components)
+       {
+           if(c instanceof JButton)
+           {
+               if(!c.getName().equals(buttonName))
+               {
+                    buttons.add((JButton) c);
+               }     
+           }
+       }
+        this.selectedPanel.removeAll();
+        for(JButton b : buttons)
+        {
+           this.selectedPanel.add(Box.createRigidArea(new Dimension(0,20)));
+           b.setText(b.getName());
+           b.setFont(mainFont);
+           b.setVisible(true);
+           b.addActionListener(this);
+           this.selectedPanel.add(b);
+
+
+           revalidate();
+           repaint();
+        }
+   }
     
     public void setSelectedButtons(ArrayList<JButton> buttons)
     {
@@ -99,18 +137,40 @@ public class BattlePanel extends javax.swing.JPanel implements ActionListener{
         
     }
     
-    private void music() throws MalformedURLException, LineUnavailableException, UnsupportedAudioFileException, IOException
-    {
-       File f = new File(System.getProperty("user.dir") + "Toby-Fox-Megalovania.wav");
-        
-        Clip clip = AudioSystem.getClip();
-        // getAudioInputStream() also accepts a File or InputStream
-        AudioInputStream ais = AudioSystem.getAudioInputStream(f);
-        clip.open(ais);
-        clip.loop(Clip.LOOP_CONTINUOUSLY);
+    
+ public static void battleMusic() 
+    {       
+
+
+        AudioPlayer MGP = AudioPlayer.player;
+        AudioStream BGM;
+        AudioData MD;
+
+        ContinuousAudioDataStream loop = null;
+
+        try
+        {
+            File f = new File(System.getProperty("user.dir") + "\\Toby-Fox-Megalovania.wav");
+            InputStream test = new FileInputStream(f);
+            BGM = new AudioStream(test);
+            AudioPlayer.player.start(BGM);
+            //MD = BGM.getData();
+            //loop = new ContinuousAudioDataStream(MD);
+
+        }
+        catch(FileNotFoundException e){
+            System.out.print(e.toString());
+        }
+        catch(IOException error)
+        {
+            System.out.print(error.toString());
+        }
+        MGP.start(loop);
+
+    }
         
      
-    }
+    
 
     
     
@@ -201,14 +261,15 @@ public class BattlePanel extends javax.swing.JPanel implements ActionListener{
 
         Attack.setBackground(new java.awt.Color(0, 0, 0));
         Attack.setFont(new java.awt.Font("Old English Text MT", 0, 36)); // NOI18N
+        Attack.setForeground(new java.awt.Color(255, 255, 255));
         Attack.setActionCommand("Attack");
         Attack.setLabel("Attack");
         Attack.setName("Attack"); // NOI18N
 
         Bag.setBackground(new java.awt.Color(0, 0, 0));
         Bag.setFont(new java.awt.Font("Old English Text MT", 0, 36)); // NOI18N
+        Bag.setForeground(new java.awt.Color(255, 255, 255));
         Bag.setText("Bag");
-        Bag.setActionCommand("Bag");
         Bag.setName("Bag"); // NOI18N
         Bag.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -218,8 +279,8 @@ public class BattlePanel extends javax.swing.JPanel implements ActionListener{
 
         Run.setBackground(new java.awt.Color(0, 0, 0));
         Run.setFont(new java.awt.Font("Old English Text MT", 0, 36)); // NOI18N
+        Run.setForeground(new java.awt.Color(255, 255, 255));
         Run.setText("Run");
-        Run.setActionCommand("Run");
         Run.setName("Run"); // NOI18N
 
         javax.swing.GroupLayout buttonPanelLayout = new javax.swing.GroupLayout(buttonPanel);
@@ -245,8 +306,6 @@ public class BattlePanel extends javax.swing.JPanel implements ActionListener{
                     .addComponent(Run, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
-
-        Attack.getAccessibleContext().setAccessibleName("Attack");
 
         add(buttonPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 870, 820, 90));
         buttonPanel.getAccessibleContext().setAccessibleName("buttonPanel");
@@ -295,6 +354,10 @@ public class BattlePanel extends javax.swing.JPanel implements ActionListener{
         } catch (IOException ex) {
             Logger.getLogger(BattlePanel.class.getName()).log(Level.SEVERE, null, ex);
         } catch (InterruptedException ex) {
+            Logger.getLogger(BattlePanel.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (LineUnavailableException ex) {
+            Logger.getLogger(BattlePanel.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (UnsupportedAudioFileException ex) {
             Logger.getLogger(BattlePanel.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

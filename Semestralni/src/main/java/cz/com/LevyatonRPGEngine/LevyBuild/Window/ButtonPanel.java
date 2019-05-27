@@ -17,6 +17,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.BoxLayout;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
@@ -113,6 +115,10 @@ public class ButtonPanel extends JPanel implements ActionListener{
         } catch (IOException ex) {
             Logger.getLogger(ButtonPanel.class.getName()).log(Level.SEVERE, null, ex);
         } catch (InterruptedException ex) {
+            Logger.getLogger(ButtonPanel.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (LineUnavailableException ex) {
+            Logger.getLogger(ButtonPanel.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (UnsupportedAudioFileException ex) {
             Logger.getLogger(ButtonPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
         

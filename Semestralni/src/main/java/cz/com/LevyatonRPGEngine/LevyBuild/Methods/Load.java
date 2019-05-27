@@ -200,16 +200,14 @@ public class Load {
         String name;
         String gender;
         Clerks clerks = new Clerks();
-        int counter = 0;
+       
         
         while((line = br.readLine()) != null)
         {
-            Clerk clerk = clerks.getAllClerks().get(counter);
-            split = line.split("@");
-            name = split[0];
-            gender = split[1];
-            clerk.setClerk(name, gender);
-            counter++;
+            name = line;
+          
+            oldClerks.add(clerks.loadClerk(name));
+          
         }
         br.close();
         
