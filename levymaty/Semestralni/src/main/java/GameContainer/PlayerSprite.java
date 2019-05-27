@@ -1,5 +1,6 @@
 package GameContainer;
 
+import static GameContainer.GameContainer.LOG;
 import cz.com.GameFiles.LevyBuild.customClasses.Species;
 import cz.com.LevyatonRPGEngine.LevyBuild.Methods.Save;
 import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Character.Specie;
@@ -146,7 +147,7 @@ public class PlayerSprite {
         this.draw(filePath);
         //System.out.println("x:" + coordX + "y:" + coordY);
         if (facingEnemy && readInput.isKeyReleased(KeyEvent.VK_SPACE)) {
-            //System.out.println("FIGHT");
+            LOG.finest("Starting encounter.");
             enemy = this.getFacingEnemy();
             if (enemy.getFilename() == "jednorozec.png") {
                 
@@ -155,7 +156,6 @@ public class PlayerSprite {
             if (enemy.getFilename() == "Enemy.png") {
                gc.getMainFrame().battleOrShop(new Species().getWolf());
             }
-            //starts fight 
         }
     }
     
@@ -169,6 +169,7 @@ public class PlayerSprite {
         this.result = result;
         if(result)
         {
+            LOG.finest("Battle won!");
             gc.getObjManager().removeEnemy(enemy);
         }
     }
