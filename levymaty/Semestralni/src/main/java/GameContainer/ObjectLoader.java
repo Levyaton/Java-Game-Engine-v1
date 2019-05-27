@@ -39,8 +39,8 @@ public class ObjectLoader {
         CANVAS_WIDTH = canvasWidth;
         
         filepath = System.getProperty("user.dir") + "\\Map\\" + "Map.txt";
-        classA = new GameObject[100];
-        classB = new GameObject[100];
+        classA = new GameObject[1000];
+        classB = new GameObject[1000];
         File file = new File(filepath);
         Scanner sc = new Scanner(file);
         int idx = 0;

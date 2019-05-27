@@ -7,8 +7,7 @@ import java.awt.event.KeyEvent;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.logging.*;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.SwingUtilities;
@@ -19,6 +18,7 @@ import javax.swing.SwingUtilities;
  */
 public class GameContainer implements Runnable {
         
+        public final static Logger LOG = Logger.getLogger("Logger");
         private World world;
 	private Thread thread;
 	private MainFrame mainFrame;
@@ -66,7 +66,6 @@ public class GameContainer implements Runnable {
      * The constructor does nothing, everything is initialized in the start method.
      */
     public GameContainer() {
-            
 	}
 
     /**
@@ -105,7 +104,7 @@ public class GameContainer implements Runnable {
             //GameObject b = new GameObject("SmallBlue.png");
             running = true;
             mainFrame.showCard("enterName");
-           
+            LOG.info("GameContainer successfully loaded and is running.");
             thread.run();
             return;
 	}
@@ -132,7 +131,7 @@ public class GameContainer implements Runnable {
                 
                 
                 while (lastRendered >= UPDATE_CAP) {
-                    //System.out.println("update");
+                    LOG.finest("Updating...");
                     lastRendered -= UPDATE_CAP;
                     //UPDATE
                     if (frameTime >= 1.0) {
@@ -158,6 +157,7 @@ public class GameContainer implements Runnable {
                 }
                 
                 if (renderNow) {
+                    LOG.finest("Rendering...");
                     frames++;
                     mainFrame.getOverworld().update();
                     mainFrame.showCard("Overworld");
@@ -279,6 +279,8 @@ public class GameContainer implements Runnable {
         
         
         GameContainer gc = new GameContainer();
+        LOG.setLevel(Level.INFO);
+        LOG.info("Starting the GameContainer.");
         gc.start();
     }
 }
