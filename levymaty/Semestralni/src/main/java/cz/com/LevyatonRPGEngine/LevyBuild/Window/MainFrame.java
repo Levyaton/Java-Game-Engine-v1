@@ -54,6 +54,10 @@ public class MainFrame extends JFrame{
     private  Battle b;
     private  Save s;
     private Specie enemy;
+
+    public void setOverworld(DoubleCanvas overworld) {
+        this.overworld = overworld;
+    }
     
     
     /**

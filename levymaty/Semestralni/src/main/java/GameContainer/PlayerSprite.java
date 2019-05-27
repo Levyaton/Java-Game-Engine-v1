@@ -9,8 +9,8 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import java.util.logging.*;
 /**
- *
- * @author czech
+ * This class allows for player movement in the overworld and initiating battles.
+ * @author Viktor Bobůrka
  */
 public class PlayerSprite {
     private GameObject enemy;
@@ -37,15 +37,16 @@ public class PlayerSprite {
     
     /**
      *
-     * @param filename
-     * @param coordX
-     * @param coordY
-     * @param gc
-     * @param readInput
-     * @param canvasHeight
-     * @param windowWidth
-     * @param enemyColor
-     * @param obstacleColor
+     * @param filename Name of Player sprite.
+     * @param coordX Starting coordinate X.
+     * @param coordY Starting coordinate Y.
+     * @param gc GameContainer.
+     * @param readInput Reading input from keyboard.
+     * @param canvasHeight Pixel height of overworld.
+     * @param windowWidth Pixel width of overworld.
+     * @param enemyColor Hidden colour of enemies.
+     * @param obstacleColor Hidden colour of obstacles.
+     * 
      */
     public PlayerSprite (String filename, int coordX, int coordY, GameContainer gc, ReadInput readInput, int canvasHeight, int windowWidth, int enemyColor, int obstacleColor) {
         
@@ -64,12 +65,7 @@ public class PlayerSprite {
         PLAYER_SPEED = 2;  //must divide 50 because im lazy
     }
     
-    /**
-     *
-     * @return
-     */
-    
-    public GameObject getFacingEnemy() {
+    private GameObject getFacingEnemy() {
         System.out.println(gc.getObjManager().getBcount());
 
         if (facingDirection == 'A') {
@@ -131,6 +127,8 @@ public class PlayerSprite {
     }
     
     /**
+     * 
+     * Updates player position, draws it on canvas, starts encounters.
      *
      * @throws InterruptedException
      * @throws LineUnavailableException
@@ -161,6 +159,11 @@ public class PlayerSprite {
         }
     }
     
+    /**
+     * Sets the result of the battle.
+     * @param result 
+     */
+    
     public void setResult(boolean result)
     {
         this.result = result;
@@ -169,10 +172,7 @@ public class PlayerSprite {
             gc.getObjManager().removeEnemy(enemy);
         }
     }
-    /**
-     *
-     */
-    public void drawBlack() {
+    private void drawBlack() {
         int color = 0x000000;
         pixels = new int[WINDOW_WIDTH * CANVAS_HEIGHT];
         pixels = DoubleCanvas.getPixels();
@@ -197,11 +197,7 @@ public class PlayerSprite {
         gc.getDoubleCanvas().setPixels(pixels);
     }
     
-    /**
-     *
-     * @param filename
-     */
-    public void draw(String filename) {
+    private void draw(String filename) {
         int color = 0xffffff;
         pixels = new int[WINDOW_WIDTH * CANVAS_HEIGHT];
         pixels = DoubleCanvas.getPixels();
@@ -224,10 +220,7 @@ public class PlayerSprite {
         gc.getDoubleCanvas().setPixels(pixels);
     }
     
-    /**
-     *
-     */
-    public void updatePosition() {
+    private void updatePosition() {
         if (readInput.isKeyDown(KeyEvent.VK_W)) {
             this.goUp();
             facingDirection = 'W';
@@ -249,10 +242,7 @@ public class PlayerSprite {
         }*/
     }
     
-    /**
-     *
-     */
-    public void checkFacedSquare() {
+    private void checkFacedSquare() {
         if (facingDirection == 'W') {
             if (pixels[(coordY - 1) * WINDOW_WIDTH + coordX] == ENEMY_COLOR /*|| pixels[(coordY - 1) * WINDOW_WIDTH + coordX + 49] == ENEMY_COLOR*/) {
                 facingEnemy = true;
@@ -287,37 +277,25 @@ public class PlayerSprite {
         }
     }
     
-    /**
-     *
-     */
-    public void goRight() {
+    private void goRight() {
         if (pixels[coordY * 1600 + coordX + 51/**/] == 0x000000 && pixels[(coordY + 49/**/) * 1600 + coordX + 51/**/] == 0x000000) {
             coordX += PLAYER_SPEED;
         }
     }
     
-    /**
-     *
-     */
-    public void goLeft() {
+    private void goLeft() {
         if (pixels[coordY * 1600 + coordX - 1] == 0x000000 && pixels[(coordY + 49/**/) * 1600 + coordX - 1] == 0x000000) {
             coordX -= PLAYER_SPEED;
         }
     }
     
-    /**
-     *
-     */
-    public void goUp() {
+    private void goUp() {
         if (pixels[(coordY - 1) * 1600 + coordX] == 0x000000 && pixels[(coordY - 1) * 1600 + coordX + 49] == 0x000000) {
             coordY -= PLAYER_SPEED;
         }
     }
     
-    /**
-     *
-     */
-    public void goDown() {
+    private void goDown() {
         if (pixels[(coordY + 50/**/) * 1600 + coordX] == 0x000000 && pixels[(coordY + 50/**/) * 1600 + coordX + 49] == 0x000000) {
             coordY += PLAYER_SPEED;
         }

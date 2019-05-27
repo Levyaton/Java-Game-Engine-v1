@@ -12,8 +12,8 @@ import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 
 /**
- *
- * @author czech
+ * This class represents an individual removable object in the overworld.
+ * @author Viktor Bobůrka
  */
 public class GameObject {
     
@@ -37,16 +37,16 @@ public class GameObject {
     
     /**
      *
-     * @param filename
-     * @param coordX
-     * @param coordY
-     * @param objectIdx
-     * @param gc
-     * @param enemyColor
-     * @param obstacleColor
-     * @param canvasHeight
-     * @param canvasWidth
-     * @param blockSize
+     * @param filename Name of the sprite used for the object.
+     * @param coordX This object's initial X coordinate.
+     * @param coordY This object's initial Y coordinate.
+     * @param objectIdx Object's index in its array.
+     * @param gc GameContainer.
+     * @param enemyColor Hidden colour of enemies.
+     * @param obstacleColor Hidden colour of obstacles.
+     * @param canvasHeight Height of the overworld.
+     * @param canvasWidth Width of the overworld.
+     * @param blockSize The size of tiles on overworld map.
      */
     public GameObject(String filename, int coordX, int coordY, int objectIdx, GameContainer gc, int enemyColor, int obstacleColor, int canvasHeight, int canvasWidth, int blockSize) {
         ENEMY_COLOR = enemyColor;
@@ -93,7 +93,7 @@ public class GameObject {
 
     /**
      *
-     * @return
+     * @return Returns the index of the object's highest pixel.
      */
     public int getNorthBound() {
         return northBound;
@@ -101,7 +101,7 @@ public class GameObject {
 
     /**
      *
-     * @return
+     * @return Returns the index of the object's lowest pixel.
      */
     public int getSouthBound() {
         return southBound;
@@ -109,7 +109,7 @@ public class GameObject {
 
     /**
      *
-     * @return
+     * @return Returns the index of the object's leftmost pixel.
      */
     public int getWestBound() {
         return westBound;
@@ -117,14 +117,14 @@ public class GameObject {
 
     /**
      *
-     * @return
+     * @return Returns the index of the object's rightmost pixel.
      */
     public int getEastBound() {
         return eastBound;
     }
-    
+
     /**
-     *
+     * This method paints this object's location the default colour (black).
      */
     public void remove() {
         System.out.println("removed");
@@ -142,15 +142,14 @@ public class GameObject {
 
     /**
      *
-     * @return
+     * @return Returns the name of the sprite file.
      */
     public String getFilename() {
         return filename;
     }
     
     /**
-     *
-     * @param filename
+     * This method opens the sprite file and draws it on the canvas.
      */
     public void draw(String filename) {
         int color = 0x000000;
@@ -201,7 +200,7 @@ public class GameObject {
 
     /**
      *
-     * @return
+     * @return Returns the X coordinate of the object.
      */
     public int getCoordX() {
         return coordX;
@@ -209,7 +208,7 @@ public class GameObject {
 
     /**
      *
-     * @return
+     * @return Returns the Y coordinate of the object.
      */
     public int getCoordY() {
         return coordY;
@@ -217,7 +216,7 @@ public class GameObject {
 
     /**
      *
-     * @return
+     * @return Returns the index of the object in its array.
      */
     public int getObjectIdx() {
         return objectIdx;

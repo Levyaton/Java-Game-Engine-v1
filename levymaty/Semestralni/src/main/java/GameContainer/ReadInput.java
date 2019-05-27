@@ -4,8 +4,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 /**
- *
- * @author czech
+ * This class allows the player to use the keyboard for input.
+ * @author Viktor Bobůrka
  */
 public class ReadInput implements KeyListener {  //communicates with GC and Player
 
@@ -16,7 +16,8 @@ public class ReadInput implements KeyListener {  //communicates with GC and Play
     
     /**
      *
-     * @param gc
+     * @param gc GameContainer is used to gain access to canvas and panel.
+     * @see GameContainer
      */
     public ReadInput(GameContainer gc) {
        
@@ -24,9 +25,9 @@ public class ReadInput implements KeyListener {  //communicates with GC and Play
        
         gc.getDoubleCanvas().addKeyListener(this);
     }
-     
+         
     /**
-     *
+     *  keeps track of whih keys were down in last frame and which are down in this frame
      */
     public void update() {
         gc.getDoubleCanvas().grabFocus();
@@ -38,7 +39,7 @@ public class ReadInput implements KeyListener {  //communicates with GC and Play
     /**
      *
      * @param keyId
-     * @return
+     * @return returns true if given key is down and false otherwise
      */
     public boolean isKeyDown(int keyId) {
         return keys[keyId];
@@ -47,7 +48,7 @@ public class ReadInput implements KeyListener {  //communicates with GC and Play
     /**
      *
      * @param keyId
-     * @return
+     * @return returns true if key wasn't down in last frame and is down in this frame
      */
     public boolean isKeyPressed(int keyId) {
         return keys[keyId] && !keysLast[keyId];
@@ -56,7 +57,7 @@ public class ReadInput implements KeyListener {  //communicates with GC and Play
     /**
      *
      * @param keyId
-     * @return
+     * @return return true if key was down in last frame and isn't down in this frame
      */
     public boolean isKeyReleased(int keyId) {
         return keysLast[keyId] && !keys[keyId];

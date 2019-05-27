@@ -16,8 +16,8 @@ import java.text.AttributedCharacterIterator;
 import javax.swing.*;
 
 /**
- *
- * @author czech
+ * This class creates and manages the graphics on the overworld panel.
+ * @author Viktor Bobůrka
  */
 public class DoubleCanvas extends JPanel {
     private final int WINDOW_WIDTH;
@@ -36,12 +36,13 @@ public class DoubleCanvas extends JPanel {
     private BufferStrategy bs;
     private Graphics graphics;
    
+        
     /**
      *
-     * @param gc
-     * @param windowWidth
-     * @param windowHeight
-     * @param canvasHeight
+     * @param gc GameContainer.
+     * @param windowWidth Pixel width of the overworld.
+     * @param windowHeight Pixel height of the overworld.
+     * @param canvasHeight Pixel height of the overworld.
      */
     public DoubleCanvas(GameContainer gc, int windowWidth, int windowHeight, int canvasHeight) {
         //this.pixels = new int [WINDOW_HEIGHT * WINDOW_WIDTH];
@@ -70,48 +71,49 @@ public class DoubleCanvas extends JPanel {
     }
     
     /**
-     *
-     * @return
+     * 
+     * @return Returns BufferedImage object that is drawn on the canvas.
      */
     public BufferedImage getFrontBuffer() {
         return frontBuffer;
     }
 
     /**
-     *
-     * @return
+     * 
+     * @return Returns the hidden pixels array.
      */
     public static int[] getPixels() {
         return pixels;
     }
 
     /**
-     *
-     * @return
+     * 
+     * @return Returns the pixels array visible to the player.
      */
     public static int[] getVisiblePixels() {
         return visiblePixels;
     }
-    
+
     /**
-     *
-     * @param pixels
+     * Sets up the hidden pixels array.
+     * 
      */
     public void setPixels(int[] pixels) {
         this.pixels = pixels;
     }
 
+
     /**
-     *
-     * @param visiblePixels
+     * Sets up the pixels array visible to the player.
+     * 
      */
     public void setVisiblePixels(int[] visiblePixels) {
         this.visiblePixels = visiblePixels;
     }
     
     /**
-     *
-     * @return
+     * @return Returns the canvas.
+     * 
      */
     public ModCanvas getFrontEndCanvas() {
         return frontEndCanvas;
@@ -120,7 +122,7 @@ public class DoubleCanvas extends JPanel {
     //int x = 0;
 
     /**
-     *
+     * This method displays any changes made to the visiblePixels array.
      */
     public void update() {
         

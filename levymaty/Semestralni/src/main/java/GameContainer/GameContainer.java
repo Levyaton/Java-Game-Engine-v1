@@ -14,8 +14,8 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.SwingUtilities;
 
 /**
- *
- * @author czech
+ * This is the main class of the game engine, it manages the other classes and updates the game.
+ * @author Viktor Bobůrka
  */
 public class GameContainer implements Runnable {
         
@@ -28,17 +28,20 @@ public class GameContainer implements Runnable {
         //private DoubleCanvas overworld;
         
     /**
-     *
+     * @return Returns the PlayerSprite class.
      */
         
     public PlayerSprite getPs()
     {
         return ps;
-    }    
+    } 
+    /**
+     * The hidden colour of the enemies.
+     */
     public final int ENEMY_COLOR = 0xff3333;
 
     /**
-     *
+     * The hidden colour of the obstacles.
      */
     public final int OBSTACLE_COLOR = 0xcc6666;
         private final int CANVAS_HEIGHT = 900;
@@ -60,14 +63,14 @@ public class GameContainer implements Runnable {
         private int fps;
         
     /**
-     *
+     * The constructor does nothing, everything is initialized in the start method.
      */
     public GameContainer() {
             
 	}
 
     /**
-     *
+     * Sets up all necessary classes, starts the game.
      * @throws IOException
      * @throws MalformedURLException
      * @throws LineUnavailableException
@@ -108,12 +111,8 @@ public class GameContainer implements Runnable {
 	}
 
     /**
-     *
+     * This is the main loop of the game, it keeps track of time and updates the game.
      */
-    public void stop() {
-            
-	}
-
 	public void run() {
             lastUpdated = System.nanoTime() / 1000000000.0;  //10e9
             boolean renderNow = false;
@@ -175,8 +174,17 @@ public class GameContainer implements Runnable {
             return;
 	}
 
+        /**
+         * Only used in unit tests.
+         * @param mainFrame 
+         */
+        
+    public void setMainFrame(MainFrame mainFrame) {
+        this.mainFrame = mainFrame;
+    }
+
     /**
-     *
+     * Sets up the Player, used after battles and in the beginning of the game.
      * @param player
      */
     public void setPlayer(Player player)
@@ -185,7 +193,7 @@ public class GameContainer implements Runnable {
     }    
 
     /**
-     *
+     * Sets the running variable to let the game loop know the game is running.
      * @param running
      */
     public void setRunning(boolean running) {
@@ -194,7 +202,7 @@ public class GameContainer implements Runnable {
 
     /**
      *
-     * @return
+     * @return Returns the game world.
      */
     public World getWorld()
    {
@@ -203,14 +211,14 @@ public class GameContainer implements Runnable {
 
     /**
      *
-     * @return
+     * @return Returns the Main JFrame containing all other panels.
      */
     public MainFrame getMainFrame() {
         return mainFrame;
     }
 
     /**
-     *
+     * Sets up the game world.
      * @param w
      */
     public void setWorld(World w)
@@ -219,8 +227,8 @@ public class GameContainer implements Runnable {
    }
 
     /**
-     *
-     * @return
+     * 
+     * @return Returns the pixel height of the overworld.
      */
     public int getCANVAS_HEIGHT() {
         return CANVAS_HEIGHT;
@@ -228,7 +236,7 @@ public class GameContainer implements Runnable {
 
     /**
      *
-     * @return
+     * @return Returns the pixel height of the overworld.
      */
     public int getWINDOW_HEIGHT() {
         return WINDOW_HEIGHT;
@@ -236,7 +244,7 @@ public class GameContainer implements Runnable {
 
     /**
      *
-     * @return
+     * @return Returns the pixel width of the overworld.
      */
     public int getWINDOW_WIDTH() {
         return WINDOW_WIDTH;
@@ -244,7 +252,7 @@ public class GameContainer implements Runnable {
 
     /**
      *
-     * @return
+     * @return Returns the manager containing all objects of the overworld.
      */
     public ObjectLoader getObjManager() {
         return objManager;
@@ -252,7 +260,7 @@ public class GameContainer implements Runnable {
     
     /**
      *
-     * @return
+     * @return Returns the overworld.
      */
     public DoubleCanvas getDoubleCanvas()
     {
@@ -260,7 +268,7 @@ public class GameContainer implements Runnable {
     }
     
     /**
-     *
+     * Starts up the Game Container class.
      * @param args
      * @throws IOException
      * @throws MalformedURLException

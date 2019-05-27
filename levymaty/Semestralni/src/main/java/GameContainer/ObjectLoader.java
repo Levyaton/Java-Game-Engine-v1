@@ -5,8 +5,8 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 /**
- *
- * @author czech
+ * This class loads the map.txt file and manages objects in the overworld.
+ * @author Viktor Bobůrka
  */
 public class ObjectLoader {
     private final int BLOCK_SIZE = 50;
@@ -25,11 +25,11 @@ public class ObjectLoader {
     
     /**
      *
-     * @param gc
-     * @param enemyColor
-     * @param obstacleColor
-     * @param canvasHeight
-     * @param canvasWidth
+     * @param gc GameContainer.
+     * @param enemyColor The hidden colour of enemies.
+     * @param obstacleColor The hidden colour of obstacles.
+     * @param canvasHeight Pixel height of the overworld.
+     * @param canvasWidth Pixel width of the overworld.
      * @throws FileNotFoundException
      */
     public ObjectLoader (GameContainer gc, int enemyColor, int obstacleColor, int canvasHeight, int canvasWidth) throws FileNotFoundException {
@@ -76,8 +76,9 @@ public class ObjectLoader {
     }
 
     /**
-     *
-     * @param enemy
+     * Removes a given enemy from the overworld.
+     * @param enemy The enemy to be removed.
+     * 
      */
     public void removeEnemy(GameObject enemy) {
         int idx = enemy.getObjectIdx();
@@ -91,90 +92,45 @@ public class ObjectLoader {
         classB[Bcount - 1] = null;
         Bcount -= 1;
     }
-    /*public boolean removeObject(int idx, char type) {
-        if (type == 'A' || type == 'a') {
-            classA[idx] = null;
-            for (int i = idx + 1; i < classA.length - 2; i++) {
-                classA[i] = classA[i + 1];
-            }
-            classA[classA.length - 1] = null;
-            return true;
-        }
-        else if (type == 'B' || type == 'b') {
-            classB[idx] = null;
-            for (int i = idx + 1; i < classB.length - 2; i++) {
-                classB[i] = classB[i + 1];
-            }
-            classB[classB.length - 1] = null;
-            return true;
-        }
-        else {
-            return false;
-        }
-    }*/
+    
 
     /**
-     *
-     * @return
+     * 
+     * @return Returns the size of a tile on the map. 
      */
-
-
     public int getBLOCK_SIZE() {
         return BLOCK_SIZE;
     }
 
     /**
-     *
-     * @return
+     * 
+     * @return Total number of obstacles on the map.
      */
     public int getAcount() {
         return Acount;
     }
 
     /**
-     *
-     * @return
+     * 
+     * @return Total number of enemies on the map.
      */
     public int getBcount() {
         return Bcount;
     }
 
     /**
-     *
-     * @return
+     * 
+     * @return Array of all obstacles on the map.
      */
     public GameObject[] getClassA() {
         return classA;
     }
 
     /**
-     *
-     * @return
+     * 
+     * @return Array of all enemies on the map.
      */
     public GameObject[] getClassB() {
         return classB;
-    }
-    
-    /**
-     *
-     * @param go
-     * @param type
-     */
-    public void addObject(GameObject go, char type) {
-        
-        // TODO: adding objects to list and to canvas 
-        /*if (type == 'A' || type == 'a') {
-            classA[Acount] = go;
-            go.draw("Obstacle.png");
-            return Acount++;
-        }
-        else if (type == 'B' || type == 'b') {
-            classB[Bcount] = go;
-            go.draw("Enemy.png");
-            return Bcount++;
-        }
-        else {
-            return 0;
-        }*/
     }
 }
