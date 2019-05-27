@@ -38,6 +38,7 @@ public class MainFrame extends JFrame{
     private static ArrayList<Item> items;
     private static NameInputPanel nip;
     private static BattlePanel bp;
+    
     public void setMainFrame() throws IOException
     {
         cards = new JPanel(new CardLayout());
