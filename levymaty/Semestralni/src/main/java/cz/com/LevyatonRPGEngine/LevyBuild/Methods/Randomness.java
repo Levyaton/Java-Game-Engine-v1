@@ -5,10 +5,7 @@
  */
 package cz.com.LevyatonRPGEngine.LevyBuild.Methods;
 
-/**
- *
- * @author czech
- */
+
 
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
@@ -17,7 +14,7 @@ import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Attack;
 import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Character.Clerk;
 
 /**
- *
+ *  A class containing methods that use randomness for their results
  * @author czech
  */
 public class Randomness {
@@ -25,7 +22,7 @@ public class Randomness {
     Random rand = new Random();
     
     /**
-     *
+     *  returns a number between 0 and the given number
      * @param numberAfterLast
      * @return
      */
@@ -36,7 +33,12 @@ public class Randomness {
     }
     
     /**
-     *
+     *  Generates a random number between 0 and 1. 
+     *  Returns 0 if the generated number is is smaller then or equal to the first given number, but larger then the second given number. 
+     *  Returns 1 if the generated number is smaller then or equal to the second given number, but larger then the third given number.
+     *  Returns 2 if the generated number is larger then the first given number.
+     *  Returns 10 if the generated number is smaller or equal to 0.02 but larger then 0.01, if none of the previous conditions have been met
+     *  Otherwise, it returns 666
      * @param one
      * @param two
      * @param three
@@ -68,7 +70,10 @@ public class Randomness {
     }
     
     /**
-     *
+     *  Generates a random number between 0 and 1.
+     *  Returns 0 if the generated number is smaller then or equal to the first given number
+     *  Returns 1 if the previous conditions haven't been met and the generated number is smaller then or equal to the second given number.
+     *  Otherwise, it returns 2.
      * @param one
      * @param two
      * @return
@@ -91,7 +96,7 @@ public class Randomness {
     }
     
     /**
-     *
+     *  Generates a number between 0 and 1, then checks to see if it is smaller then or equal to the given number, and returns the boolean as the result
      * @param modifier
      * @return
      */
@@ -101,7 +106,7 @@ public class Randomness {
     }
     
     /**
-     *
+     *   returns a number from the range between the given numbers
      * @param min
      * @param max
      * @return
@@ -113,7 +118,7 @@ public class Randomness {
     }
     
     /**
-     *
+     *  returns a random position from a given array
      * @param obj
      * @return
      */
@@ -124,7 +129,7 @@ public class Randomness {
     }
     
     /**
-     *
+     * returns a random position from a given array
      * @param obj
      * @return
      */
@@ -135,7 +140,7 @@ public class Randomness {
     }
     
     /**
-     *
+     *  returns a random position from a given array
      * @param obj
      * @return
      */
@@ -146,7 +151,7 @@ public class Randomness {
     }
      
     /**
-     *
+     *  returns a random position from a given array
      * @param obj
      * @return
      */
@@ -157,7 +162,7 @@ public class Randomness {
     }
     
     /**
-     *
+     *  decides on which number will be returned
      * @param chanceOfEffect
      * @param effectActivated
      * @param effectFailed
@@ -173,7 +178,7 @@ public class Randomness {
     }
     
     /**
-     *
+     * decides on which number will be returned
      * @param chanceOfEffect
      * @param effectActivated
      * @param effectFailed
@@ -189,7 +194,7 @@ public class Randomness {
     }
      
     /**
-     *
+     *  returns a number based on many given stats
      * @param getPlayerDef
      * @param getPlayerMaxHealth
      * @param min

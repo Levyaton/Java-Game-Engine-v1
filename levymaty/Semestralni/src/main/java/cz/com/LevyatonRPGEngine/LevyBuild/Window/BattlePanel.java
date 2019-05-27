@@ -45,7 +45,7 @@ import sun.audio.AudioStream;
 import sun.audio.ContinuousAudioDataStream;
 
 /**
- *
+ *  A panel that is responsible for battles
  * @author czech
  */
 public class BattlePanel extends javax.swing.JPanel implements ActionListener{
@@ -73,7 +73,7 @@ public class BattlePanel extends javax.swing.JPanel implements ActionListener{
     }
 
     /**
-     *
+     *  sets up the battle
      * @param battle
      * @param player
      */
@@ -84,7 +84,7 @@ public class BattlePanel extends javax.swing.JPanel implements ActionListener{
     }
     
     /**
-     *
+     *  returns the battleText JTextArea
      * @return
      */
     public JTextArea getBattleText()
@@ -93,7 +93,7 @@ public class BattlePanel extends javax.swing.JPanel implements ActionListener{
     }
     
     /**
-     *
+     *  customizes the generated JPanel
      * @throws LineUnavailableException
      * @throws UnsupportedAudioFileException
      * @throws IOException
@@ -119,7 +119,7 @@ public class BattlePanel extends javax.swing.JPanel implements ActionListener{
     }
     
     /**
-     *
+     *  sets the text of the selectedName JTextFielsd to the given String
      * @param name
      */
     public void setSelectedName(String name)
@@ -131,7 +131,7 @@ public class BattlePanel extends javax.swing.JPanel implements ActionListener{
     }
     
     /**
-     *
+     *  updates the buttons in the selectedPanel JPanel
      * @param buttonName
      */
     public void updateSelectedPane(String buttonName)
@@ -159,13 +159,13 @@ public class BattlePanel extends javax.swing.JPanel implements ActionListener{
            this.selectedPanel.add(b);
 
 
-          // revalidate();
+          //revalidate();
            repaint();
         }
    }
     
     /**
-     *
+     *  sets the buttons to the selectedPane JPanel
      * @param buttons
      */
     public void setSelectedButtons(ArrayList<JButton> buttons)
@@ -190,60 +190,30 @@ public class BattlePanel extends javax.swing.JPanel implements ActionListener{
         
     }
     
+   
     /**
-     *
-     */
-    public   void battleMusic() 
-    {       
-
-
-        AudioPlayer MGP = AudioPlayer.player;
-        AudioStream BGM;
-        AudioData MD;
-
-        ContinuousAudioDataStream loop = null;
-
-        try
-        {
-            File f = new File(System.getProperty("user.dir") + "\\Toby-Fox-Megalovania.wav");
-            InputStream test = new FileInputStream(f);
-            BGM = new AudioStream(test);
-            AudioPlayer.player.start(BGM);
-            //MD = BGM.getData();
-            //loop = new ContinuousAudioDataStream(MD);
-
-        }
-        catch(FileNotFoundException e){
-            System.out.print(e.toString());
-        }
-        catch(IOException error)
-        {
-            System.out.print(error.toString());
-        }
-        MGP.start(loop);
-
-    }
-        
-    /**
-     *
+     *  appends the given String to the battleTExt JTextArea
      * @param text
      * @throws InterruptedException
      */
+    
+   
     public void writeText(String text) throws InterruptedException
     {
-        char[] slowDown = text.toCharArray();
-        /*
-        for(char c : slowDown)
-        {
-        
-            String s = Character.toString(c);
-            this.battleText.append(s);
-            Thread.sleep(100);
-            
-        }
-       
-        */
+     
         this.battleText.append(text);
+    }
+    
+    
+    
+    /**
+     *  sets the given String to the battleText JTextArea
+     * @param text
+     * @throws InterruptedException
+     */
+    public void setText(String text) throws InterruptedException
+    {
+        this.battleText.setText(text);
     }
     
     
@@ -405,7 +375,7 @@ public class BattlePanel extends javax.swing.JPanel implements ActionListener{
         
        
         JButton chosenButton = (JButton) e.getSource();
-        System.out.println(selectedName.getText());
+        //System.out.println(selectedName.getText());
         
         try {
            if(e.getSource().equals(Attack))
@@ -425,7 +395,7 @@ public class BattlePanel extends javax.swing.JPanel implements ActionListener{
            }
            else  if(e.getSource().equals(Bag))
            {
-               
+            this.selectedPanel.removeAll();
             items = player.getInventory();
             ArrayList<JButton> buttons = new ArrayList<JButton>();
             for(Item a : items)
@@ -453,6 +423,7 @@ public class BattlePanel extends javax.swing.JPanel implements ActionListener{
                {
                    if(a.getName().equals(chosenButton.getName()))
                    {
+                       
                        battle.pPreformAttack(a);
                    }
                }
@@ -460,10 +431,12 @@ public class BattlePanel extends javax.swing.JPanel implements ActionListener{
            
            else  if(this.selectedName.getText().equals("Bag"))
            {
+               System.out.println(chosenButton.getText());
                for(Item i : battle.getHealing())
                {
-                   if(i.getName().equals(chosenButton.getName()))
+                   if(chosenButton.getName().contains(i.getName()))
                    {
+                      
                        battle.useAnItem(i);
                    }
                }

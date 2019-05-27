@@ -15,7 +15,7 @@ import cz.com.LevyatonRPGEngine.LevyBuild.Window.BattlePanel;
 import cz.com.LevyatonRPGEngine.LevyBuild.Window.MainFrame;
 
 /**
- *
+ * a class containing the Attack properties
  * @author czech
  */
 public class Attack extends basicGameObject {
@@ -23,113 +23,109 @@ public class Attack extends basicGameObject {
     //Manditory information
 
     /**
-     *
+     *  how many turns is the enemy immobilized
      */
-    protected int eBlockLength;//how many turns is the enemy immobilized
+    protected int eBlockLength;
 
     /**
-     *
+     *  can the opponent move?
      */
     protected boolean enemyCanMove;
 
     /**
-     *
+     *  How long does the attack last?
      */
     protected int turnLength;
 
     /**
-     *
+     *  How much damage will the attack do?
      */
     protected int damage;
     //Stat modefiers
 
     /**
-     *
+     *  What is the attacks strength modifier?
      */
     protected int strMod;
 
     /**
-     *
+     *  What is the attacks defense modifier?
      */
     protected int defMod;
 
     /**
-     *
+     *  What is the attacks speed modifier?
      */
     protected int speedMod;
 
     /**
-     *
+     *  What is the attacks luck modifier?
      */
     protected Double luckMod;
 
     /**
-     *
+     *  What is the attacks health point modifier?
      */
     protected int hPMod;
 
     /**
-     *
+     *  What level does the attack have?
      */
     protected int level = 0;
 
     /**
-     *
-     */
+     *  How many experience points does the level have?
+     */ 
     protected int experience = 0;
 
     /**
-     *
+     * How much experience does the Attack need to level up?
      */
     protected int experienceNeeded;
 
     /**
-     *
+     *  Does the attack have an effect other then Damage?
      */
     protected boolean hasEffect;
 
+   
     /**
-     *
-     */
-    protected String statName;
-
-    /**
-     *
+     *  Does using the move cause its user to get stunned?
      */
     protected boolean characterCanMove;
 
     /**
-     *
+     *  every Attack has access to randomness methods
      */
     protected Randomness rand = new Randomness();
 
     /**
-     *
+     *  0 - successful attack, 1 - when opponent is blocked, 2 - when attack fails, 3 - when attack ends   
      */
-    protected String[] blockedText = new String[4]; //0 - succesfull attack, 1 - when opponent is blocked, 2 - when attack fails, 3 - when attack ends   
+    protected String[] blockedText = new String[4]; //
 
     /**
-     *
+     *  does the attack use randomness?
      */
     protected boolean randomStat = false;
 
     /**
-     *
+     *  What tye is the attack?
      */
     protected String type;
 
     /**
-     *
+     *  What items can the attack use?
      */
     protected Item[][] items;
 
     /**
-     *
+     *  Is the attack available?
      */
     protected boolean available = false;
     
     /**
-     *
+     *  Initializes and sets up the Attack
      * @param giveName
      * @param giveDamage
      * @param giveTurnLength
@@ -153,7 +149,7 @@ public class Attack extends basicGameObject {
     }
     
     /**
-     *
+     *  Initializes and sets up the Attack
      * @param giveName
      * @param giveDamage
      * @param giveTurnLength
@@ -179,7 +175,7 @@ public class Attack extends basicGameObject {
     }
     
     /**
-     *
+     *  Initializes and sets up the Attack
      * @param giveName
      * @param giveDamage
      * @param giveTurnLength
@@ -218,7 +214,7 @@ public class Attack extends basicGameObject {
     }
     
     /**
-     *
+     *  Initializes and sets up the Attack
      * @param giveName
      * @param giveDamage
      * @param giveTurnLength
@@ -244,7 +240,7 @@ public class Attack extends basicGameObject {
     }
     
     /**
-     *
+     *  Initializes and sets up the Attack
      * @param giveName
      * @param giveDamage
      * @param giveTurnLength
@@ -293,7 +289,7 @@ public class Attack extends basicGameObject {
     }
     
     /**
-     *
+     *  sets the availability of the attack to the given boolean
      * @param givenAvailability
      */
     public void setAvailability(boolean givenAvailability)
@@ -302,7 +298,7 @@ public class Attack extends basicGameObject {
     }
     
     /**
-     *
+     *  returns a random number based on the given number
      * @param stat
      * @return
      */
@@ -336,7 +332,7 @@ public class Attack extends basicGameObject {
     }
     
     /**
-     *
+     *  returns a random number based on the given number
      * @param stat
      * @return
      */
@@ -367,7 +363,7 @@ public class Attack extends basicGameObject {
     }
     
     /**
-     *
+     *  sets the level of the attack to the given number
      * @param giveLevel
      */
     public void setLevel(int giveLevel)
@@ -377,7 +373,7 @@ public class Attack extends basicGameObject {
     }
     
     /**
-     *
+     *  sets experienceNeeded of the attack to match the correct value
      */
     public void setExp()
     {
@@ -385,7 +381,7 @@ public class Attack extends basicGameObject {
     }
     
     /**
-     *
+     *  returns the characteCanMove variable
      * @return
      */
     public boolean characterCanMove()
@@ -394,7 +390,7 @@ public class Attack extends basicGameObject {
     }
     
     /**
-     *
+     *  returns the hasEffect variable
      * @return
      */
     public boolean hasEffect()
@@ -403,7 +399,7 @@ public class Attack extends basicGameObject {
     }
     
     /**
-     *
+     *    returns the enemyCanMove variable
      * @return
      */
     public boolean enemyCanMove()
@@ -430,7 +426,7 @@ public class Attack extends basicGameObject {
     }
     
     /**
-     *
+     *    returns availability of the attack
      * @return
      */
     public boolean getAvailability()
@@ -439,7 +435,7 @@ public class Attack extends basicGameObject {
     }
     
     /**
-     *
+     *  returns a random number that determines how long the enemy will be stunned for
      * @return
      */
     public int getEBlockLength()
@@ -448,7 +444,7 @@ public class Attack extends basicGameObject {
     }
     
     /**
-     *
+     *  returns a random number that determines the length of an attack
      * @return
      */
     public int getTurnLength()
@@ -457,7 +453,7 @@ public class Attack extends basicGameObject {
     }
     
     /**
-     *
+     *  returns the amount of damage the attack does
      * @return
      */
     public int getDamage()
@@ -466,7 +462,7 @@ public class Attack extends basicGameObject {
     }
     
     /**
-     *
+     *  returns the attack level
      * @return
      */
     public int getLevel()
@@ -475,7 +471,7 @@ public class Attack extends basicGameObject {
     }
     
     /**
-     *
+     *  returns the attack experience points
      * @return
      */
     public int getExp()
@@ -484,7 +480,7 @@ public class Attack extends basicGameObject {
     }
     
     /**
-     *
+     *  levels up the attack
      */
     public void levelUp()
     {
@@ -501,7 +497,7 @@ public class Attack extends basicGameObject {
     }
     
     /**
-     *
+     *  levels up a given stat
      * @param stat
      * @return
      */
@@ -515,7 +511,7 @@ public class Attack extends basicGameObject {
     }
     
     /**
-     *
+     *  levels up luck
      */
     public void levelUpLuck()
     {
@@ -528,7 +524,7 @@ public class Attack extends basicGameObject {
     }
     
     /**
-     *
+     *  increments experience by the given amount
      * @param expGained
      * @throws InterruptedException
      */
@@ -542,16 +538,16 @@ public class Attack extends basicGameObject {
         {
             if(level == 0)
             {
-                 System.out.println("Congratulations! You just learned how to use the move " + name + "! You can use it while wearing the right equipment\n");
+                System.out.println("Congratulations! You just learned how to use the move " + name + "! You can use it while wearing the right equipment\n");
             }
  
             else if (name.equals("Do nothing"))
             {
-                System.out.println("All of you observationand hard work has paid of! By using and watching your enemies do nothing, you have improved your own performance! " + name + " has leveled up\n");
+               System.out.println("All of you observationand hard work has paid of! By using and watching your enemies do nothing, you have improved your own performance! " + name + " has leveled up\n");
             }
             else
             {
-                System.out.println("All of you observation and hard work has paid of! By using and watching your enemies use the move " + name + ", you have improved your own performance! " + name + " has leveled up\n");
+               System.out.println("All of you observation and hard work has paid of! By using and watching your enemies use the move " + name + ", you have improved your own performance! " + name + " has leveled up\n");
             }
             experience = experience - experienceNeeded;
             levelUp();
@@ -560,7 +556,7 @@ public class Attack extends basicGameObject {
     }
     
     /**
-     *
+     *  returns the strength modifier
      * @return
      */
     public int getStrMod()
@@ -573,7 +569,7 @@ public class Attack extends basicGameObject {
     }
     
     /**
-     *
+     * returns the defense modifier
      * @return
      */
     public int getDefMod()
@@ -586,7 +582,7 @@ public class Attack extends basicGameObject {
     }
     
     /**
-     *
+     * returns the speed modifier
      * @return
      */
     public int getSpeedMod()
@@ -599,7 +595,7 @@ public class Attack extends basicGameObject {
     }
     
     /**
-     *
+     *   returns the luck modifier
      * @return
      */
     public Double getLuckMod()
@@ -612,7 +608,7 @@ public class Attack extends basicGameObject {
     }
     
     /**
-     *
+     *   returns the hit points modifier
      * @return
      */
     public int getHpMod()
@@ -625,7 +621,7 @@ public class Attack extends basicGameObject {
     }
     
     /**
-     *
+     *  returns the attack type
      * @return
      */
     public String getType()
@@ -633,8 +629,8 @@ public class Attack extends basicGameObject {
         return type;
     }
     
-    /**
-     *
+    /** 
+     *  returns the blocked text array
      * @return
      */
     public String[] getBlockedText()
@@ -643,7 +639,7 @@ public class Attack extends basicGameObject {
     }
     
     /**
-     *
+     *  returns the experience needed variable
      * @return
      */
     public int getExperienceNeeded()
@@ -652,7 +648,7 @@ public class Attack extends basicGameObject {
     }
     
     /**
-     *
+     *`returns the total amount of experience the attack has collected based on the current level and experience
      * @return
      */
     public int getExpTotal()

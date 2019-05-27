@@ -20,54 +20,29 @@ import java.util.ArrayList;
  */
 public class Player extends basicGameObject {
 
-    /**
-     *
-     */
+   
     private static Equipment equipped = new Equipment();
 
-    /**
-     *
-     */
+  
     private static Species species = new Species();
 
-    /**
-     *
-     */
     private Specie human = species.getBasicHuman();
 
-    /**
-     *
-     */
+   
     private int maxHealth;
 
-    /**
-     *
-     */
     private int speed;
 
-    /**
-     *
-     */
+   
     private int str;
 
-    /**
-     *
-     */
+  
     private Double luck;
 
-    /**
-     *
-     */
     private int def;
 
-    /**
-     *
-     */
     private int currentHealth;
 
-    /**
-     *
-     */
     private int wealth;
 
     Inventory inv = new Inventory();
@@ -75,14 +50,8 @@ public class Player extends basicGameObject {
     /**
      *  Set's up the Player class
      */
-    public Player() {
-       super(Player.nameSetter(), "Player Controlled", System.getProperty("user.dir") + "src\\main\\java\\cz\\com\\GameFiles\\LevyBuild\\Sprites\\Objects\\Items\\Misc\\BearClaw.png");
-      properties();
-       
-    }
-    
     /**
-     *Set's up the Player class with a 
+     *Set's up the Player class with a given Name
      * @param givenName
      */
     public Player(String givenName) {
@@ -90,19 +59,10 @@ public class Player extends basicGameObject {
         properties();
     }
 
-    /**
-     *
-     * @return
-     */
-    public static String nameSetter() {
-        Scanner sc = new Scanner(System.in);
-        
-        String name = sc.nextLine();
-        return name;
-    }
+   
 
     /**
-     *
+     *  updates the player stats to reflect the current equipment
      */
     public void updatePlayerStats() {
         maxHealth = (int) Math.round((human.getHP() + equipped.getHead().getStatModefier()) * equipped.bonusMod("maxHealth") + 0.5);
@@ -114,7 +74,7 @@ public class Player extends basicGameObject {
     }
     
     /**
-     *
+     *  returns the player current health
      * @return
      */
     public int getCurrentHealth() {
@@ -122,7 +82,7 @@ public class Player extends basicGameObject {
     }
 
     /**
-     *
+     *  increments the players current health by a given amount
      * @param hpChange
      */
     public void incrementCurrentHealth(int hpChange) {
@@ -130,7 +90,7 @@ public class Player extends basicGameObject {
     }
     
     /**
-     *
+     *  sets the players current health to a given number
      * @param hpChange
      */
     public void setCurrentHealth(int hpChange) {
@@ -138,7 +98,7 @@ public class Player extends basicGameObject {
     }
 
     /**
-     *
+     *  returns the Max health value the player can have
      * @return
      */
     public int getMaxHealth() {
@@ -146,7 +106,7 @@ public class Player extends basicGameObject {
     }
 
     /**
-     *
+     *  returns the players speed stat
      * @return
      */
     public int getSpeed() {
@@ -154,7 +114,7 @@ public class Player extends basicGameObject {
     }
 
     /**
-     *
+     *  returns the players defense stat
      * @return
      */
     public int getDef() {
@@ -162,7 +122,7 @@ public class Player extends basicGameObject {
     }
 
     /**
-     *
+     *  returns the players strength stat
      * @return
      */
     public int getStr() {
@@ -170,7 +130,7 @@ public class Player extends basicGameObject {
     }
 
     /**
-     *
+     *  returns the players luck stat
      * @return
      */
     public Double getLuck() {
@@ -178,7 +138,7 @@ public class Player extends basicGameObject {
     }
 
     /**
-     *
+     *  returns an ArrayList containing all of the players currently available attacks
      * @return
      */
     public ArrayList<Attack> getAvailableAttacks() 
@@ -188,7 +148,7 @@ public class Player extends basicGameObject {
     }
     
     /**
-     *
+     *  returns the players equipment
      * @return
      */
     public Equipment getEquipment()
@@ -197,7 +157,7 @@ public class Player extends basicGameObject {
     }
 
     /**
-     *
+     *  returns an Array containing the currently equipped items
      * @return
      */
     public Bodypart[] getEquipped() {
@@ -205,7 +165,7 @@ public class Player extends basicGameObject {
     }
 
     /**
-     *
+     *  increments the given Attack by an experience amount equal to the given number
      * @param attack
      * @param exp
      * @throws InterruptedException
@@ -215,7 +175,7 @@ public class Player extends basicGameObject {
     }
     
     /**
-     *
+     *  sets the given attack to the given level
      * @param attack
      * @param level
      */
@@ -224,7 +184,7 @@ public class Player extends basicGameObject {
     }
 
     /**
-     *
+     *  adds the given Item to the players inventory
      * @param item
      */
     public void addItemToInv(Item item) {
@@ -238,7 +198,7 @@ public class Player extends basicGameObject {
     }
     
     /**
-     *
+     *  sets the players wealth to the given amount
      * @param number
      */
     public void setWealth(int number)
@@ -247,7 +207,7 @@ public class Player extends basicGameObject {
    }
    
     /**
-     *
+     *  returns the players current wealth
      * @return
      */
     public int getWealth()
@@ -256,7 +216,7 @@ public class Player extends basicGameObject {
    }
 
     /**
-     *
+     *`sets the given Bodypart to the head slot
      * @param giveHead
      */
     public void setHead(Bodypart giveHead)
@@ -276,7 +236,7 @@ public class Player extends basicGameObject {
     }   
     
     /**
-     *
+     * sets the given Bodypart to the right hand slot
      * @param giveHand
      */
     public void setRightHand(Bodypart giveHand)
@@ -290,7 +250,7 @@ public class Player extends basicGameObject {
     }
     
     /**
-     *
+     *  sets the given Bodypart to the left hand slot
      * @param giveHand
      */
     public void setLeftHand(Bodypart giveHand)
@@ -304,7 +264,7 @@ public class Player extends basicGameObject {
     }
     
     /**
-     *
+     *  sets the given Bodypart to the torso slot
      * @param giveTorso
      */
     public void setTorso(Bodypart giveTorso)
@@ -317,8 +277,8 @@ public class Player extends basicGameObject {
         }
     }
     
-    /**
-     *
+    /** 
+     *  sets the given Bodypart to the right leg slot
      * @param giveLeg
      */
     public void setRightLeg(Bodypart giveLeg)
@@ -332,12 +292,12 @@ public class Player extends basicGameObject {
     }
     
     /**
-     *
+     *  sets the given Bodypart to the left leg slot
      * @param giveLeg
      */
     public void setLeftLeg(Bodypart giveLeg)
     {
-        equipped.getLeftLeg();
+        equipped.setLeftLeg(giveLeg);
         updatePlayerStats();
         if(!inv.costumes.contains(giveLeg))
         {
@@ -346,7 +306,7 @@ public class Player extends basicGameObject {
     }
     
     /**
-     *
+     *  sets the given Bodypart to the tail slot
      * @param giveTail
      */
     public void setTail(Bodypart giveTail)
@@ -360,7 +320,7 @@ public class Player extends basicGameObject {
     }
     
     /**
-     *
+     *  returns an ArrayList containing every attack the player has
      * @return
      */
     public ArrayList<Attack> getAllAttacks()
@@ -378,7 +338,7 @@ public class Player extends basicGameObject {
     }
     
     /**
-     *
+     *  returns the players inventory
      * @return
      */
     public Inventory getInv()
@@ -387,7 +347,7 @@ public class Player extends basicGameObject {
     }
     
     /**
-     *
+     *  returns an ArrayList containing the costumes the player has
      * @return
      */
     public ArrayList<Bodypart> getCostumes()

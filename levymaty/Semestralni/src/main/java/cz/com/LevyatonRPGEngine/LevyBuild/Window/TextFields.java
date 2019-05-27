@@ -11,7 +11,7 @@ import java.awt.Font;
 import javax.swing.JTextField;
 
 /**
- *
+ *  A class containing JTextFields
  * @author czech
  */
 public class TextFields 
@@ -23,7 +23,7 @@ public class TextFields
     JTextField battleText;
     
     /**
-     *
+     *  returns the welcomeText JTextField
      * @param mod
      * @return
      */
@@ -43,7 +43,7 @@ public class TextFields
     }
     
     /**
-     *
+     *  returns the nameInput JTextField
      * @param mod
      * @return
      */
@@ -63,7 +63,7 @@ public class TextFields
     }
     
     /**
-     *
+     *  returns the battleText JTextField
      * @param mod
      * @return
      */

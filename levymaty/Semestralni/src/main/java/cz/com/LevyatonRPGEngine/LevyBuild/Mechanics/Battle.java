@@ -21,7 +21,8 @@ import cz.com.GameFiles.LevyBuild.customClasses.Bodyparts;
 import cz.com.GameFiles.LevyBuild.customClasses.Items;
 import java.util.ArrayList;
 import cz.com.GameFiles.LevyBuild.customClasses.Attacks;
-import cz.com.LevyatonRPGEngine.LevyBuild.Methods.CustomOutputStream;
+import cz.com.LevyatonRPGEngine.LevyBuild.Window.BattlePanel;
+
 import cz.com.LevyatonRPGEngine.LevyBuild.Window.MainFrame;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -31,11 +32,13 @@ import java.io.PipedOutputStream;
 import java.io.PrintStream;
 
 /**
- *
+ *  a class containing the battle mechanic
+ * 
  * @author czech
  */
-public class Battle{
+ public class Battle{
     
+    private boolean input = false;
     MainFrame mf;
     private Items items = new Items();
     private Randomness rand = new Randomness();
@@ -51,7 +54,7 @@ public class Battle{
     private int eImmobileCounter;
     private boolean playerRan = false;
     private Bodypart[] equipment;
-    
+    private BattlePanel bp;
     private int pStr;
     private int pDef;
     private int pSpeed;
@@ -80,7 +83,7 @@ public class Battle{
     private GameContainer gc;
    
     /**
-     *
+     *  initializes and sets the battle parameters and values
      * @param getEnemy
      * @param getPlayer
      * @param m
@@ -88,26 +91,19 @@ public class Battle{
      * @throws InterruptedException
      * @throws IOException
      */
-    public Battle(Specie getEnemy, Player getPlayer, MainFrame m, GameContainer gc) throws InterruptedException, IOException
+    public Battle(Specie getEnemy, Player getPlayer, MainFrame m, GameContainer gc, BattlePanel bp) throws InterruptedException, IOException
     {
+        this.bp = bp;
         this.gc = gc;
         mf = m;
         enemy = getEnemy;
         player = getPlayer;
         enemyProperties();
         playerProperties();
-        welcomeMessage(getEnemy.getName());
-       
+        welcomeMessage(getEnemy.getName()); 
     }
    
-    /**
-     *
-     * @throws InterruptedException
-     */
-    public void testString() throws InterruptedException
-    {
-       System.out.println("This is a test");
-    }
+   
     private void enemyProperties()
     {
         eStr = enemy.getStr();
@@ -134,7 +130,7 @@ public class Battle{
     }
     
     /**
-     *
+     *  checks to see if the battle has ended by checking the player and enemy health. If ether is lower then 1, the battle ends and the the appropriate actions take place and it returns true. Otherwise, it returns false
      * @return
      * @throws InterruptedException
      */
@@ -142,29 +138,37 @@ public class Battle{
     {
         if(pHealth<1)
         {
-            System.out.println("RIP, you got killed by a " + enemy.getName() + ". Try bragging about that to your friends! See what happens ;-)\n");
+            bp.writeText("RIP, you got killed by a " + enemy.getName() + ". Try bragging about that to your friends! See what happens ;-)\n");
             terminated = true;
             player.setCurrentHealth(20);
             player.setWealth(player.getWealth()/2);
+            /*
             for(int x = 0; x<5;x++)
             {
                 player.getInv().removeItem(player.getInv().getInventory().get(rand.getRandomFromRange(0, player.getInv().getInventory().size()-1)));
-            }        
-           
+            }   
+            */
+            mf.setResult(this.result());
             gc.setPlayer(player);
-             
-            mf.shop();
+           
             return true;
             
         }
         else if(eHealth<1)
         {  
-            System.out.println("Yay, you have slain the " + enemy.getName()+ "!\n");
+            bp.writeText("Yay, you have slain the " + enemy.getName()+ "!\n");
             getLoot();
             terminated = true;
-            
+            mf.setResult(this.result());
             gc.setPlayer(player);
-            mf.shop();
+           
+            
+            return true;
+        }
+        else if(terminated==true)
+        {
+            mf.setResult(this.result());
+            gc.setPlayer(player);
             return true;
         }
         
@@ -172,7 +176,24 @@ public class Battle{
     }
     
     /**
-     *
+     * returns true if the enemy has been defeated, otherwise it returns false
+     * @return
+     */
+    public boolean result()
+    {
+        mf.showCard("overworld");
+        if(eHealth<1)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    
+    /**
+     *  starts the battle
      * @throws InterruptedException
      */
     public void doBattle() throws InterruptedException
@@ -181,7 +202,7 @@ public class Battle{
     }
     
     /**
-     *
+     *  decides on what moves the enemy will use
      */
     public void enemyStrat()
     {
@@ -200,11 +221,11 @@ public class Battle{
         {
             eStrat = enemy.getFocus();
         }
-        //System.out.println(eStrat);
+        //writeText(eStrat);
     }
     
     /**
-     *
+     *  returns the version of the player that was modified during the battle, allowing for an update outside of the battle
      * @return
      */
     public Player updatePlayer()
@@ -213,7 +234,7 @@ public class Battle{
     }
     
     /**
-     *
+     *  writes a welcome message
      * @param enemyName
      * @throws InterruptedException
      */
@@ -223,14 +244,14 @@ public class Battle{
         
         
         
-        System.out.println(player.getName() + " is attacked by" + AorAn(enemyName) + enemyName + "!\nThe battle has begun!");
+        bp.writeText(player.getName() + " is attacked by" + AorAn(enemyName) + enemyName + "!\nThe battle has begun!");
         
         //Scanner sc = new Scanner(System.in);
         //String chosenAttack = sc.nextLine();
     }
     
     /**
-     *
+     *  decides on weather or not a word is a vowel or consonant, then returns 'a' or 'an' correspondingly
      * @param getWord
      * @return
      */
@@ -249,7 +270,7 @@ public class Battle{
     }
     
     /**
-     *
+     *  gives the player the loot they won in the battle
      * @throws InterruptedException
      */
     public void getLoot() throws InterruptedException
@@ -359,11 +380,21 @@ public class Battle{
                 }
             }
         
-        System.out.println(reward + ", great job!\n");
+        bp.writeText(reward + ", great job!\n");
+    }
+    
+     /**
+     *  returns the terminated variable
+     * @return
+     */
+    
+    public boolean getTerminated()
+    {
+        return terminated;
     }
     
     /**
-     *
+     *  decides on the order of the turns
      * @throws InterruptedException
      */
     public void turns() throws InterruptedException
@@ -373,8 +404,13 @@ public class Battle{
             playerTurn();
             if(eHealth>0 && playerRan==false)
             {
-            enemyTurn();
+                enemyTurn();
             }
+            else
+            {
+                terminated = true;
+            }
+            
         }
         else if(pSpeed<eSpeed)
         {
@@ -383,6 +419,10 @@ public class Battle{
             {
             playerTurn();
             }
+            else
+            {
+                terminated = true;
+            }
         }
         else
         {
@@ -390,9 +430,14 @@ public class Battle{
             if(f == 0)
             {
                 playerTurn();
+                
                 if(eHealth>0 && playerRan==false)
                 {
                 enemyTurn();
+                }
+                else
+                {
+                    terminated = true;
                 }
             }
             else
@@ -400,16 +445,18 @@ public class Battle{
                 enemyTurn();
                 if(pHealth>0)
                 {
-                playerTurn();
+                    playerTurn();
+                }
+                else
+                {
+                    terminated = true;
                 }
             }
-        }
-            
-          
+        }   
     }
     
     /**
-     *
+     *  returns an ArrayList of the currently available attacks the player has
      * @return
      */
     public ArrayList<Attack> getAvailableAttacks()
@@ -420,12 +467,8 @@ public class Battle{
         return usableAttacks;
     }
   
-    /**
-     *
-     * @param attack
-     * @return
-     */
-    public Double pDamageCalculator(Attack attack)
+    
+    private Double pDamageCalculator(Attack attack)
     {
         int baseDamage = attack.getDamage();
         if(equipment[1] == equipment[2])
@@ -441,89 +484,70 @@ public class Battle{
     
     }
     
-    /**
-     *
-     * @param attack
-     * @throws InterruptedException
-     */
-    public void pDealDamage(Attack attack) throws InterruptedException
+  
+   private void pDealDamage(Attack attack) throws InterruptedException
     {
         if(attack.getDamage() > 0)
         {
             if(rand.success(pLuck))
             {
             eHealth = (int) Math.round(eHealth - pDamageCalculator(attack)*1.6 + 0.5);
-            System.out.println("By the messy beard of Odin, you landed a critical hit!\n");
-            System.out.println(player.getName()+ " delt " + (int) Math.round(pDamageCalculator(attack)*1.6+0.5) + " points of damage to " + enemy.getName()+ "\n");
+            bp.writeText("By the messy beard of Odin, you landed a critical hit!\n");
+            bp.writeText(player.getName()+ " delt " + (int) Math.round(pDamageCalculator(attack)*1.6+0.5) + " points of damage to " + enemy.getName()+ "\n");
             }
             else
             {
             eHealth = (int) Math.round(eHealth - pDamageCalculator(attack));
-            System.out.println(player.getName()+ " delt " + (int) Math.round(pDamageCalculator(attack)+0.5) + " points of damage to " + enemy.getName()+ "\n");
+            bp.writeText(player.getName()+ " delt " + (int) Math.round(pDamageCalculator(attack)+0.5) + " points of damage to " + enemy.getName()+ "\n");
             }
         }
         if(attack.getDamage() < 0)
         {
             pHealth = pHealth + attack.getDamage();
-            System.out.println(player.getName()+ " delt " + (int) Math.round(pDamageCalculator(attack)+0.5) + " points of damage to themselves\n");
+            bp.writeText(player.getName()+ " delt " + (int) Math.round(pDamageCalculator(attack)+0.5) + " points of damage to themselves\n");
         }
     }
     
-    /**
-     *
-     * @param modefier
-     * @param statName
-     * @throws InterruptedException
-     */
-    public void printStatChange(int modefier, String statName) throws InterruptedException
+   
+    private void printStatChange(int modefier, String statName) throws InterruptedException
     {
         if(modefier > 0)
         {
-            System.out.println(player.getName() + "'s " + statName + " grew by " + modefier + " points!\n");
+            bp.writeText(player.getName() + "'s " + statName + " grew by " + modefier + " points!\n");
         }
         else if(modefier<0)
         {
-            System.out.println(player.getName() + "'s " + statName + " dropped by " + modefier + " points!\n");
+            bp.writeText(player.getName() + "'s " + statName + " dropped by " + modefier + " points!\n");
         }
     }
-    
-    /**
-     *
-     * @param modefier
-     * @param statName
-     * @throws InterruptedException
-     */
-    public void printStatChange(Double modefier, String statName) throws InterruptedException
+
+    private void printStatChange(Double modefier, String statName) throws InterruptedException
     {
         if(modefier > 0)
         {
-            System.out.println(player.getName() + "'s " + statName + " grew by " + modefier + " points!\n");
+            bp.writeText(player.getName() + "'s " + statName + " grew by " + modefier + " points!\n");
         }
         else if(modefier<0)
         {
-           System.out.println(player.getName() + "'s " + statName + " dropped by " + modefier + " points!\n");
+           bp.writeText(player.getName() + "'s " + statName + " dropped by " + modefier + " points!\n");
         }
         
        
     }
     
-    /**
-     *
-     * @param attack
-     * @throws InterruptedException
-     */
-    public void pApplyAttackEffects(Attack attack) throws InterruptedException
+   
+    private void pApplyAttackEffects(Attack attack) throws InterruptedException
     {     
         if(attack.hasEffect())
         {
             
-            //System.out.println(attack.getName() + "\n" + attack.hasEffect());
+            //writeText(attack.getName() + "\n" + attack.hasEffect());
             pStr += attack.getStrMod();
             printStatChange(attack.getStrMod(), "Strength");
             if(pStr>player.getStr() + 20)
             {
                 pStr = player.getStr() + 20;
-                System.out.println(player.getName() + "'s strength can't get any higher, it's maxed out!"+ "!\n");
+                bp.writeText(player.getName() + "'s strength can't get any higher, it's maxed out!"+ "!\n");
             }
        
             pDef += attack.getDefMod();
@@ -531,7 +555,7 @@ public class Battle{
             if(pDef>player.getDef() + 20)
             {  
                 pDef = player.getDef() + 20;
-                System.out.println(player.getName() + "'s defense can't get any higher, it's maxed out!"+ "!\n");
+                bp.writeText(player.getName() + "'s defense can't get any higher, it's maxed out!"+ "!\n");
             }
             
             pSpeed += attack.getSpeedMod();
@@ -539,7 +563,7 @@ public class Battle{
             if(pSpeed > player.getSpeed() + 20)
             {
                 pSpeed = player.getSpeed() + 20;
-                System.out.println(player.getName() + "'s speed can't get any higher, it's maxed out!"+ "!\n");
+                bp.writeText(player.getName() + "'s speed can't get any higher, it's maxed out!"+ "!\n");
             }
             
             pLuck += attack.getLuckMod();
@@ -547,14 +571,14 @@ public class Battle{
             if(pLuck > 0.9)
             {
                 pLuck = 0.9;
-                System.out.println(player.getName() + "'s luck can't get any higher, it's maxed out!"+ "!\n");
+                bp.writeText(player.getName() + "'s luck can't get any higher, it's maxed out!"+ "!\n");
             }
             pHealth += attack.getHpMod();
             printStatChange(attack.getHpMod(), "Health Point's");
             if(pHealth>player.getMaxHealth())
             {
                 pHealth = player.getMaxHealth();
-                System.out.println(player.getName() + "'s health can't go any higher, it's maxed out!"+ "!\n");
+                bp.writeText(player.getName() + "'s health can't go any higher, it's maxed out!"+ "!\n");
             }
            
         }
@@ -564,20 +588,20 @@ public class Battle{
             
             enemyCanMove = false;
             enemyBlockedCounter = attack.getEBlockLength();
-            //System.out.println(enemyBlockedCounter);
+            //writeText(enemyBlockedCounter);
             this.attackResponsableForEnemyBlock = attack;
-            System.out.println(player.getName() + attack.getBlockedText()[0]+ "!\n");
+            bp.writeText(player.getName() + attack.getBlockedText()[0]+ "!\n");
         }
         else if(attack.enemyCanMove()==false &&  enemyCanMove == false)
         {
             
-            System.out.println(player.getName() + attack.getBlockedText()[2]+ "!\n");
+            bp.writeText(player.getName() + attack.getBlockedText()[2]+ "!\n");
         }
         
     }
 
     /**
-     *
+     *  makes the user use the their chosen attack
      * @param attack
      * @throws InterruptedException
      */
@@ -593,12 +617,12 @@ public class Battle{
             }
             else
             {
-                //System.out.println("Here, yo");
+                //writeText("Here, yo");
                 playerCanMove = false;
                 attackResponsableForPlayerBlock = attack;
                 selfImposedPlayerBlock = true;
                 playerBlockedCounter = attack.getTurnLength();
-                System.out.println(player.getName() + attack.getBlockedText()[0]+ "!\n");
+                bp.writeText(player.getName() + attack.getBlockedText()[0]+ "!\n");
 
             }
             if(!battleEnded())
@@ -628,14 +652,14 @@ public class Battle{
             }
             catch(Exception p)
             {
-            System.out.println("Sorry, I couldn't quite catch that. Please enter the number of your chosen option" + "!\n");
+            writeText("Sorry, I couldn't quite catch that. Please enter the number of your chosen option" + "!\n");
             }
         }
     }
     */
 
     /**
-     *
+     *  checks to see if the player successfully escaped the enemy
      * @throws InterruptedException
      */
 
@@ -654,13 +678,14 @@ public class Battle{
             }
             if(rand.success(chance))
             {
-                System.out.println("You successfully escabed the " + enemy.getName() + "!\n");
+                bp.writeText("You successfully escabed the " + enemy.getName() + "!\n");
                 terminated = true;
-                mf.shop();
+                mf.setResult(result());
+              
             }
             else
             {
-                System.out.println("In a valiant effort to escape the " + enemy.getName()+ ", you have been caught off guard by you persuer! You couldn't escape.\n");
+                bp.writeText("In a valiant effort to escape the " + enemy.getName()+ ", you have been caught off guard by you persuer! You couldn't escape.\n");
                 this.turnNumber++;
                 enemyTurn();
             }
@@ -669,7 +694,7 @@ public class Battle{
     }
     
     /**
-     *
+     *  returns an ArrayList of the players current healing items
      * @return
      */
     public ArrayList<Item> getHealing()
@@ -679,7 +704,7 @@ public class Battle{
     }
     
     /**
-     *
+     *  causes the player to use their chosen item
      * @param chosenItem
      * @throws InterruptedException
      */
@@ -690,17 +715,17 @@ public class Battle{
         {
             if(item.getName().equals(chosenItem.getName()))
             {
-               System.out.println("Used " + chosenItem.getName());
+               bp.writeText("Used " + chosenItem.getName());
                this.pHealth += item.getGain();
-               System.out.println(chosenItem.getItemCount());
+               bp.writeText(Integer.toString(chosenItem.getItemCount()));
                player.getInv().decrementItem(item);
                printStatChange(item.getGain(), "Health Points");
                if(pHealth > player.getMaxHealth())
                {
-                   System.out.println(player.getName() + "'s health can't go any higher, it's maxed out!"+ "\n");
+                   bp.writeText(player.getName() + "'s health can't go any higher, it's maxed out!"+ "\n");
                    pHealth = player.getMaxHealth();
                }
-               System.out.println(player.getName() + " used a " + chosenItem.getName() + " \n");
+               bp.writeText(player.getName() + " used a " + chosenItem.getName() + " \n");
                this.turnNumber++;
                enemyTurn();
                break;
@@ -709,31 +734,34 @@ public class Battle{
     }
     
     /**
-     *
+     *  writes "What would you like to do?\n"
      * @throws InterruptedException
      */
     public void attackRunHeal() throws InterruptedException
     {
-        System.out.println("What would you like to do?\n");
+        bp.writeText("What would you like to do?\n");
     }
     
+   
+    
     /**
-     *
+     *  decides on weather or not the player gets to have any input on their turn
      * @throws InterruptedException
      */
     public void playerTurn() throws InterruptedException
     {
-        if(terminated = false)
+        
+        if(terminated == false)
         {
-            System.out.println(player.getName()+ "'s turn!\n");
+             bp.writeText(player.getName()+ "'s turn!\n");
 
-            System.out.println("Turn number " + turnNumber + "\n");
-            System.out.println(player.getName()+ "'s health is at:  " + this.pHealth + " out of " + player.getMaxHealth()+ "\n");
-            System.out.println(enemy.getName()+ "'s health is at:  " + this.eHealth + " out of " + enemy.getHP()+ "\n");
-            /*System.out.println(player.getName() + "'s block counter is at " + this.playerBlockedCounter);
+             bp.writeText("Turn number " + turnNumber + "\n");
+             bp.writeText(player.getName()+ "'s health is at:  " + this.pHealth + " out of " + player.getMaxHealth()+ "\n");
+             bp.writeText(enemy.getName()+ "'s health is at:  " + this.eHealth + " out of " + enemy.getHP()+ "\n");
+            /*writeText(player.getName() + "'s block counter is at " + this.playerBlockedCounter);
             if(playerBlockedCounter>0)
             {
-                System.out.println(this.attackResponsableForPlayerBlock.getName());
+                writeText(this.attackResponsableForPlayerBlock.getName());
             }
             */
             if(playerCanMove)
@@ -745,7 +773,7 @@ public class Battle{
                 playerBlockedCounter--;
                 if(playerBlockedCounter == 0 && selfImposedPlayerBlock == true)
                 {
-                  System.out.println(player.getName() + attackResponsableForPlayerBlock.getBlockedText()[2]+ "\n");
+                   bp.writeText(player.getName() + attackResponsableForPlayerBlock.getBlockedText()[2]+ "\n");
                    pDealDamage(attackResponsableForPlayerBlock);
                    pApplyAttackEffects(attackResponsableForPlayerBlock);
                    playerCanMove = true; 
@@ -754,19 +782,18 @@ public class Battle{
                 else if (playerBlockedCounter == 0 && selfImposedPlayerBlock == false)
                 {
                     playerCanMove=true;
-                    System.out.println(player.getName() + attackResponsableForPlayerBlock.getBlockedText()[3]+ "\n");
+                     bp.writeText(player.getName() + attackResponsableForPlayerBlock.getBlockedText()[3]+ "\n");
                 }
                 else
                 {
-                    //System.out.println(this.attackResponsableForPlayerBlock.getName());
-                    System.out.println(player.getName() + attackResponsableForPlayerBlock.getBlockedText()[1]+ "\n");
+                     //writeText(this.attackResponsableForPlayerBlock.getName());
+                     bp.writeText(player.getName() + attackResponsableForPlayerBlock.getBlockedText()[1]+ "\n");
+                }    
+                turnNumber++;
+                if(!battleEnded())
+                {
+                    enemyTurn();
                 }
-
-            }
-            turnNumber++;
-            if(!battleEnded())
-            {
-                enemyTurn();
             }
         }
         
@@ -776,13 +803,7 @@ public class Battle{
     
     //ENEMY TURN
 
-    /**
-     *
-     * @param attack
-     * @return
-     */
-    
-     public Double eDamageCalculator(Attack attack)
+    private Double eDamageCalculator(Attack attack)
     {
         int baseDamage = attack.getDamage();
         int modefiedDamage = baseDamage*2 + enemy.getStr();
@@ -793,76 +814,58 @@ public class Battle{
     
     }
     
-    /**
-     *
-     * @param attack
-     * @throws InterruptedException
-     */
-    public void eDealDamage(Attack attack) throws InterruptedException
+   
+    private void eDealDamage(Attack attack) throws InterruptedException
     {
         if(attack.getDamage() > 0)
         {
             if(rand.success(eLuck))
             {
             pHealth = (int) Math.round(pHealth - eDamageCalculator(attack)*1.6 + 0.5);
-            System.out.println("Awww snap, the " + enemy.getName() + " landed a critical hit!\n");
-            System.out.println("The " + enemy.getName()+ " delt " + (int) Math.round(eDamageCalculator(attack)*1.6+0.5) + " points of damage to " + player.getName()+ ", did it hurt?\n");
+             bp.writeText("Awww snap, the " + enemy.getName() + " landed a critical hit!\n");
+             bp.writeText("The " + enemy.getName()+ " delt " + (int) Math.round(eDamageCalculator(attack)*1.6+0.5) + " points of damage to " + player.getName()+ ", did it hurt?\n");
             }
             else
             {
             pHealth = (int) Math.round(pHealth - eDamageCalculator(attack));
-            System.out.println("The " + enemy.getName()+ " delt " + (int) Math.round(eDamageCalculator(attack)+0.5) + " points of damage to " + player.getName()+ "\n");
+             bp.writeText("The " + enemy.getName()+ " delt " + (int) Math.round(eDamageCalculator(attack)+0.5) + " points of damage to " + player.getName()+ "\n");
             }
         }
         if(attack.getDamage() < 0)
         {
             pHealth = pHealth + attack.getDamage();
-            System.out.println(player.getName()+ " delt " + (int) Math.round(pDamageCalculator(attack)+0.5) + " points of damage to themselves\n");
+            bp. writeText(player.getName()+ " delt " + (int) Math.round(pDamageCalculator(attack)+0.5) + " points of damage to themselves\n");
         }
     }
     
-    /**
-     *
-     * @param modefier
-     * @param statName
-     * @throws InterruptedException
-     */
-    public void eprintStatChange(int modefier, String statName) throws InterruptedException
+    
+    private void eprintStatChange(int modefier, String statName) throws InterruptedException
     {
         if(modefier > 0)
         {
-            System.out.println("The " + enemy.getName() + "'s " + statName + " grew by " + modefier + " points!\n");
+             bp.writeText("The " + enemy.getName() + "'s " + statName + " grew by " + modefier + " points!\n");
         }
         else if(modefier<0)
         {
-            System.out.println("The " + enemy.getName() + "'s " + statName + " dropped by " + modefier + " points!\n");
+             bp.writeText("The " + enemy.getName() + "'s " + statName + " dropped by " + modefier + " points!\n");
         }
     }
     
-    /**
-     *
-     * @param modefier
-     * @param statName
-     * @throws InterruptedException
-     */
-    public void eprintStatChange(Double modefier, String statName) throws InterruptedException
+   
+    private void eprintStatChange(Double modefier, String statName) throws InterruptedException
     {
         if(modefier > 0)
         {
-            System.out.println(player.getName() + "'s " + statName + " grew by " + modefier + " points!\n");
+             bp.writeText(player.getName() + "'s " + statName + " grew by " + modefier + " points!\n");
         }
         else if(modefier<0)
         {
-            System.out.println(player.getName() + "'s " + statName + " dropped by " + modefier + " points!\n");
+             bp.writeText(player.getName() + "'s " + statName + " dropped by " + modefier + " points!\n");
         }
     }
     
-    /**
-     *
-     * @param attack
-     * @throws InterruptedException
-     */
-    public void eApplyAttackEffects(Attack attack) throws InterruptedException
+   
+    private void eApplyAttackEffects(Attack attack) throws InterruptedException
     {     
         if(attack.hasEffect())
         {
@@ -871,35 +874,35 @@ public class Battle{
             if(eStr>enemy.getStr() + 20)
             {
                 eStr = enemy.getStr() + 20;
-                System.out.println(enemy.getName() + "'s strength can't go any higher, it's maxed out!"+ "\n");
+                 bp.writeText(enemy.getName() + "'s strength can't go any higher, it's maxed out!"+ "\n");
             }
             eDef += attack.getDefMod();
             eprintStatChange(attack.getDefMod(), "Defense");
             if(eDef>enemy.getDef() + 20)
             {
                 eDef = enemy.getDef() + 20;
-                System.out.println(enemy.getName() + "'s defense can't go any higher, it's maxed out!"+ "\n");
+                 bp.writeText(enemy.getName() + "'s defense can't go any higher, it's maxed out!"+ "\n");
             }
             eSpeed += attack.getSpeedMod();
             eprintStatChange(attack.getSpeedMod(), "Speed");
             if(eSpeed>enemy.getSpeed() + 20)
             {
                 eSpeed = enemy.getSpeed() + 20;
-                System.out.println(enemy.getName() + "'s speed can't go any higher, it's maxed out!"+ "\n");
+                 bp.writeText(enemy.getName() + "'s speed can't go any higher, it's maxed out!"+ "\n");
             }
             eLuck += attack.getLuckMod();
             eprintStatChange(attack.getLuckMod(), "Luck");
             if(eLuck>0.9)
             {
                 eLuck = 0.9;
-                System.out.println(enemy.getName() + "'s luck can't go any higher, it's maxed out!"+ "\n");
+                 bp.writeText(enemy.getName() + "'s luck can't go any higher, it's maxed out!"+ "\n");
             }
             eHealth += attack.getHpMod();
             eprintStatChange(attack.getHpMod(), "Health Point's");
             if(eHealth>enemy.getHP())
             {
                 eHealth = enemy.getHP();
-                System.out.println(enemy.getName() + "'s health can't go any higher, it's maxed out!"+ "\n");
+                 bp.writeText(enemy.getName() + "'s health can't go any higher, it's maxed out!"+ "\n");
             }
         }
         
@@ -909,27 +912,24 @@ public class Battle{
  
             playerBlockedCounter = attack.getEBlockLength();
             attackResponsableForPlayerBlock = attack;
-            System.out.println("The " + enemy.getName() + attack.getBlockedText()[0]+ "\n");
+             bp.writeText("The " + enemy.getName() + attack.getBlockedText()[0]+ "\n");
         }
         else if(attack.enemyCanMove()==false &&  playerCanMove == false)
         {
-            System.out.println(("The " + enemy.getName() + attack.getBlockedText()[2])+ "\n");
+             bp.writeText(("The " + enemy.getName() + attack.getBlockedText()[2])+ "\n");
             
         }
     }
     
-    /**
-     *
-     * @param attack
-     * @throws InterruptedException
-     */
-    public void ePreformAttack(Attack attack) throws InterruptedException
+  
+    private void ePreformAttack(Attack attack) throws InterruptedException
     {
         if(attack.getTurnLength()<2)
         {
             eDealDamage(attack);
             eApplyAttackEffects(attack);
-            player.levelAttack(attack, attack.getExpTotal()/100 + 2*enemy.getStr() + 2*enemy.getDef() + 2*enemy.getSpeed() + 2*enemy.getHP());
+            
+            levelAttack(attack);
            
         }
         else
@@ -938,7 +938,7 @@ public class Battle{
             attackResponsableForEnemyBlock = attack;
             selfImposedEnemyBlock = true;
             enemyBlockedCounter = attack.getTurnLength();
-            System.out.println("The "+ enemy.getName() + attack.getBlockedText()[0]+ "\n"+ "\n");
+             bp.writeText("The "+ enemy.getName() + attack.getBlockedText()[0]+ "\n"+ "\n");
         }
          if(!battleEnded())
          {
@@ -946,12 +946,8 @@ public class Battle{
          }
     }
    
-    /**
-     *
-     * @param attack
-     * @return
-     */
-    public boolean maxed(Attack attack)
+   
+    private boolean maxed(Attack attack)
     {
         if(attack.hasEffect()==false)
         {
@@ -996,11 +992,8 @@ public class Battle{
         
     }
     
-    /**
-     *
-     * @return
-     */
-    public Attack enemyChoosenAttack()
+   
+    private Attack enemyChoosenAttack()
     {
             ArrayList<Attack> mostUsed = new ArrayList<Attack>();
             ArrayList<Attack> lessUsed = new ArrayList<Attack>();
@@ -1093,61 +1086,83 @@ public class Battle{
             Attack chosen = chosenTier.get(rand.getRandomFromRange(0, chosenTier.size()-1));
             return chosen;
     }
+   
     
-    /**
-     *
-     * @throws InterruptedException
-     */
-    public void enemyTurn() throws InterruptedException
+    
+    private void levelAttack(Attack attack) throws InterruptedException
+    {
+        int level = attack.getLevel();
+        player.levelAttack(attack, attack.getExpTotal()/100 + 2*enemy.getStr() + 2*enemy.getDef() + 2*enemy.getSpeed() + 2*enemy.getHP());
+        if(level<attack.getLevel())
+        {
+            if(level == 1)
+            {
+                bp.writeText("Congratulations! You just learned how to use the move " + attack.getName() + "! You can use it while wearing the right equipment\n");
+            }
+ 
+            else if (attack.getName().equals("Do nothing"))
+            {
+               bp.writeText("All of you observationand hard work has paid of! By using and watching your enemies do nothing, you have improved your own performance! " + attack.getName() + " has leveled up\n");
+            }
+            else
+            {
+               bp.writeText("All of you observation and hard work has paid of! By using and watching your enemies use the move " + attack.getName() + ", you have improved your own performance! " + attack.getName() + " has leveled up\n");
+            }
+        }
+    }
+    private void enemyTurn() throws InterruptedException
     {
         if(terminated==false)
         {
-            System.out.println(enemy.getName()+ "'s turn!\n");
+            bp. writeText(enemy.getName()+ "'s turn!\n");
             if(enemyCanMove)
             {
                Attack chosenAttack = this.enemyChoosenAttack();
-               System.out.println("The " + enemy.getName()+ " used "+ chosenAttack.getName()+ "\n");
-               ePreformAttack(chosenAttack);
-               player.levelAttack(chosenAttack, chosenAttack.getExpTotal()/100 + 2*enemy.getStr() + 2*enemy.getDef() + 2*enemy.getSpeed() + 2*enemy.getHP());
+                bp.writeText("The " + enemy.getName()+ " used "+ chosenAttack.getName()+ "\n");
+                ePreformAttack(chosenAttack);
+                levelAttack(chosenAttack);
+               
+               
             }
             else
             {   
                 enemyBlockedCounter--;
                 if(enemyBlockedCounter == 0 && selfImposedEnemyBlock == true)
                 {
-                    //System.out.println("I got here");
-                    //System.out.println( attackResponsableForPlayerBlock.getBlockedText()[2]);
-                   System.out.println("The " + enemy.getName() + attackResponsableForEnemyBlock.getBlockedText()[2]+ "\n");
+                    //writeText("I got here");
+                    //writeText( attackResponsableForPlayerBlock.getBlockedText()[2]);
+                    bp.writeText("The " + enemy.getName() + attackResponsableForEnemyBlock.getBlockedText()[2]+ "\n");
                    eDealDamage(attackResponsableForEnemyBlock);
                    eApplyAttackEffects(attackResponsableForEnemyBlock);
                    enemyCanMove = true;
-                   player.levelAttack(attackResponsableForEnemyBlock,attackResponsableForEnemyBlock.getExpTotal()/100 + 2*enemy.getStr() + 2*enemy.getDef() + 2*enemy.getSpeed() + 2*enemy.getHP());
+                   levelAttack(attackResponsableForEnemyBlock);
                 }
                 else if (enemyBlockedCounter == 0 && selfImposedEnemyBlock == false)
                 {
-                    //System.out.println("playerBlockedCounter == 0 && selfImposedPlayerBlock == false");
-                    //System.out.println(attackResponsableForEnemyBlock.getName());
-                    //System.out.println("Here");
+                    //writeText("playerBlockedCounter == 0 && selfImposedPlayerBlock == false");
+                    //writeText(attackResponsableForEnemyBlock.getName());
+                    //writeText("Here");
                     enemyCanMove=true;
-                    System.out.println("The " + enemy.getName() + attackResponsableForEnemyBlock.getBlockedText()[3]+ "\n");
+                    bp.writeText("The " + enemy.getName() + attackResponsableForEnemyBlock.getBlockedText()[3]+ "\n");
                 }
                 else
                 {
-                   System.out.println("The " + enemy.getName() + attackResponsableForEnemyBlock.getBlockedText()[1]+ "\n");
-                }
-                if(battleEnded()==false)
-                {
-                    playerTurn();
+                    bp.writeText("The " + enemy.getName() + attackResponsableForEnemyBlock.getBlockedText()[1]+ "\n");
                 }
             }
+            if(battleEnded()==false)
+            {
+                playerTurn();
+            }
         }
-        
     }
-    
-    
-    
-    
+        
 }
+    
+    
+    
+    
+
 
     
     

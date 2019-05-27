@@ -5,10 +5,6 @@
  */
 package cz.com.GameFiles.LevyBuild.customClasses;
 
-/**
- *
- * @author czech
- */
 
 import cz.com.LevyatonRPGEngine.LevyBuild.Objects.Attack;
 import cz.com.GameFiles.LevyBuild.customClasses.Attacks;
@@ -18,7 +14,7 @@ import java.util.ArrayList;
 import cz.com.LevyatonRPGEngine.LevyBuild.Methods.Randomness;
 
 /**
- *
+ *A class containing all of the in-game species
  * @author czech
  */
 public class Species {
@@ -29,7 +25,7 @@ public class Species {
     Randomness rand = new Randomness();
     
     /**
-     *
+     *  returns the specie called basicBear
      * @return
      */
     public Specie getBasicBear()
@@ -56,11 +52,13 @@ public class Species {
         return basicBear;
     }
     
+    
+    
     /**
-     *
+     *  returns the specie called wolf
      * @return
      */
-    public Specie getAttackerBear()
+    public Specie getWolf()
     {
         int str = 120;
         int def = 10;
@@ -79,13 +77,13 @@ public class Species {
             attack.setLevel(20);
         }
         
-        Specie attackerBear = new Specie("Aggresive Bear", "static",System.getProperty("user.dir") + "\\Objects\\jednorozec.png",str, speed, luck, def, hp, loot, attacksUsed, 7, focus);
-        allSpecies.add(attackerBear);
-        return attackerBear;
+        Specie wolf = new Specie("Wolf", "static",System.getProperty("user.dir") + "\\Objects\\Enemy.png",str, speed, luck, def, hp, loot, attacksUsed, 7, focus);
+        allSpecies.add(wolf);
+        return wolf;
     }
     
     /**
-     *
+     *  returns the specie called basicHuman
      * @return
      */
     public Specie getBasicHuman()
@@ -112,7 +110,7 @@ public class Species {
     }
     
     /**
-     *
+     *  initializes the class
      */
     public Species()
     {
@@ -121,7 +119,7 @@ public class Species {
     }
     
     /**
-     *
+     *  returns the index of a specific Item within the ArrayList called allSpecies
      * @param item
      * @return
      */
@@ -140,12 +138,29 @@ public class Species {
     }
     
     /**
-     *
+     *  returns the ArrayList called allSpecies
      * @return
      */
     public ArrayList<Specie> getAllSpecies()
     {
         return allSpecies;
+    }
+    
+    /**
+     *  returns the specie with the given name (or bear if the specie doesn't exist)
+     * @param name
+     * @return
+     */
+    public Specie getSpecie(String name)
+    {
+        for(Specie s : getAllSpecies())
+        {
+            if(s.getName().equals(name))
+            {
+                return s;
+            }    
+        }
+        return this.getBasicBear();
     }
     
     

@@ -6,28 +6,28 @@
 package cz.com.LevyatonRPGEngine.LevyBuild.Objects;
 
 /**
- *
+ *  A class responsible for the properties of a general game objects
  * @author czech
  */
 public abstract class basicGameObject {
 
     /**
-     *
+     *  Every object must have a name
      */
-    protected String name; //Every objecct must have a name
+    protected String name; 
 
     /**
-     *
+     *  Most objects will have a status, meaning still, movable, playerControlled or indieMovement (Null meaning they are just a concept to be worked with)
      */
-    protected String status;//Most objects will have a status, meaning still, movable, playerControlled or indieMovement (Null meaning they are just a concept to be worked with)
+    protected String status;
 
     /**
-     *
+     *  Most objects will have a given sprite assigned to them (Null meaning it doesn't have a sprite attached to it)
      */
-    protected String spriteLocation;//Most objects will have a given sprite assighned to them (Null meaning it doesn't have a sprite attached to it)
+    protected String spriteLocation;
             
     /**
-     *
+     *  initializes and sets the class
      * @param giveName
      */
     public basicGameObject(String giveName)
@@ -36,7 +36,7 @@ public abstract class basicGameObject {
     }
     
     /**
-     *
+     *  initializes and sets the class
      * @param giveName
      * @param giveStatus
      */
@@ -47,7 +47,7 @@ public abstract class basicGameObject {
     }
     
     /**
-     *
+     *  initializes and sets the class
      * @param giveName
      * @param giveStatus
      * @param giveSpriteLocation
@@ -60,28 +60,28 @@ public abstract class basicGameObject {
     }
     
     /**
-     *
+     *Returns the name of the object
      * @return
      */
-    public String getName() //Returns the name of the object
+    public String getName()
     {
         return name;
     }
     
     /**
-     *
+     *  Returns the status of the object
      * @return
      */
-    public String getStatus() //Returns the status of the object
+    public String getStatus()
     {
         return status;
     }
 
     /**
-     *
+     *  Returns the location of the assigned sprite of the object 
      * @return
      */
-    public String getSpriteLocation() //Returns the location of the assighned sprite of the object 
+    public String getSpriteLocation()
     {
         return spriteLocation;
     }

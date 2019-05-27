@@ -13,7 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 /**
- *
+ *  A panel for the input of the players name
  * @author czech
  */
 
@@ -27,7 +27,7 @@ public class NameInputPanel extends JPanel{
     private JTextField t;
     
     /**
-     *
+     *  initializes and sets up the class
      * @param mod
      * @param m
      */
@@ -51,7 +51,7 @@ public class NameInputPanel extends JPanel{
     }
     
     /**
-     *
+     *  returns the text inputed by the user
      * @return
      */
     public String getText()

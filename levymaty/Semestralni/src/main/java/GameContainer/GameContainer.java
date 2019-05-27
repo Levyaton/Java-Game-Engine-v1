@@ -25,10 +25,16 @@ public class GameContainer implements Runnable {
         private ObjectLoader objManager;
         private ReadInput readInput;
         private PlayerSprite ps;
+        //private DoubleCanvas overworld;
         
     /**
      *
      */
+        
+    public PlayerSprite getPs()
+    {
+        return ps;
+    }    
     public final int ENEMY_COLOR = 0xff3333;
 
     /**
@@ -80,22 +86,23 @@ public class GameContainer implements Runnable {
             });
             */
             
-            
-            
-           
-            mainFrame = new MainFrame(this, WINDOW_WIDTH, WINDOW_HEIGHT, CANVAS_HEIGHT);
-            readInput = new ReadInput(this);
-            //System.out.println("Hellod");
-            ps = new PlayerSprite("Player", 150, 150, this, readInput, CANVAS_HEIGHT, WINDOW_WIDTH, ENEMY_COLOR, OBSTACLE_COLOR);
-            
+            //Overworld = new DoubleCanvas(this, WINDOW_WIDTH, WINDOW_HEIGHT, CANVAS_HEIGHT);
+            mainFrame = new MainFrame(WINDOW_WIDTH, WINDOW_HEIGHT, CANVAS_HEIGHT,this);
             try {
                 objManager = new ObjectLoader(this, ENEMY_COLOR, OBSTACLE_COLOR, CANVAS_HEIGHT, WINDOW_WIDTH);
             } catch (FileNotFoundException ex) {
                 Logger.getLogger(GameContainer.class.getName()).log(Level.SEVERE, null, ex);
             }
+            readInput = new ReadInput(this);
+            ps = new PlayerSprite("Player", 150, 150, this, readInput, CANVAS_HEIGHT, WINDOW_WIDTH, ENEMY_COLOR, OBSTACLE_COLOR);
+            
+            //System.out.println("Hellod");
+            
             //GameObject g = new GameObject("SmallGreen.png");
             //GameObject b = new GameObject("SmallBlue.png");
             running = true;
+            mainFrame.showCard("enterName");
+           
             thread.run();
             return;
 	}

@@ -22,13 +22,13 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 /**
- *
+ *  A class dedicated to saving the game to text documents
  * @author czech
  */
 public class Save {
     
     /**
-     *
+     *  saves the whole game into multiple text documents
      * @param world
      * @throws IOException
      */
@@ -39,7 +39,7 @@ public class Save {
     }
     
     /**
-     *
+     *  saves the clerks assigned to their shops into a text document
      * @param clerks
      * @throws IOException
      */
@@ -64,7 +64,7 @@ public class Save {
     }
     
     /**
-     *
+     *  save the players stats into a text document
      * @param player
      * @throws IOException
      */
@@ -80,7 +80,7 @@ public class Save {
     }
     
     /**
-     *
+     *  saves the players usable attacks into a text document
      * @param player
      * @throws IOException
      */
@@ -109,7 +109,7 @@ public class Save {
     }
     
     /**
-     *
+     *  saves the players current health to a text document
      * @param player
      * @throws IOException
      */
@@ -131,7 +131,7 @@ public class Save {
     }
     
     /**
-     *
+     * saves the players name to a text document
      * @param player
      * @throws IOException
      */
@@ -156,7 +156,7 @@ public class Save {
     }
     
     /**
-     *
+     *   saves the players current wealth to a text document
      * @param player
      * @throws IOException
      */
@@ -181,7 +181,7 @@ public class Save {
     }
     
     /**
-     *
+     *   saves the players inventory to a text document
      * @param player
      * @throws IOException
      */
@@ -205,7 +205,7 @@ public class Save {
     }
     
     /**
-     *
+     *   saves the players current equipped to a text document
      * @param player
      * @throws IOException
      */
@@ -235,7 +235,7 @@ public class Save {
     }
     
     /**
-     *
+     *   saves the players costumes to a text document
      * @param player
      * @throws IOException
      */

@@ -6,45 +6,43 @@
 package cz.com.LevyatonRPGEngine.LevyBuild.Objects;
 
 /**
- *
+ *  a class responsible for the properties of an Item
  * @author czech
  */
-
-
 public class Item extends basicGameObject{
     
     /**
-     *
+     *  What is the chance of the item to drop?
      */
     protected Double dropRate;
 
     /**
-     *
+     *  What is the items description?
      */
     protected String description;
 
     /**
-     *
+     *  How much gold is the Item worth?
      */
     protected int value;
 
     /**
-     *
+     *  How much of the item is in the Item stack?
      */
     protected int itemCount = 0;
 
     /**
-     *
+     *  How much does the item boost a stat?
      */
     protected int gain = 0;
 
     /**
-     *
+     *  Is the Item name countable?
      */
     protected boolean countable = true;
     
     /**
-     *
+     *  Initializes and sets the class
      * @param giveName
      * @param giveStatus
      * @param giveSpriteLocation
@@ -60,7 +58,7 @@ public class Item extends basicGameObject{
     }
     
     /**
-     *
+     * Initializes and sets the class
      * @param giveName
      * @param giveStatus
      * @param giveSpriteLocation
@@ -78,7 +76,7 @@ public class Item extends basicGameObject{
     }
     
     /**
-     *
+     *  sets the items value
      * @param giveValue
      */
     public void setValue(int giveValue)
@@ -87,7 +85,7 @@ public class Item extends basicGameObject{
     }
      
     /**
-     *
+     *  returns the countable variable
      * @return
      */
     public boolean isCountable() 
@@ -96,7 +94,7 @@ public class Item extends basicGameObject{
     }
 
     /**
-     *
+     *  sets the countable variable
      * @param giveTrueOrFalse
      */
     public void countable(boolean giveTrueOrFalse)
@@ -105,7 +103,7 @@ public class Item extends basicGameObject{
     } 
 
     /**
-     *
+     *  returns the Items drop rate
      * @return
      */
     public Double getDropRate()
@@ -114,7 +112,7 @@ public class Item extends basicGameObject{
     }
     
     /**
-     *
+     *  returns the Items description
      * @return
      */
     public String getDescription()
@@ -123,7 +121,7 @@ public class Item extends basicGameObject{
     }
     
     /**
-     *
+     *  returns the Items value
      * @return
      */
     public int getValue()
@@ -132,7 +130,7 @@ public class Item extends basicGameObject{
     }
     
     /**
-     *
+     *  returns the number of the Item in it's item stack
      * @return
      */
     public int getItemCount()
@@ -141,7 +139,7 @@ public class Item extends basicGameObject{
     }
     
     /**
-     *
+     *  increments the Item count in it's item stack
      */
     public void addItem()
     {
@@ -149,7 +147,7 @@ public class Item extends basicGameObject{
     }
 
     /**
-     *
+     *  increments the Item count in it's item stack by the given amount
      * @param x
      */
     public void incrementItemCOunt(int x)
@@ -158,7 +156,7 @@ public class Item extends basicGameObject{
     }
     
     /**
-     *
+     *  returns the item
      * @return
      */
     public Item getThis()
@@ -167,7 +165,7 @@ public class Item extends basicGameObject{
     }
     
     /**
-     *
+     *  returns the stat gain from the Item
      * @return
      */
     public int getGain()

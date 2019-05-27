@@ -3,6 +3,6 @@ Do nothing@17500
 Eat Up!@13125
 One Punch@4000
 Slash@20000
-Tail Peacocking@0
+Tail Peacocking@17500
 Thick Skin@20625
 Charge@0

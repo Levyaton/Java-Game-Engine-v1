@@ -26,7 +26,7 @@ import javax.swing.JPanel;
 import javax.swing.SpringLayout;
 
 /**
- *
+ *  A class for easier setting up of JButton panels
  * @author czech
  */
 public class ButtonPanel extends JPanel implements ActionListener{
@@ -40,7 +40,7 @@ public class ButtonPanel extends JPanel implements ActionListener{
     String layoutName;
     
     /**
-     *
+     *  Initializes and sets the class
      * @param buttonNames
      * @param panelSize
      * @param layoutName

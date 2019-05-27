@@ -19,7 +19,7 @@ import sun.audio.AudioStream;
 import sun.audio.ContinuousAudioDataStream;
 
 /**
- *
+ *  A class for handling music
  * @author czech
  */
 public class MusicController {
@@ -30,7 +30,7 @@ public class MusicController {
     private static File f;
     
     /**
-     *
+     *  stops the currently playing music
      */
     public static void stopMusic()
     {
@@ -38,7 +38,7 @@ public class MusicController {
     }
     
     /**
-     *
+     *  plays the battle music
      */
     public static void battleMusic() 
     {       
